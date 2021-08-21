@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1 v-for="portofolio in allPortofolios" v-bind:key="portofolio.name">
+      {{ portofolio.firstName }} {{ portofolio.lastName }}
+    </h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -31,12 +33,22 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import firebase from "firebase/app";
+import "firebase/firestore";
+
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+  name: "HelloWorld",
+  computed: {
+    ...mapGetters(
+      ["allPortofolios"] // -> this.someGetter
+    ),
+  },
+  methods: {},
+  created() {
+    this.$store.dispatch("bindPortofolios");
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
