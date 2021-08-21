@@ -119,6 +119,22 @@ export default {
       this.methodThatForcesUpdate();
     });
   },
+  mounted() {
+    // for (let i = 0; i < 1; i++) {
+    //   let portofolio = {
+    //     firstName: "Mihai",
+    //     lastName: "Popescu",
+    //     title: "SQL Developer",
+    //     tagline: "I'm just a dummy portofolio!",
+    //     photo: "",
+    //     coverPhoto: "",
+    //     about:
+    //       "Mihai Popescu is an SQL Server Performance Tuning Expert and independent consultant with over 17 years of hands-on experience. He holds a Masters of Science degree and numerous database certifications.",
+    //     socials: [{ socialType: "facebook", url: "facebook.com" }],
+    //   };
+    //   this.$store.dispatch("addPortofolio", { payload: portofolio });
+    // }
+  },
 };
 </script>
 

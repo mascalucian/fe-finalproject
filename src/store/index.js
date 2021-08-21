@@ -35,18 +35,26 @@ const store = createStore({
           });
       });
     }),
-    addPortofolio: firestoreAction((context, payload) => {
-      // return the promise so we can await the write
-      return db.collection("portofolios").add(payload);
+    addPortofolio: firestoreAction((context, { payload }) => {
+      return db.collection("portofolios").add({
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        title: payload.title,
+        tagline: payload.tagline,
+        photo: payload.photo,
+        coverPhoto: payload.coverPhoto,
+        about: payload.about,
+        socials: payload.socials,
+      });
     }),
 
-    updatePortofolio: firestoreAction((context, payload) => {
+    updatePortofolio: firestoreAction((context, { payload }) => {
       db.collection("portofolios")
         .doc(payload.id)
         .set(payload);
     }),
 
-    deletePortofolio: firestoreAction((context, payload) => {
+    deletePortofolio: firestoreAction((context, { payload }) => {
       db.collection("portofolios")
         .doc(payload)
         .delete();
