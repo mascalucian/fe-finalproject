@@ -23,9 +23,17 @@ const store = createStore({
   },
 
   actions: {
-    bindPortofolios: firestoreAction(({ bindFirestoreRef }) => {
-      // return the promise returned by `bindFirestoreRef`
-      return bindFirestoreRef("portofolios", db.collection("portofolios"));
+    bindPortofolios: firestoreAction(async ({ bindFirestoreRef }) => {
+      await new Promise((resolve, reject) => {
+        bindFirestoreRef("portofolios", db.collection("portofolios"))
+          .then((res) => {
+            resolve(res);
+            console.log("FINISHED");
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
     }),
     addPortofolio: firestoreAction((context, payload) => {
       // return the promise so we can await the write

@@ -1,6 +1,6 @@
-<template>
+d<template>
   <div class="hello">
-    <h1 v-for="portofolio in allPortofolios" v-bind:key="portofolio.name">
+    <h1 v-for="portofolio in allPortofolios" v-bind:key="portofolio.id">
       {{ portofolio.firstName }} {{ portofolio.lastName }}
     </h1>
     <h1>
@@ -8,9 +8,7 @@
     </h1>
     <div class="auth-test">
       <form
-        @submit.prevent="
-          switchTab ? register(username, password) : login(username, password)
-        "
+        @submit.prevent="switchTab ? register() : login()"
         v-if="!isLoggedin"
       >
         <div>
@@ -48,6 +46,9 @@
       <div v-if="loadingData">
         Loading...
       </div>
+      <div v-if="getErrorMessage" class="error">
+        <p>{{ getErrorMessage }}</p>
+      </div>
       <div class="auth-status" v-if="isLoggedin">
         <h3>You are currently logged in!</h3>
         <small>Your user data:</small>
@@ -78,20 +79,25 @@ export default {
     };
   },
   computed: {
+    //ai nevoie doar de allPortofolios, il poti folosi apoi in v-for portofolio in allPortofolios
     ...mapGetters(
-      ["allPortofolios", "isLoggedin", "loggedInUser", "loadingData"] // -> this.someGetter
+      [
+        "allPortofolios",
+        "isLoggedin",
+        "loggedInUser",
+        "loadingData",
+        "getErrorMessage",
+      ] // -> this.someGetter
     ),
   },
   methods: {
-    async login(username, password) {
-      console.log("LOADING");
-      await this.$store.dispatch("signIn", {
+    login() {
+      this.$store.dispatch("signIn", {
         username: this.username,
         password: this.password,
       });
-      console.log("FINISHED");
     },
-    register(username, password) {
+    register() {
       this.$store.dispatch("signUp", {
         username: this.username,
         password: this.password,
@@ -100,9 +106,18 @@ export default {
     logout() {
       this.$store.commit("logout");
     },
+    methodThatForcesUpdate() {
+      // ...
+      this.$forceUpdate(); // Notice we have to use a $ here
+      // ...
+    },
   },
+  //Mai jos -> incarci portofoliile
   created() {
-    this.$store.dispatch("bindPortofolios");
+    this.$store.dispatch("bindPortofolios").then(() => {
+      //forteaza rerender
+      this.methodThatForcesUpdate();
+    });
   },
 };
 </script>
@@ -125,5 +140,13 @@ a {
 }
 .selected {
   background-color: #42b983;
+}
+
+.error {
+  background-color: pink;
+  color: red;
+  display: inline-block;
+  border-radius: 12px;
+  padding: 7px;
 }
 </style>
