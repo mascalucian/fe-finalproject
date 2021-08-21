@@ -14,8 +14,20 @@
         v-if="!isLoggedin"
       >
         <div>
-          <button @click="switchTab = false" type="button">Login</button>
-          <button @click="switchTab = true" type="button">Register</button>
+          <button
+            @click="switchTab = false"
+            type="button"
+            v-bind:class="{ selected: !switchTab }"
+          >
+            Login
+          </button>
+          <button
+            @click="switchTab = true"
+            type="button"
+            v-bind:class="{ selected: switchTab }"
+          >
+            Register
+          </button>
         </div>
         <div class="form-field">
           <label>
@@ -33,6 +45,9 @@
           <input type="submit" value="Submit" />
         </div>
       </form>
+      <div v-if="loadingData">
+        Loading...
+      </div>
       <div class="auth-status" v-if="isLoggedin">
         <h3>You are currently logged in!</h3>
         <small>Your user data:</small>
@@ -64,15 +79,17 @@ export default {
   },
   computed: {
     ...mapGetters(
-      ["allPortofolios", "isLoggedin", "loggedInUser"] // -> this.someGetter
+      ["allPortofolios", "isLoggedin", "loggedInUser", "loadingData"] // -> this.someGetter
     ),
   },
   methods: {
-    login(username, password) {
-      this.$store.dispatch("signIn", {
+    async login(username, password) {
+      console.log("LOADING");
+      await this.$store.dispatch("signIn", {
         username: this.username,
         password: this.password,
       });
+      console.log("FINISHED");
     },
     register(username, password) {
       this.$store.dispatch("signUp", {
@@ -105,5 +122,8 @@ li {
 }
 a {
   color: #42b983;
+}
+.selected {
+  background-color: #42b983;
 }
 </style>

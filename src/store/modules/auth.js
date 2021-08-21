@@ -15,14 +15,18 @@ const auth = {
   },
   actions: {
     signUp({ commit }, { username, password }) {
+      commit("loadData");
       firebase
         .auth()
         .createUserWithEmailAndPassword(username, password)
         .then((data) => {
           data.user;
-          commit("login", data.user).then(() => {});
+          commit("login", data.user).then(() => {
+            commit("stopLoadData");
+          });
         })
         .catch((err) => {
+          commit("stopLoadData");
           this.error = err.message;
         });
     },
@@ -32,9 +36,12 @@ const auth = {
         .signInWithEmailAndPassword(username, password)
         .then((data) => {
           data.user;
-          commit("login", data.user).then(() => {});
+          commit("login", data.user).then(() => {
+            commit("stopLoadData");
+          });
         })
         .catch((err) => {
+          commit("stopLoadData");
           this.error = err.message;
         });
     },

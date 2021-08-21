@@ -10,8 +10,15 @@ const store = createStore({
   },
   state: {
     portofolios: [],
+    isLoadingData: false,
   },
   mutations: {
+    loadData(state) {
+      state.isLoadingData = true;
+    },
+    stopLoadData(state) {
+      state.isLoadingData = false;
+    },
     ...vuexfireMutations,
   },
 
@@ -40,6 +47,7 @@ const store = createStore({
 
   getters: {
     allPortofolios: (state) => state.portofolios,
+    loadingData: (state) => state.isLoadingData,
   },
 });
 
