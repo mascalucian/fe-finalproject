@@ -2,8 +2,12 @@ import { createStore } from "vuex";
 import { vuexfireMutations, firestoreAction } from "vuexfire";
 import "firebase/firestore";
 import { db } from "../config/db";
+import auth from "./modules/auth";
 
 const store = createStore({
+  modules: {
+    auth,
+  },
   state: {
     portofolios: [],
   },
