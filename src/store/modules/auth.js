@@ -14,10 +14,22 @@ const auth = {
     },
   },
   actions: {
-    authenticate({ commit }, { username, password }) {
+    signUp({ commit }, { username, password }) {
       firebase
         .auth()
         .createUserWithEmailAndPassword(username, password)
+        .then((data) => {
+          data.user;
+          commit("login", data.user).then(() => {});
+        })
+        .catch((err) => {
+          this.error = err.message;
+        });
+    },
+    signIn({ commit }, { username, password }) {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(username, password)
         .then((data) => {
           data.user;
           commit("login", data.user).then(() => {});
