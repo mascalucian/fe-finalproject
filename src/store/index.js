@@ -51,7 +51,16 @@ const store = createStore({
     updatePortofolio: firestoreAction((context, { payload }) => {
       db.collection("portofolios")
         .doc(payload.id)
-        .set(payload);
+        .set({
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          title: payload.title,
+          tagline: payload.tagline,
+          photo: payload.photo,
+          coverPhoto: payload.coverPhoto,
+          about: payload.about,
+          socials: payload.socials,
+        });
     }),
 
     deletePortofolio: firestoreAction((context, { payload }) => {
