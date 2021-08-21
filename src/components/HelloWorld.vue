@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1 v-for="portofolio in allPortofolios" v-bind:key="portofolio.name">
-      {{ portofolio.name }}
+      {{ portofolio.firstName }} {{ portofolio.lastName }}
     </h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br />
@@ -90,16 +90,19 @@
 
 <script>
 import { mapGetters } from "vuex";
+import firebase from "firebase/app";
+import "firebase/firestore";
+
 export default {
   name: "HelloWorld",
-  props: {
-    msg: String,
-  },
   computed: {
-    ...mapGetters("portofolios", [
-      "allPortofolios", // -> this.someGetter
-      "someOtherGetter", // -> this.someOtherGetter
-    ]),
+    ...mapGetters(
+      ["allPortofolios"] // -> this.someGetter
+    ),
+  },
+  methods: {},
+  created() {
+    this.$store.dispatch("bindPortofolios");
   },
 };
 </script>

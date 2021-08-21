@@ -12,7 +12,8 @@
     "firebase": "^8.10.0",
     "vue": "^3.0.0",
     "vuex": "^4.0.2",
-    "vuex-easy-firestore": "^1.36.0"
+    "vuex-easy-firestore": "^1.36.0",
+    "vuexfire": "^3.2.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -35,7 +36,9 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": "off"
+    }
   },
   "browserslist": [
     "> 1%",
