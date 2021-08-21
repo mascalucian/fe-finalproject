@@ -16,6 +16,22 @@ const store = createStore({
       // return the promise returned by `bindFirestoreRef`
       return bindFirestoreRef("portofolios", db.collection("portofolios"));
     }),
+    addPortofolio: firestoreAction((context, payload) => {
+      // return the promise so we can await the write
+      return db.collection("portofolios").add(payload);
+    }),
+
+    updatePortofolio: firestoreAction((context, payload) => {
+      db.collection("portofolios")
+        .doc(payload.id)
+        .set(payload);
+    }),
+
+    deletePortofolio: firestoreAction((context, payload) => {
+      db.collection("portofolios")
+        .doc(payload)
+        .delete();
+    }),
   },
 
   getters: {
