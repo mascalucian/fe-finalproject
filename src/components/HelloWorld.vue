@@ -68,6 +68,7 @@ d<template>
 import { mapGetters } from "vuex";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import { db } from "../config/db";
 
 export default {
   name: "HelloWorld",
@@ -76,6 +77,7 @@ export default {
       username: "",
       password: "",
       switchTab: false,
+      unsubscribe: undefined,
     };
   },
   computed: {
@@ -109,31 +111,52 @@ export default {
     methodThatForcesUpdate() {
       // ...
       this.$forceUpdate(); // Notice we have to use a $ here
-      // ...
+      console.log("hehe. Rerendered!");
     },
   },
   //Mai jos -> incarci portofoliile
   created() {
-    this.$store.dispatch("bindPortofolios").then(() => {
-      //forteaza rerender
-      this.methodThatForcesUpdate();
+    this.$store.dispatch("bindPortofolios");
+    this.unsubscribe = db.collection("portofolios").onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          this.methodThatForcesUpdate();
+        }
+        if (change.type === "modified") {
+          this.methodThatForcesUpdate();
+        }
+        if (change.type === "removed") {
+          this.methodThatForcesUpdate();
+        }
+      });
     });
   },
   mounted() {
     // for (let i = 0; i < 1; i++) {
-    //   let portofolio = {
-    //     firstName: "Mihai",
-    //     lastName: "Popescu",
-    //     title: "SQL Developer",
-    //     tagline: "I'm just a dummy portofolio!",
-    //     photo: "",
-    //     coverPhoto: "",
-    //     about:
-    //       "Mihai Popescu is an SQL Server Performance Tuning Expert and independent consultant with over 17 years of hands-on experience. He holds a Masters of Science degree and numerous database certifications.",
-    //     socials: [{ socialType: "facebook", url: "facebook.com" }],
-    //   };
-    //   this.$store.dispatch("addPortofolio", { payload: portofolio });
-    // }
+    // //   this.$store.dispatch("addPortofolio", { payload: portofolio });
+    // // }
+    // let portofolio = {
+    //   firstName: "Mihai",
+    //   lastName: "CCCCC",
+    //   title: "SQL Developer",
+    //   tagline: "I'm just a dummy portofolio!",
+    //   photo: "",
+    //   coverPhoto: "",
+    //   about:
+    //     "Mihai Popescu is an SQL Server Performance Tuning Expert and independent consultant with over 17 years of hands-on experience. He holds a Masters of Science degree and numerous database certifications.",
+    //   socials: [{ socialType: "facebook", url: "facebook.com" }],
+    //   email: "bumbum@bum.com",
+    //   phoneNumber: "0760403030",
+    // };
+    // setTimeout(() => {
+    //   this.$store.dispatch("updatePortofolio", {
+    //     payload: portofolio,
+    //     id: "GKekFwCupv3wfxb3Vhv3",
+    //   });
+    // }, 5000);
+  },
+  unmounted() {
+    this.unsubscribe();
   },
 };
 </script>

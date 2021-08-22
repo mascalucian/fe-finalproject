@@ -3,10 +3,12 @@ import { vuexfireMutations, firestoreAction } from "vuexfire";
 import "firebase/firestore";
 import { db } from "../config/db";
 import auth from "./modules/auth";
+import projects from "./modules/projects";
 
 const store = createStore({
   modules: {
     auth,
+    projects,
   },
   state: {
     portofolios: [],
@@ -29,6 +31,7 @@ const store = createStore({
           .then((res) => {
             resolve(res);
             console.log("FINISHED");
+            this.$forceUpdate();
           })
           .catch((err) => {
             reject(err);
@@ -36,21 +39,8 @@ const store = createStore({
       });
     }),
     addPortofolio: firestoreAction((context, { payload }) => {
-      return db.collection("portofolios").add({
-        firstName: payload.firstName,
-        lastName: payload.lastName,
-        title: payload.title,
-        tagline: payload.tagline,
-        photo: payload.photo,
-        coverPhoto: payload.coverPhoto,
-        about: payload.about,
-        socials: payload.socials,
-      });
-    }),
-
-    updatePortofolio: firestoreAction((context, { payload }) => {
       db.collection("portofolios")
-        .doc(payload.id)
+        .doc(payload.userId)
         .set({
           firstName: payload.firstName,
           lastName: payload.lastName,
@@ -60,12 +50,33 @@ const store = createStore({
           coverPhoto: payload.coverPhoto,
           about: payload.about,
           socials: payload.socials,
+          email: payload.email,
+          phoneNumber: payload.phoneNumber,
+          userId: payload.userId,
         });
     }),
 
-    deletePortofolio: firestoreAction((context, { payload }) => {
+    updatePortofolio: firestoreAction((context, { payload }) => {
       db.collection("portofolios")
-        .doc(payload)
+        .doc(payload.userId)
+        .set({
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          title: payload.title,
+          tagline: payload.tagline,
+          photo: payload.photo,
+          coverPhoto: payload.coverPhoto,
+          about: payload.about,
+          socials: payload.socials,
+          email: payload.email,
+          phoneNumber: payload.phoneNumber,
+          userId: payload.userId,
+        });
+    }),
+
+    deletePortofolio: firestoreAction((context, { id }) => {
+      db.collection("portofolios")
+        .doc(id)
         .delete();
     }),
   },

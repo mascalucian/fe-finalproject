@@ -5,9 +5,9 @@
       Currently viewing: {{ currentPortofolio.firstName }}
       {{ currentPortofolio.lastName }}'s portofolio.
     </h4>
-    <div v-if="projects.length > 0">
+    <div v-if="getProjectsForPortofolio.length > 0">
       <p>Projects:</p>
-      <span v-for="project in projects" v-bind:key="project.id">
+      <span v-for="project in getProjectsForPortofolio" v-bind:key="project.id">
         {{ project.title }}<br />
       </span>
     </div>
@@ -23,11 +23,14 @@
 <script>
 //Don't forget to add a loader spinner!
 import { db } from "../config/db";
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
       currentPortofolio: undefined,
       projects: [],
+      unsubscribe: undefined,
     };
   },
   methods: {
@@ -54,34 +57,41 @@ export default {
       console.log(this.projects);
     },
     async getProjects(userId) {
-      await db
+      this.$store.dispatch("bindProjects", { payload: userId });
+      this.unsubscribe = db
         .collection("projects")
         .where("userId", "==", userId)
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-
-            this.projects.push(doc.data());
-            console.log(this.projects);
+        .onSnapshot((snapshot) => {
+          snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+              this.methodThatForcesUpdate();
+            }
+            if (change.type === "modified") {
+              this.methodThatForcesUpdate();
+            }
+            if (change.type === "removed") {
+              this.methodThatForcesUpdate();
+            }
           });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
         });
     },
+    methodThatForcesUpdate() {
+      // ...
+      this.$forceUpdate(); // Notice we have to use a $ here
+      // ...
+    },
+  },
+  computed: {
+    ...mapGetters(["getProjectsForPortofolio"]),
   },
   created() {
     const initialUserId = this.$route.params.id;
-    this.$watch(
-      () => this.$route.params,
-      (toParams, previousParams) => {
-        if (toParams.id && toParams.id !== previousParams) {
-          this.getPortofolio(toParams.id);
-        }
-      }
-    );
     this.getPortofolio(initialUserId);
+  },
+  unmounted() {
+    if (this.currentPortofolio) {
+      this.unsubscribe();
+    }
   },
 };
 </script>
