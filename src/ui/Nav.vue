@@ -43,7 +43,9 @@ span {
   margin: auto 10px;
 }
 
-a:hover {
+a:hover,
+a:active,
+a.router-link-active {
   background-color: khaki;
 }
 </style>
