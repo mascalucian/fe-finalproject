@@ -8,19 +8,20 @@
     <div v-if="projects.length > 0">
       <p>Projects:</p>
       <span v-for="project in projects" v-bind:key="project.id">
-        {{ project.description }}
+        {{ project.title }}<br />
       </span>
     </div>
     <div v-else>
       <h5 style="color:red">No projects found!</h5>
     </div>
   </div>
-  <h1 v-if="!currentPortofolio" style="color:red;">
+  <h1 v-else style="color:red;">
     Portofolio does not exist
   </h1>
 </template>
 
 <script>
+//Don't forget to add a loader spinner!
 import { db } from "../config/db";
 export default {
   data() {
