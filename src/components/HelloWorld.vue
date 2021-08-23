@@ -1,17 +1,66 @@
-<template>
+d<template>
   <div class="hello">
-    <h1 v-for="portofolio in allPortofolios" v-bind:key="portofolio.name">
+    <h1 v-for="portofolio in allPortofolios" v-bind:key="portofolio.id">
       {{ portofolio.firstName }} {{ portofolio.lastName }}
     </h1>
-   
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <h1>
+      Test corner!
+    </h1>
+    <div class="auth-test">
+      <form
+        @submit.prevent="switchTab ? register() : login()"
+        v-if="!isLoggedin"
+      >
+        <div>
+          <button
+            @click="switchTab = false"
+            type="button"
+            v-bind:class="{ selected: !switchTab }"
+          >
+            Login
+          </button>
+          <button
+            @click="switchTab = true"
+            type="button"
+            v-bind:class="{ selected: switchTab }"
+          >
+            Register
+          </button>
+        </div>
+        <div class="form-field">
+          <label>
+            Username:
+          </label>
+          <input type="text" name="username" v-model="username" />
+        </div>
+        <div class="form-field">
+          <label>
+            Password:
+          </label>
+          <input type="password" name="password" v-model="password" />
+        </div>
+        <div>
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
+      <div v-if="loadingData">
+        Loading...
+      </div>
+      <div v-if="getErrorMessage" class="error">
+        <p>{{ getErrorMessage }}</p>
+      </div>
+      <div class="auth-status" v-if="isLoggedin">
+        <h3>You are currently logged in!</h3>
+        <small>Your user data:</small>
+        <div>
+          <p>UserId: {{ loggedInUser.uid }}</p>
+          <p>Email: {{ loggedInUser.email }}</p>
+          <p>Your last visit : {{ loggedInUser.metadata.lastSignInTime }}</p>
+          <p>Created At: {{ loggedInUser.metadata.creationTime }}</p>
+        </div>
+        <button @click="logout()">Logout</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,17 +68,95 @@
 import { mapGetters } from "vuex";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import { db } from "../config/db";
 
 export default {
   name: "HelloWorld",
+  data() {
+    return {
+      username: "",
+      password: "",
+      switchTab: false,
+      unsubscribe: undefined,
+    };
+  },
   computed: {
+    //ai nevoie doar de allPortofolios, il poti folosi apoi in v-for portofolio in allPortofolios
     ...mapGetters(
-      ["allPortofolios"] // -> this.someGetter
+      [
+        "allPortofolios",
+        "isLoggedin",
+        "loggedInUser",
+        "loadingData",
+        "getErrorMessage",
+      ] // -> this.someGetter
     ),
   },
-  methods: {},
+  methods: {
+    login() {
+      this.$store.dispatch("signIn", {
+        username: this.username,
+        password: this.password,
+      });
+    },
+    register() {
+      this.$store.dispatch("signUp", {
+        username: this.username,
+        password: this.password,
+      });
+    },
+    logout() {
+      this.$store.commit("logout");
+    },
+    methodThatForcesUpdate() {
+      // ...
+      this.$forceUpdate(); // Notice we have to use a $ here
+      console.log("hehe. Rerendered!");
+    },
+  },
+  //Mai jos -> incarci portofoliile
   created() {
     this.$store.dispatch("bindPortofolios");
+    this.unsubscribe = db.collection("portofolios").onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          this.methodThatForcesUpdate();
+        }
+        if (change.type === "modified") {
+          this.methodThatForcesUpdate();
+        }
+        if (change.type === "removed") {
+          this.methodThatForcesUpdate();
+        }
+      });
+    });
+  },
+  mounted() {
+    // for (let i = 0; i < 1; i++) {
+    // //   this.$store.dispatch("addPortofolio", { payload: portofolio });
+    // // }
+    // let portofolio = {
+    //   firstName: "Mihai",
+    //   lastName: "CCCCC",
+    //   title: "SQL Developer",
+    //   tagline: "I'm just a dummy portofolio!",
+    //   photo: "",
+    //   coverPhoto: "",
+    //   about:
+    //     "Mihai Popescu is an SQL Server Performance Tuning Expert and independent consultant with over 17 years of hands-on experience. He holds a Masters of Science degree and numerous database certifications.",
+    //   socials: [{ socialType: "facebook", url: "facebook.com" }],
+    //   email: "bumbum@bum.com",
+    //   phoneNumber: "0760403030",
+    // };
+    // setTimeout(() => {
+    //   this.$store.dispatch("updatePortofolio", {
+    //     payload: portofolio,
+    //     id: "GKekFwCupv3wfxb3Vhv3",
+    //   });
+    // }, 5000);
+  },
+  unmounted() {
+    this.unsubscribe();
   },
 };
 </script>
@@ -49,5 +176,16 @@ li {
 }
 a {
   color: #42b983;
+}
+.selected {
+  background-color: #42b983;
+}
+
+.error {
+  background-color: pink;
+  color: red;
+  display: inline-block;
+  border-radius: 12px;
+  padding: 7px;
 }
 </style>
