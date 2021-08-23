@@ -21,7 +21,9 @@
               "
             />
             <div class="profile-picture-upload">
-              <label>Upload your profile picture</label>
+              <label v-if="!previewPhoto" for="profile-pic-input"
+                >Upload your profile picture</label
+              >
               <input
                 type="file"
                 id="profile-pic-input"
@@ -31,14 +33,50 @@
           </div>
           <div class="names-title">
             <div class="names">
-              <input type="text" id="first-name" placeholder="First Name" />
-              <input type="text" id="last-name" placeholder="Last Name" />
+              <input
+                v-model="newPortofolio.firstName"
+                :size="
+                  newPortofolio.firstName.length < 20 &&
+                  newPortofolio.firstName.length > 1
+                    ? newPortofolio.firstName.length
+                    : 20
+                "
+                type="text"
+                id="first-name"
+                placeholder="First Name"
+              />
+              <input
+                type="text"
+                id="last-name"
+                placeholder="Last Name"
+                v-model="newPortofolio.lastName"
+                :size="
+                  newPortofolio.lastName.length < 20 &&
+                  newPortofolio.lastName.length > 1
+                    ? newPortofolio.lastName.length
+                    : 20
+                "
+              />
             </div>
             <div class="title">
-              <input type="text" id="title" placeholder="Your post" />
+              <input
+                type="text"
+                id="title"
+                placeholder="Your post"
+                v-model="newPortofolio.title"
+                :size="
+                  newPortofolio.title.length < 15 &&
+                  newPortofolio.title.length > 1
+                    ? newPortofolio.title.length
+                    : 30
+                "
+              />
             </div>
           </div>
           <div class="banner-upload">
+            <label v-if="!previewBanner" for="banner-input"
+              >Choose your cover photo:</label
+            >
             <input
               type="file"
               id="banner-input"
@@ -234,6 +272,12 @@ header {
   }
 }
 
+label {
+  margin: auto;
+  text-align: center;
+  display: block;
+}
+
 #main-container {
   background-color: $w-10;
   color: $w;
@@ -241,6 +285,11 @@ header {
 }
 
 input[type="file"] {
+  font-size: smaller;
+  overflow: hidden;
+  display: inline-block;
+  margin: 0;
+  color: transparent;
 }
 
 ::-webkit-file-upload-button {
@@ -250,7 +299,8 @@ input[type="file"] {
   padding: 0.5rem 1.2rem;
   border-radius: 40px;
   cursor: pointer;
-
+  display: block;
+  margin: auto;
   &:hover {
     color: $sh;
     border: 3px solid $sh;
@@ -266,23 +316,108 @@ input[type="file"] {
   display: flex;
   flex: 1 0 0;
   flex-wrap: wrap;
-  height: 30rem;
+  flex-direction: row;
+  height: 38rem;
   vertical-align: middle;
   object-fit: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
   background-position: center;
   background-size: cover;
+  position: relative;
 }
 
 #profile-picture-img {
-  width: 10rem;
-  height: 10rem;
+  width: 14rem;
+  height: 14rem;
   border-radius: 50%;
   object-fit: cover;
+  display: block;
+  margin: auto;
+  border: 3px solid rgba(42, 158, 207, 0.45);
+  box-shadow: 8px 8px rgba(22, 22, 22, 0.178);
 }
 
 #create-portofolio-body {
   min-width: 540px;
+}
+
+.profile-picture {
+  margin: 6rem auto 0 auto;
+  display: block;
+  width: 100%;
+}
+
+.names-title {
+  display: block;
+  max-width: 40rem;
+  margin: 3px auto;
+
+  input {
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    display: inline-block;
+    color: $w;
+    font-size: xxx-large;
+    width: fit-content;
+    background: none;
+    border: 0;
+    &:focus-visible {
+      font-weight: bold;
+      outline: 0;
+      text-decoration: underline;
+    }
+    &:placeholder-shown {
+      color: $w;
+    }
+    &#first-name {
+      text-align: right;
+    }
+    &#last-name {
+      text-align: left;
+    }
+  }
+}
+
+.names {
+  max-width: 100%;
+  display: flex;
+  flex: 1 0 auto;
+  flex-wrap: wrap;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+}
+
+.profile-picture-upload {
+  max-width: 15rem;
+  margin: 1.5rem auto;
+  padding: 0, 3rem 0, 5rem;
+  background-color: rgba(53, 53, 53, 0.699);
+  border-radius: 25px;
+  border: 3px solid rgba(42, 158, 207, 0.45);
+  box-shadow: 8px 8px rgba(22, 22, 22, 0.178);
+  label {
+    font-size: smaller;
+  }
+  ::-webkit-file-upload-button {
+    font-size: smaller;
+    margin-top: 0.5rem;
+  }
+}
+
+.banner-upload {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-top: 3px solid rgba(42, 158, 207, 0.45);
+  border-left: 3px solid rgba(42, 158, 207, 0.45);
+  background-color: rgba(53, 53, 53, 0.699);
+  padding-top: 1rem;
+}
+
+.title input {
+  text-align: center;
+  margin: auto;
+  width: 100%;
 }
 </style>
