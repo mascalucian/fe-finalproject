@@ -152,6 +152,12 @@ export default {
     //     id: "GKekFwCupv3wfxb3Vhv3",
     //   });
     // }, 5000);
+    setTimeout(() => {
+      this.$store.dispatch("callSnackBar", {
+        payload:
+          "Succes! Countul a fost creat cu succes! ai castigat! Fra. Ma jur!!!! Da fra Succes! Countul a fost creat cu succes! ai castigat! Fra. Ma jur!!!! Da fraSucces! Countul a fost creat cu succes! ai castigat! Fra. Ma jur!!!! Da fraSucces! Countul a fost creat cu succes! ai castigat! Fra. Ma jur!!!! Da fra",
+      });
+    }, 5000);
   },
   unmounted() {
     this.unsubscribe();

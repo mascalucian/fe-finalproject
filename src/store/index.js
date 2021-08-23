@@ -5,6 +5,7 @@ import { db } from "../config/db";
 import auth from "./modules/auth";
 import projects from "./modules/projects";
 import createPersistedState from "vuex-persistedstate";
+import ui from "./modules/ui";
 
 const authState = createPersistedState({
   paths: ["auth"],
@@ -14,6 +15,7 @@ const store = createStore({
   modules: {
     auth,
     projects,
+    ui,
   },
   plugins: [authState],
   state: {
