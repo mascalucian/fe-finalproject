@@ -92,16 +92,28 @@ export default {
   },
   methods: {
     login() {
-      this.$store.dispatch("signIn", {
-        username: this.username,
-        password: this.password,
-      });
+      this.$store
+        .dispatch("signIn", {
+          username: this.username,
+          password: this.password,
+        })
+        .then(() => {
+          this.$store.dispatch("callSnackBar", {
+            payload: "Login successful!",
+          });
+        });
     },
     register() {
-      this.$store.dispatch("signUp", {
-        username: this.username,
-        password: this.password,
-      });
+      this.$store
+        .dispatch("signUp", {
+          username: this.username,
+          password: this.password,
+        })
+        .then(() => {
+          this.$store.dispatch("callSnackBar", {
+            payload: "Registration successful!",
+          });
+        });
     },
     logout() {
       this.$store.commit("logout");
@@ -152,12 +164,7 @@ export default {
     //     id: "GKekFwCupv3wfxb3Vhv3",
     //   });
     // }, 5000);
-    setTimeout(() => {
-      this.$store.dispatch("callSnackBar", {
-        payload:
-          "Succes! Countul a fost creat cu succes! ai castigat! Fra. Ma jur!!!! Da fra Succes! Countul a fost creat cu succes! ai castigat! Fra. Ma jur!!!! Da fraSucces! Countul a fost creat cu succes! ai castigat! Fra. Ma jur!!!! Da fraSucces! Countul a fost creat cu succes! ai castigat! Fra. Ma jur!!!! Da fra",
-      });
-    }, 5000);
+    setTimeout(() => {}, 5000);
   },
   unmounted() {
     this.unsubscribe();
