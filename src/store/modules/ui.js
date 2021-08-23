@@ -27,7 +27,7 @@ const ui = {
       state.snackBarMessage = "";
       state.snackBarColor = "white";
       state.snackBarBackground = "white";
-      state.snackBarTimeout = "white";
+      state.snackBarTimeout = 5000;
     },
   },
   actions: {
@@ -35,6 +35,7 @@ const ui = {
       commit("setSnackBarMessage", payload);
       setTimeout(() => {
         commit("setSnackBarMessage", "");
+        commit("resetSnackBar");
       }, getters.getSnackBarTimeout);
     },
   },

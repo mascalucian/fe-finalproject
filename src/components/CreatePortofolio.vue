@@ -249,6 +249,7 @@ export default {
         about: "",
         socials: [],
         email: "",
+        phoneNumber: "",
         userId: "",
       },
       previewPhoto: "",
@@ -352,9 +353,9 @@ export default {
       this.project.description = "";
       console.log(this.projectPhotos);
     },
-    createPortofolio() {
+    async createPortofolio() {
       console.log("CALLED");
-      this.$store.dispatch("updatePortofolio", {
+      await this.$store.dispatch("updatePortofolio", {
         payload: this.newPortofolio,
       });
       var storageRef = firebase.storage().ref();
@@ -369,17 +370,17 @@ export default {
       const profilePicture = document.getElementById("profile-pic-input")
         .files[0];
       const coverPicture = document.getElementById("banner-input").files[0];
-      resumeRef.put(resumePdf).then((snapshot) => {
+      await resumeRef.put(resumePdf).then((snapshot) => {
         console.log("Uploaded resume pdf!");
       });
-      profilePicRef.put(profilePicture).then((snapshot) => {
+      await profilePicRef.put(profilePicture).then((snapshot) => {
         console.log("Uploaded profile picture!");
       });
-      coverPicRef.put(coverPicture).then((snapshot) => {
+      await coverPicRef.put(coverPicture).then((snapshot) => {
         console.log("Uploaded cover picture!");
       });
 
-      this.projects.forEach((project) => {
+      await this.projects.forEach((project) => {
         this.$store.dispatch("addProject", {
           payload: project,
         });
@@ -394,6 +395,10 @@ export default {
           });
         }
       }
+      this.$store.commit("setSnackBarBackground", "#adff2f");
+      this.$store.dispatch("callSnackBar", {
+        payload: "Succes! Your portofol.io has been created!",
+      });
 
       //   this.
     },

@@ -32,6 +32,7 @@ div {
   border-radius: 30px;
   animation-name: appearance;
   animation-duration: 0.25s;
+  padding: 1rem;
 }
 
 @keyframes appearance {
