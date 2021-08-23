@@ -1,15 +1,18 @@
 <template>
+  <SnackBar />
   <Nav></Nav>
   <router-view></router-view>
 </template>
 
 <script>
 import Nav from "./ui/Nav.vue";
+import SnackBar from "./ui/SnackBar.vue";
 
 export default {
   name: "App",
   components: {
     Nav,
+    SnackBar,
   },
 };
 </script>

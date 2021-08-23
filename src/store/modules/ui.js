@@ -7,7 +7,7 @@ const ui = {
   state: {
     snackBarTimeout: 5000,
     snackBarMessage: "",
-    snackBarBackground: "white",
+    snackBarBackground: "#ff4500",
     snackBarColor: "white",
   },
   mutations: {
@@ -31,12 +31,11 @@ const ui = {
     },
   },
   actions: {
-    callSnackBar({ commit, getters }, { message }) {
-      commit("setSnackBarMessage", { payload: message }).then(() => {
-        setTimeout(() => {
-          commit("setSnackBarMessage", { payload: "" });
-        }, getters.getSnackBarTimeout);
-      });
+    callSnackBar({ commit, getters }, { payload }) {
+      commit("setSnackBarMessage", payload);
+      setTimeout(() => {
+        commit("setSnackBarMessage", "");
+      }, getters.getSnackBarTimeout);
     },
   },
   getters: {
