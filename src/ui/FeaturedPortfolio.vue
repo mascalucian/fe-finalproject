@@ -1,17 +1,13 @@
 <template>
-
-<div class="all">
-    
+  <div class="all">
     <div class="maincontainer">
-        <div class="portfolio">
-            <div class="infobox">
-                <h2 id="name">
-      {{fname }} {{ lname }}
-                </h2>
-            </div>
-            <div><img src="../assets/default.png" class="avatar"></div>
+      <div class="portfolio">
+        <div class="infobox">
+          <h2 id="name">{{ fname }} {{ lname }}</h2>
         </div>
-        <!-- <div class="portfolio">
+        <div><img src="../assets/default.png" class="avatar" /></div>
+      </div>
+      <!-- <div class="portfolio">
             <div class="infobox infobox2">
                 <h2 id="name">
                     da
@@ -28,7 +24,7 @@
             <div><img src="../assets/default.png" class="avatar"></div>
         </div> -->
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -38,82 +34,60 @@ import "firebase/firestore";
 import { db } from "../config/db";
 export default {
   name: "FeaturedPortfolio",
-  data() {
-    return {
-      username: "",
-      password: "",
-      switchTab: false,
-      unsubscribe: undefined,
-    };
-  },
   props: {
-      fname: String,
-      lname: String
+    fname: String,
+    lname: String,
   },
-  computed: {
-    //ai nevoie doar de allPortofolios, il poti folosi apoi in v-for portofolio in allPortofolios
-    ...mapGetters(
-      [
-        "allPortofolios"
-      ] // -> this.someGetter
-    ),
-  },
-  created() {
-    this.$store.dispatch("bindPortofolios");
-    
-  }
-  }
+};
 </script>
 
 <style scoped>
 .all {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 20px;
-    padding-bottom: 40px;
-   
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 40px;
 }
 .maincontainer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .portfolio {
-    width: 27%;
-    height:510px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: flex-start;
-    align-items: center;
+  width: 27%;
+  height: 510px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  align-items: center;
 }
-.portfolio .avatar { 
-    border-radius: 50%;
-    display: block;
-    width: 146px;
-    margin: auto;
-    margin-top: 40px;
+.portfolio .avatar {
+  border-radius: 50%;
+  display: block;
+  width: 146px;
+  margin: auto;
+  margin-top: 40px;
 }
 .portfolio .avatar2 {
-    margin-top: -10px;
+  margin-top: -10px;
 }
 .portfolio .infobox {
-    margin-top: -73px;
-    width: 90%;
-    height: 450px;
-    background-image: url('https://wallpaperaccess.com/full/888745.jpg');
-    display: flex;
-    flex-direction: column;
+  margin-top: -73px;
+  width: 90%;
+  height: 450px;
+  background-image: url("https://wallpaperaccess.com/full/888745.jpg");
+  display: flex;
+  flex-direction: column;
 }
 .portfolio .infoboxcenter {
-    margin-top: -78px;
-    width: 90%;
-    height: 460px;
-    background-image: url('https://wallpaperaccess.com/full/888745.jpg');
+  margin-top: -78px;
+  width: 90%;
+  height: 460px;
+  background-image: url("https://wallpaperaccess.com/full/888745.jpg");
 }
 #name {
-    margin-top: 90px;
+  margin-top: 90px;
 }
-
 </style>
