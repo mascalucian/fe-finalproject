@@ -37,7 +37,7 @@
           :class="{ 'fadeInUp animated': animated, delay: 500 }"
           @animationend="animated = false"
           v-if="show"
-          id="about"
+          id="details"
         >
           <button
             @click="
@@ -47,11 +47,15 @@
             class="more-details"
           >
             <i class="fas fa-chevron-up"></i>
-
-            <!-- <br /> -->
             Go back
           </button>
-          <!-- <div class="test">AIA E COAE</div> -->
+
+          <h1 class="tagline text">{{ currentPortofolio.tagline }}</h1>
+          <div class="about text">
+            About me: <br />{{ currentPortofolio.about }}
+          </div>
+          <div class="contact text"></div>
+
           <div v-if="getProjectsForPortofolio.length > 0">
             <p>Projects:</p>
             <span
@@ -64,9 +68,12 @@
           <div v-else>
             <h5 style="color:red">No projects found!</h5>
           </div>
+          <div class="contact">
+            {{ currentPortofolio.email }}
+            {{ currentPortofolio.phoneNumber }}
+          </div>
         </div>
       </div>
-      <!-- <div id="about">Dummy text</div> -->
     </div>
 
     <h1 v-if="!currentPortofolio && !loading" style="color:red;">
@@ -226,11 +233,6 @@ export default {
     border-width: calc(60px / 7);
   }
 }
-.test {
-  height: 100vh;
-  max-height: 100%;
-  background-color: $w;
-}
 
 html {
   scroll-behavior: smooth;
@@ -299,6 +301,13 @@ html {
   }
 }
 
+#details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
 // .more-details:hover {
 //   cursor: pointer;
 // }
