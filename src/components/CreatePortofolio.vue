@@ -36,10 +36,10 @@
               <input
                 v-model="newPortofolio.firstName"
                 :size="
-                  newPortofolio.firstName.length < 20 &&
+                  newPortofolio.firstName.length < 15 &&
                   newPortofolio.firstName.length > 1
                     ? newPortofolio.firstName.length
-                    : 20
+                    : 15
                 "
                 type="text"
                 id="first-name"
@@ -51,10 +51,10 @@
                 placeholder="Last Name"
                 v-model="newPortofolio.lastName"
                 :size="
-                  newPortofolio.lastName.length < 20 &&
+                  newPortofolio.lastName.length < 15 &&
                   newPortofolio.lastName.length > 1
                     ? newPortofolio.lastName.length
-                    : 20
+                    : 15
                 "
               />
             </div>
@@ -86,10 +86,16 @@
         </div>
         <div class="middle-section">
           <div class="tagline-form-field">
-            <input type="text" id="tagline" placeholder="Tagline" />
+            <label for="tagline">Tagline</label>
+            <input
+              type="text"
+              id="tagline"
+              placeholder="What makes you awesome?"
+              size="40"
+            />
           </div>
           <div class="about">
-            <textarea></textarea>
+            <textarea placeholder="Tell us about you"></textarea>
           </div>
           <div class="pdf">
             <label>Upload your resume</label>
@@ -278,6 +284,20 @@ label {
   display: block;
 }
 
+input {
+  display: inline-block;
+  color: $w;
+  background: none;
+  border: 0;
+  &:focus-visible {
+    outline: 0;
+    text-decoration: underline;
+  }
+  &::placeholder {
+    color: $sh-4;
+  }
+}
+
 #main-container {
   background-color: $w-10;
   color: $w;
@@ -349,7 +369,7 @@ input[type="file"] {
 
 .names-title {
   display: block;
-  max-width: 40rem;
+  width: 90%;
   margin: 3px auto;
 
   input {
@@ -358,7 +378,6 @@ input[type="file"] {
     display: inline-block;
     color: $w;
     font-size: xxx-large;
-    width: fit-content;
     background: none;
     border: 0;
     &:focus-visible {
@@ -366,20 +385,22 @@ input[type="file"] {
       outline: 0;
       text-decoration: underline;
     }
-    &:placeholder-shown {
-      color: $w;
+    &::placeholder {
+      color: $sh-4;
     }
     &#first-name {
       text-align: right;
+      margin-right: 0.5rem;
     }
     &#last-name {
       text-align: left;
+      margin-left: 0.5rem;
     }
   }
 }
 
 .names {
-  max-width: 100%;
+  width: 100%;
   display: flex;
   flex: 1 0 auto;
   flex-wrap: wrap;
@@ -419,5 +440,55 @@ input[type="file"] {
   text-align: center;
   margin: auto;
   width: 100%;
+}
+
+.middle-section {
+  width: 100%;
+  padding-top: 2rem;
+  display: flex;
+  flex: 1 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-top: 3px solid rgba(241, 234, 234, 0.699);
+}
+
+.tagline-form-field {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  input {
+    margin: auto;
+    display: block;
+    font-family: "Work Sans", sans-serif;
+    font-size: xx-large;
+    padding: 1rem 2rem;
+    text-align: center;
+    background-color: $w-8;
+    border-radius: 30px;
+  }
+}
+
+.about {
+  width: 40rem;
+  textarea {
+    font-size: large;
+    width: 100% !important;
+    max-height: 7rem;
+    min-height: 2rem;
+    padding-bottom: 3rem;
+    background-color: $s-1;
+    border-radius: 10px;
+    &:focus-visible {
+      border: 1px solid $w;
+      outline: 0;
+    }
+  }
+}
+
+.pdf {
+  margin-left: 1rem;
+  height: 100%;
+  border: 3px solid black;
 }
 </style>

@@ -21,5 +21,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
 }
 </style>
