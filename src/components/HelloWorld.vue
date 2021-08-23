@@ -98,8 +98,9 @@ export default {
           password: this.password,
         })
         .then(() => {
+          this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
           this.$store.dispatch("callSnackBar", {
-            payload: "Login successful!",
+            payload: "Login successful!", //Your message!!
           });
         });
     },
@@ -110,6 +111,7 @@ export default {
           password: this.password,
         })
         .then(() => {
+          this.$store.commit("setSnackBarBackground", "#adff2f");
           this.$store.dispatch("callSnackBar", {
             payload: "Registration successful!",
           });

@@ -26,7 +26,7 @@ const ui = {
     resetSnackBar(state) {
       state.snackBarMessage = "";
       state.snackBarColor = "white";
-      state.snackBarBackground = "white";
+      state.snackBarBackground = "#ff4500";
       state.snackBarTimeout = 5000;
     },
   },
