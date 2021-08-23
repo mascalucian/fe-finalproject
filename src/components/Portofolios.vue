@@ -1,7 +1,10 @@
 <template>
   <p>Portofolios works!</p>
   <p>All portofolios will be displayed here</p>
-  <h1>Featured on portofol.io</h1>
+  <div class="h1div">
+  <h1>Featured on </h1>
+  <img src="https://i.imgur.com/MGp2X3f.png" alt="">
+  </div>
     <div class="all">
       <FeaturedPortfolio
         v-for="portofolio in allPortofolios"
@@ -73,5 +76,20 @@ export default {
 }
 .each {
 flex: 1 0 30%;
+}
+h1 {
+ text-align: center;
+ align-content: center;
+ align-items: center;
+ font-size: 40px;
+ margin-bottom: -20px;
+ 
+}
+.h1div {
+  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 </style>

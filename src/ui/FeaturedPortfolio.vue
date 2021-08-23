@@ -1,12 +1,12 @@
 <template>
       <div class="portfolio each">
-        <div class="infobox">
+        <div class="infoboxx">
           <h2 id="name">{{ fname }} {{ lname }}</h2>
           <h4 id="title">{{title}}</h4>
           <p>{{about}}</p>
-          <div class="container">
-          <div class="center">
-          <button class="btn">
+          <div class="containerr">
+          <div class="centerr">
+          <button class="btnn">
                 <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
                 <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
                 <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
@@ -37,14 +37,14 @@ export default {
 </script>
 
 <style scoped>
-.all {
+.alll {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding-top: 20px;
   padding-bottom: 40px;
 }
-.maincontainer {
+.maincontainerr {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -67,7 +67,7 @@ export default {
 .portfolio .avatar2 {
   margin-top: -10px;
 }
-.portfolio .infobox {
+.portfolio .infoboxx {
   margin-top: -73px;
   width: 90%;
   height: 500px;
@@ -95,7 +95,7 @@ p {
 }
 @import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
 
-.container {
+.containerr {
 
   left: 50%;
   top: 50%;
@@ -104,13 +104,13 @@ p {
   justify-content: center;
 }
 
-.center {
+.centerr {
   width: 180px;
   height: 60px;
   position: absolute;
 }
 
-.btn {
+.btnn {
   width: 180px;
   height: 60px;
   cursor: pointer;
@@ -131,16 +131,16 @@ svg {
   transition: 1s ease-in-out;
 }
 
-.btn:hover {
+.btnn:hover {
   transition: 1s ease-in-out;
   background: #4F95DA;
 }
 
-.btn:hover svg {
+.btnn:hover svg {
   stroke-dashoffset: -480;
 }
 
-.btn span {
+.btnn span {
   color: white;
   font-size: 18px;
   font-weight: 100;

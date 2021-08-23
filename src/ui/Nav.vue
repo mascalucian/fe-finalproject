@@ -9,19 +9,20 @@
     <span>
       <router-link to="/login">Login</router-link>
       <router-link to="/register">Register</router-link>
+      <router-link to="/"><img src="https://i.imgur.com/MGp2X3f.png" class="logo"></router-link>
     </span>
-  </nav></template
->
+  </nav></template>
 
 <script>
 export default {};
 </script>
 
 <style scoped>
+
 nav {
   height: 60px;
   border-bottom: 1px solid black;
-  background-color: darkorange;
+  background-color: rgb(255, 255, 255);
   color: black;
   justify-content: space-between;
   display: flex;
@@ -32,15 +33,21 @@ nav {
 a {
   text-decoration: none;
   color: inherit;
-  border: 2px solid black;
   background: none;
   padding: 6px;
   border-radius: 10px;
   margin: 0 5px;
 }
+a .logo {
+  border:none;
+}
 
 span {
   margin: auto 10px;
+}
+.logo {
+  height: 30px;
+  border: none;
 }
 
 a:hover,
