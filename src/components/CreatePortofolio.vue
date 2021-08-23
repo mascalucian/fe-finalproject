@@ -89,4 +89,51 @@
 export default {};
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+header {
+  background-color: $w-9;
+  width: 100%;
+  padding: 0.8em;
+  display: flex;
+  flex-wrap: nowrap;
+  border-bottom: 3px solid rgba(241, 234, 234, 0.699);
+  h1 {
+    background-color: $o;
+    padding: 1em 6em;
+    width: fit-content;
+    margin: auto;
+    color: $w;
+    border-radius: 50px;
+    border: 3px solid rgba(42, 158, 207, 0.45);
+    box-shadow: 8px 8px rgba(22, 22, 22, 0.527);
+    text-align: center;
+  }
+}
+
+#main-container {
+  background-color: $w-10;
+  color: $w;
+  min-height: 100vh;
+}
+
+input[type="file"] {
+}
+
+::-webkit-file-upload-button {
+  background: none;
+  color: $s;
+  border: 3px solid $s;
+  padding: 0.5rem 1.2rem;
+  border-radius: 40px;
+  cursor: pointer;
+
+  &:hover {
+    color: $sh;
+    border: 3px solid $sh;
+  }
+  &:active {
+    color: $sh;
+    border: 3px solid $sh;
+  }
+}
+</style>
