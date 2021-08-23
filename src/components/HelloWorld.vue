@@ -55,8 +55,6 @@ d<template>
         <div>
           <p>UserId: {{ loggedInUser.uid }}</p>
           <p>Email: {{ loggedInUser.email }}</p>
-          <p>Your last visit : {{ loggedInUser.metadata.lastSignInTime }}</p>
-          <p>Created At: {{ loggedInUser.metadata.creationTime }}</p>
         </div>
         <button @click="logout()">Logout</button>
       </div>

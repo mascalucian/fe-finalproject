@@ -27,6 +27,9 @@
           </div>
         </div>
         <div class="middle-section">
+          <div class="tagline-form-field">
+            <input type="text" id="tagline" placeholder="Tagline" />
+          </div>
           <div class="about">
             <textarea></textarea>
           </div>
@@ -76,7 +79,12 @@
               <input type="text" id="phone-number" placeholder="Phone Number" />
             </div>
             <div class="contact-form-field">
-              <input type="email" id="email" readonly />
+              <input
+                v-model="newPortofolio.email"
+                type="email"
+                id="email"
+                readonly
+              />
             </div>
           </div>
         </div>
@@ -86,14 +94,45 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+  data() {
+    return {
+      newPortofolio: {
+        firstName: "",
+        lastName: "",
+        title: "",
+        tagline: "",
+        photo: undefined,
+        coverPhoto: undefined,
+        about: "",
+        socials: [],
+        email: "",
+        userId: "",
+      },
+    };
+  },
+  computed: {
+    //ai nevoie doar de allPortofolios, il poti folosi apoi in v-for portofolio in allPortofolios
+    ...mapGetters(
+      ["loggedInUser"] // -> this.someGetter
+    ),
+  },
+  created() {
+    if (this.loggedInUser) {
+      this.newPortofolio.email = this.loggedInUser.email;
+      this.newPortofolio.userId = this.loggedInUser.uid;
+    }
+  },
+};
 </script>
 
 <style scoped lang="scss">
 header {
   background-color: $w-9;
   width: 100%;
-  padding: 0.8em;
+  padding: 0.8em 0;
   display: flex;
   flex-wrap: nowrap;
   border-bottom: 3px solid rgba(241, 234, 234, 0.699);
