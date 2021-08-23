@@ -11,6 +11,7 @@
         :lname="portofolio.lastName"
         :title="portofolio.title"
         :about="portofolio.about"
+        :id="portofolio.id"
       />
     </div>
 </template>

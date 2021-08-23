@@ -6,6 +6,7 @@
           <p class="pp">{{about}}</p>
           <div class="containerr">
           <div class="centerr">
+          <router-link :to='`/portofolios/${id}`'>
           <button class="btnn">
                 <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
                 <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
@@ -13,6 +14,7 @@
                 </svg>
                 <span>VIEW MORE</span>
           </button>
+          </router-link>
           </div>
           </div>
         </div>
@@ -32,7 +34,40 @@ export default {
     lname: String,
     title: String,
     about: String,
+    id: String,
   },
+  methods: {
+    getpp(){
+        var profpic = storageRef.child('images/stars.jpg');
+
+        // Get the download URL
+        starsRef.getDownloadURL()
+        .then((url) => {
+          // Insert url into an <img> tag to "download"
+        })
+        .catch((error) => {
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case 'storage/object-not-found':
+              // File doesn't exist
+              break;
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+              break;
+            case 'storage/canceled':
+              // User canceled the upload
+              break;
+
+            // ...
+
+            case 'storage/unknown':
+              // Unknown error occurred, inspect the server response
+              break;
+          }
+        });
+    }
+  }
 };
 </script>
 
