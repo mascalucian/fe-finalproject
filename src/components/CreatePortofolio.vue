@@ -1,7 +1,7 @@
 <template>
   <div id="create-portofolio-body">
     <header>
-      <h1>Create a new Portofolio</h1>
+      <h1>Create a new Portofol.io</h1>
     </header>
     <div id="main-container">
       <form>
@@ -86,16 +86,20 @@
         </div>
         <div class="middle-section">
           <div class="tagline-form-field">
-            <label for="tagline">Tagline</label>
+            <label for="tagline">Tagline:</label>
             <input
               type="text"
               id="tagline"
               placeholder="What makes you awesome?"
               size="40"
+              v-model="newPortofolio.tagline"
             />
           </div>
           <div class="about">
-            <textarea placeholder="Tell us about you"></textarea>
+            <textarea
+              placeholder="Tell us about you"
+              v-model="newPortofolio.about"
+            ></textarea>
           </div>
           <div class="pdf">
             <label>Upload your resume:<i class="fas fa-file-pdf"></i></label>
@@ -103,30 +107,40 @@
           </div>
         </div>
         <div class="projects">
-          Add your projects:
-          <form id="add-project-form">
+          <h1>Add your projects:</h1>
+          <h3>Let's see what you've accomplished</h3>
+          <div class="projects-list">
+            <h2>Project List:</h2>
+            <div v-for="project in projects" :key="project" class="project">
+              <h3>{{ project.title }}</h3>
+              <p>{{ project.description }}</p>
+            </div>
+          </div>
+          <form id="add-project-form" @submit.prevent="addProject()">
             <div class="project-form-field">
+              <label for="project-title">Title:</label>
               <input
                 type="text"
                 id="project-title"
-                placeholder="Project Title"
+                placeholder="Your project's title"
+                size="45"
+                v-model="project.title"
               />
             </div>
             <div class="project-form-field">
-              <input
-                type="text"
+              <label for="project-description">Description:</label>
+              <textarea
                 id="project-description"
-                placeholder="Project Description"
-              />
+                placeholder="What's it about?"
+                v-model="project.description"
+              ></textarea>
             </div>
             <label>Upload a picture for your project!</label>
             <div class="project-form-field">
               <input type="file" id="project-image-input" />
             </div>
+            <input type="submit" value="Add Project" />
           </form>
-          <div class="projects list">
-            <div></div>
-          </div>
         </div>
         <div class="socials-contact">
           <div class="socials">
@@ -191,7 +205,12 @@
             <h3>Contact:</h3>
             <div class="contact-form-field">
               <label for="phone-number">Phone number: </label>
-              <input type="text" id="phone-number" placeholder="Phone Number" />
+              <input
+                type="text"
+                id="phone-number"
+                placeholder="Phone Number"
+                v-model="newPortofolio.phoneNumber"
+              />
             </div>
             <div class="contact-form-field">
               <label for="email">Email: </label>
@@ -202,6 +221,9 @@
                 readonly
               />
             </div>
+          </div>
+          <div class="button-row">
+            <input type="submit" value="Create Portofol.io" />
           </div>
         </div>
       </form>
@@ -229,6 +251,13 @@ export default {
       previewBanner: "",
       socialsType: "facebook",
       socialsUrl: "",
+      projects: [],
+      projectPhotos: [],
+      project: {
+        title: "",
+        description: "",
+        userId: "",
+      },
     };
   },
   methods: {
@@ -305,6 +334,20 @@ export default {
       this.socialsUrl = "";
       console.log(social);
     },
+    addProject() {
+      let project = {
+        title: this.project.title,
+        description: this.project.description,
+        userId: this.project.userId,
+      };
+      this.projects.push(project);
+      let file = document.getElementById("project-image-input").files[0];
+      this.projectPhotos.push(file);
+      document.getElementById("project-image-input").value = null;
+      this.project.title = "";
+      this.project.description = "";
+      console.log(this.projectPhotos);
+    },
   },
   computed: {
     //ai nevoie doar de allPortofolios, il poti folosi apoi in v-for portofolio in allPortofolios
@@ -316,6 +359,7 @@ export default {
     if (this.loggedInUser) {
       this.newPortofolio.email = this.loggedInUser.email;
       this.newPortofolio.userId = this.loggedInUser.uid;
+      this.project.userId = this.loggedInUser.uid;
     }
   },
 };
@@ -337,7 +381,7 @@ header {
     color: $w;
     border-radius: 50px;
     border: 3px solid rgba(42, 158, 207, 0.45);
-    box-shadow: 8px 8px rgba(22, 22, 22, 0.527);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     text-align: center;
   }
 }
@@ -385,6 +429,7 @@ input[type="file"] {
   cursor: pointer;
   display: block;
   margin: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   &:hover {
     color: $sh;
     border: 3px solid $sh;
@@ -418,7 +463,7 @@ input[type="file"] {
   display: block;
   margin: auto;
   border: 3px solid rgba(42, 158, 207, 0.45);
-  box-shadow: 8px 8px rgba(22, 22, 22, 0.178);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
 
 #create-portofolio-body {
@@ -438,7 +483,6 @@ input[type="file"] {
 
   input {
     font-family: "Oswald", sans-serif;
-    text-transform: uppercase;
     display: inline-block;
     color: $w;
     font-size: xxx-large;
@@ -480,7 +524,7 @@ input[type="file"] {
   background-color: rgba(53, 53, 53, 0.699);
   border-radius: 25px;
   border: 3px solid rgba(42, 158, 207, 0.45);
-  box-shadow: 8px 8px rgba(22, 22, 22, 0.178);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   label {
     font-size: smaller;
   }
@@ -530,6 +574,11 @@ input[type="file"] {
     text-align: center;
     background-color: $w-8;
     border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  }
+
+  label {
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -543,6 +592,7 @@ input[type="file"] {
     padding-bottom: 3rem;
     background-color: $s-1;
     border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     &:focus-visible {
       border: 1px solid $w;
       outline: 0;
@@ -555,6 +605,7 @@ input[type="file"] {
   height: 100%;
   border: 3px solid black;
   padding-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 
   i {
     padding-left: 1rem;
@@ -574,7 +625,6 @@ input[type="file"] {
 .socials-contact {
   width: 100%;
   padding-top: 2rem;
-  padding-bottom: 10rem;
   border-top: 3px solid rgba(241, 234, 234, 0.699);
   display: flex;
   flex: 1 0 auto;
@@ -609,6 +659,7 @@ input[type="file"] {
     width: 100%;
     background-color: $w-6;
     padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   }
 
   .socials {
@@ -647,6 +698,141 @@ input[type="file"] {
         color: $o-2;
         border-color: $o-2;
       }
+    }
+  }
+}
+
+.projects {
+  width: 100%;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid black;
+  display: flex;
+  flex: 1 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: $o-7;
+
+  h1,
+  h3 {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: "Oswald", sans-serif;
+    margin: 0;
+  }
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+#add-project-form {
+  background-color: $w-9;
+  padding: 1rem 2rem;
+  label {
+    text-align: left;
+    font-size: large;
+    margin-bottom: 0.5rem;
+  }
+  textarea {
+    font-size: large;
+    width: 100% !important;
+    max-height: 7rem;
+    min-height: 2rem;
+    padding-bottom: 3rem;
+    background-color: $s-1;
+    border-radius: 5px;
+    &:focus-visible {
+      border: 1px solid $w;
+      outline: 0;
+    }
+  }
+
+  input {
+    font-size: large;
+    margin-bottom: 0.5rem;
+    color: $w;
+  }
+
+  ::-webkit-file-upload-button {
+    margin: 0;
+  }
+
+  input[type="submit"] {
+    background-color: $s;
+    color: black;
+    font-family: "Work Sans", sans-serif;
+    cursor: pointer;
+    border-radius: 30px;
+    padding: 0.3rem 1rem;
+    margin-top: 0.6rem;
+    &:hover,
+    :active,
+    focus-visible {
+      background-color: $c-3;
+    }
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  }
+}
+
+.projects-list {
+  width: 35rem;
+  border: 1px solid $w;
+  h2 {
+    font-family: "Work Sans", sans-serif;
+    margin: 0;
+    text-align: center;
+    display: block;
+    width: 100%;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid $w;
+    background-color: $s;
+  }
+}
+
+.project {
+  border-radius: 20px;
+  background-color: $s-1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  h3 {
+    color: $w;
+    display: block;
+    width: 100%;
+    padding: 0;
+    background-color: $o-4;
+    padding: 0.4rem 0;
+  }
+  margin: 0.3rem;
+  p {
+    color: black;
+    margin: 0;
+    padding: 0 1rem 1rem 1rem;
+    text-align: justify;
+  }
+}
+
+.button-row {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: $w-1;
+  padding: 2rem 0 10rem 0;
+
+  input {
+    background-color: $s-5;
+    font-size: xxx-large;
+    padding: 0.6rem 5rem;
+    border: 0;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.26);
+    &:hover,
+    :active,
+    focus-visible {
+      background-color: $c-3;
+      text-decoration: underline;
     }
   }
 }
