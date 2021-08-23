@@ -98,7 +98,7 @@
             <textarea placeholder="Tell us about you"></textarea>
           </div>
           <div class="pdf">
-            <label>Upload your resume</label>
+            <label>Upload your resume:<i class="fas fa-file-pdf"></i></label>
             <input type="file" id="pdf-input" />
           </div>
         </div>
@@ -130,19 +130,69 @@
         </div>
         <div class="socials-contact">
           <div class="socials">
-            <form id="add-socials-form">
-              <select>
-                <option>Facebook</option>
-              </select>
-              <input type="text" id="socials-URL" placeholder="Socials URL" />
+            <form id="add-socials-form" @submit.prevent="addSocial()">
+              <h3>Social accounts:</h3>
+              <a
+                v-for="social in newPortofolio.socials"
+                v-bind:key="social"
+                :href="social.url"
+              >
+                <i
+                  class="fab "
+                  :class="{
+                    'fa-facebook-square': social.socialType == 'facebook',
+                    'fa-instagram-square': social.socialType == 'instagram',
+                    'fa-linkedin': social.socialType == 'linkedin',
+                    'fa-youtube': social.socialType == 'youtube',
+                    'fa-twitter': social.socialType == 'twitter',
+                  }"
+                  :style="[
+                    social.socialType == 'facebook'
+                      ? { color: 'DodgerBlue' }
+                      : social.socialType == 'instagram'
+                      ? { color: 'DeepPink' }
+                      : social.socialType == 'linkedin'
+                      ? { color: 'SkyBlue' }
+                      : social.socialType == 'youtube'
+                      ? { color: 'Red' }
+                      : social.socialType == 'twitter'
+                      ? { color: 'DeepSkyBlue' }
+                      : '',
+                  ]"
+                ></i>
+              </a>
+              <h4>Add social account:</h4>
+              <div>
+                <label for="social-type-input">Website:</label>
+                <select id="social-type-input" v-model="socialsType">
+                  <option value="facebook">Facebook</option>
+                  <option value="instagram">Instagram</option>
+                  <option value="linkedin">LinkedIn</option>
+                  <option value="youtube">YouTube</option>
+                  <option value="twitter">Twitter</option>
+                </select>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  id="socials-URL"
+                  placeholder="Link"
+                  size="40"
+                  v-model="socialsUrl"
+                />
+              </div>
+              <input type="submit" value="Add account" />
             </form>
             <div></div>
           </div>
           <div class="contact">
+            <h3>Contact:</h3>
             <div class="contact-form-field">
+              <label for="phone-number">Phone number: </label>
               <input type="text" id="phone-number" placeholder="Phone Number" />
             </div>
             <div class="contact-form-field">
+              <label for="email">Email: </label>
               <input
                 v-model="newPortofolio.email"
                 type="email"
@@ -175,6 +225,8 @@ export default {
       },
       previewPhoto: "",
       previewBanner: "",
+      socialsType: "facebook",
+      socialsUrl: "",
     };
   },
   methods: {
@@ -240,6 +292,16 @@ export default {
         },
         false
       );
+    },
+    addSocial() {
+      let social = {
+        socialType: this.socialsType,
+        url: this.socialsUrl,
+      };
+      this.newPortofolio.socials.push(social);
+      this.socialsType = "facebook";
+      this.socialsUrl = "";
+      console.log(social);
     },
   },
   computed: {
@@ -490,5 +552,90 @@ input[type="file"] {
   margin-left: 1rem;
   height: 100%;
   border: 3px solid black;
+  padding-top: 1rem;
+
+  i {
+    padding-left: 1rem;
+    text-align: right;
+    font-size: large;
+  }
+
+  input {
+    color: $w;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    overflow: auto;
+    text-align: center;
+  }
+}
+
+.socials-contact {
+  width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 10rem;
+  border-top: 3px solid rgba(241, 234, 234, 0.699);
+  display: flex;
+  flex: 1 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  h3 {
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+  }
+
+  label {
+    text-align: left;
+    margin-bottom: 0.6rem;
+    margin-top: 0.6rem;
+  }
+
+  input {
+    font-size: medium;
+    color: $w;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    overflow: auto;
+    border: 1px solid rgba(241, 234, 234, 0.699);
+  }
+
+  .contact {
+    margin-left: 3em;
+  }
+
+  #add-socials-form {
+    background-color: $w-6;
+    padding: 1rem;
+  }
+
+  .socials {
+    select {
+      width: 15rem;
+      height: 2rem;
+      font-size: large;
+      &:focus-visible {
+        border: 0;
+        outline: 0;
+      }
+    }
+
+    i {
+      font-size: xx-large;
+      padding: 0.2rem;
+    }
+
+    input {
+      margin-top: 2rem;
+    }
+    input[type="submit"] {
+      cursor: pointer;
+      &:hover,
+      :active,
+      focus-visible {
+        color: $o-2;
+        border-color: $o-2;
+      }
+    }
+  }
 }
 </style>
