@@ -1,6 +1,4 @@
 <template>
-  <p>Portofolios works!</p>
-  <p>All portofolios will be displayed here</p>
   <div class="h1div">
   <h1>Featured on </h1>
   <img src="https://i.imgur.com/MGp2X3f.png" alt="">

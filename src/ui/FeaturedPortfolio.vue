@@ -1,9 +1,9 @@
 <template>
-      <div class="portfolio each">
+      <div class="portfolioo eachh">
         <div class="infoboxx">
-          <h2 id="name">{{ fname }} {{ lname }}</h2>
-          <h4 id="title">{{title}}</h4>
-          <p>{{about}}</p>
+          <h2 class="h22" id="name">{{ fname }} {{ lname }}</h2>
+          <h4 class="h44" id="title">{{title}}</h4>
+          <p class="pp">{{about}}</p>
           <div class="containerr">
           <div class="centerr">
           <button class="btnn">
@@ -49,7 +49,7 @@ export default {
   justify-content: space-around;
   align-items: center;
 }
-.portfolio {
+.portfolioo {
   width: 27%;
   padding: 10px;
   display: flex;
@@ -57,38 +57,39 @@ export default {
   justify-content: flex-end;
   align-items: center;
 }
-.portfolio .avatar {
+.portfolioo .avatar {
   border-radius: 50%;
   display: block;
   width: 146px;
   margin: auto;
   margin-top: 40px;
 }
-.portfolio .avatar2 {
+.portfolioo .avatar2 {
   margin-top: -10px;
 }
-.portfolio .infoboxx {
+.portfolioo .infoboxx {
   margin-top: -73px;
   width: 90%;
-  height: 500px;
+  height: 400px;
   background-image: url("https://wallpaperaccess.com/full/888745.jpg");
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
-.portfolio .infoboxcenter {
+.portfolioo .infoboxcenter {
   margin-top: -78px;
   width: 90%;
-  height: 460px;
+  height: 400px;
   background-image: url("https://wallpaperaccess.com/full/888745.jpg");
 }
 #name {
-  margin-top: 90px;
+  margin-top: 20px;
 }
 #title {
     margin-top: -20px;
 }
-p {
+.pp {
     padding: 25px;
     height:140px;
     overflow:hidden;
@@ -144,6 +145,11 @@ svg {
   color: white;
   font-size: 18px;
   font-weight: 100;
+}
+
+.h44{ 
+  padding: 10px;
+  font-size: 20px;
 }
 
 
