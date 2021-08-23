@@ -4,11 +4,13 @@ import "firebase/firestore";
 import { db } from "../config/db";
 import auth from "./modules/auth";
 import projects from "./modules/projects";
+import ui from "./modules/ui";
 
 const store = createStore({
   modules: {
     auth,
     projects,
+    ui,
   },
   state: {
     portofolios: [],
