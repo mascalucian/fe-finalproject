@@ -3,6 +3,7 @@
     <span>
       <router-link to="/test">Test Area</router-link>
       <router-link to="/portofolios">All Portofolios</router-link>
+      <router-link to="/portofolios/:id">View portofolio test</router-link>
       <router-link to="/aboutus">About Us</router-link>
       <router-link to="/contact">Contact</router-link>
     </span>
@@ -14,7 +15,13 @@
 >
 
 <script>
-export default {};
+export default {
+  methods: {
+    goToPortofolio(portofolioId) {
+      return portofolioId;
+    },
+  },
+};
 </script>
 
 <style scoped>
