@@ -132,35 +132,37 @@
           <div class="socials">
             <form id="add-socials-form" @submit.prevent="addSocial()">
               <h3>Social accounts:</h3>
-              <a
-                v-for="social in newPortofolio.socials"
-                v-bind:key="social"
-                :href="social.url"
-              >
-                <i
-                  class="fab "
-                  :class="{
-                    'fa-facebook-square': social.socialType == 'facebook',
-                    'fa-instagram-square': social.socialType == 'instagram',
-                    'fa-linkedin': social.socialType == 'linkedin',
-                    'fa-youtube': social.socialType == 'youtube',
-                    'fa-twitter': social.socialType == 'twitter',
-                  }"
-                  :style="[
-                    social.socialType == 'facebook'
-                      ? { color: 'DodgerBlue' }
-                      : social.socialType == 'instagram'
-                      ? { color: 'DeepPink' }
-                      : social.socialType == 'linkedin'
-                      ? { color: 'SkyBlue' }
-                      : social.socialType == 'youtube'
-                      ? { color: 'Red' }
-                      : social.socialType == 'twitter'
-                      ? { color: 'DeepSkyBlue' }
-                      : '',
-                  ]"
-                ></i>
-              </a>
+              <div class="socials-list">
+                <a
+                  v-for="social in newPortofolio.socials"
+                  v-bind:key="social"
+                  :href="social.url"
+                >
+                  <i
+                    class="fab "
+                    :class="{
+                      'fa-facebook-square': social.socialType == 'facebook',
+                      'fa-instagram-square': social.socialType == 'instagram',
+                      'fa-linkedin': social.socialType == 'linkedin',
+                      'fa-youtube': social.socialType == 'youtube',
+                      'fa-twitter': social.socialType == 'twitter',
+                    }"
+                    :style="[
+                      social.socialType == 'facebook'
+                        ? { color: 'DodgerBlue' }
+                        : social.socialType == 'instagram'
+                        ? { color: 'DeepPink' }
+                        : social.socialType == 'linkedin'
+                        ? { color: 'SkyBlue' }
+                        : social.socialType == 'youtube'
+                        ? { color: 'Red' }
+                        : social.socialType == 'twitter'
+                        ? { color: 'DeepSkyBlue' }
+                        : '',
+                    ]"
+                  ></i>
+                </a>
+              </div>
               <h4>Add social account:</h4>
               <div>
                 <label for="social-type-input">Website:</label>
@@ -604,6 +606,7 @@ input[type="file"] {
   }
 
   #add-socials-form {
+    width: 100%;
     background-color: $w-6;
     padding: 1rem;
   }
@@ -617,6 +620,15 @@ input[type="file"] {
         border: 0;
         outline: 0;
       }
+    }
+
+    .socials-list {
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      flex: 0 0 auto;
+      width: 25rem;
+      flex-direction: row;
     }
 
     i {
