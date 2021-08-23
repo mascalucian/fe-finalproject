@@ -1,11 +1,17 @@
 <template>
-  <div>
+  <div id="create-portofolio-body">
     <header>
       <h1>Create a new Portofolio</h1>
     </header>
     <div id="main-container">
       <form>
-        <div class="banner-image">
+        <div
+          class="banner-image"
+          :style="{
+            backgroundImage: `url(${previewBanner ||
+              'https://thumbs.dreamstime.com/b/%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B8%D0%B9-%D0%BD%D0%B0%D0%B1%D0%BE%D1%80-%D1%84%D0%BE%D0%BD%D0%B0-%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE-%D1%81%D1%82%D0%BE%D0%BB%D0%B0-%D0%BF%D0%BE%D0%BB%D1%83%D1%82%D0%BE%D0%BD%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B0-209014143.jpg'})`,
+          }"
+        >
           <div class="profile-picture">
             <img
               id="profile-picture-img"
@@ -33,7 +39,11 @@
             </div>
           </div>
           <div class="banner-upload">
-            <input type="file" id="banner-input" />
+            <input
+              type="file"
+              id="banner-input"
+              @change="processImage('banner-input')"
+            />
           </div>
         </div>
         <div class="middle-section">
@@ -172,7 +182,7 @@ export default {
           //   loader.hide();
           //   this.isLoadingPicture = false;
           //   that.employeeMutated.photo = reader.result;
-
+          console.log(inputId);
           switch (inputId) {
             case "profile-pic-input":
               that.previewPhoto = reader.result;
@@ -249,5 +259,30 @@ input[type="file"] {
     color: $sh;
     border: 3px solid $sh;
   }
+}
+
+.banner-image {
+  width: 100%;
+  display: flex;
+  flex: 1 0 0;
+  flex-wrap: wrap;
+  height: 30rem;
+  vertical-align: middle;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+#profile-picture-img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#create-portofolio-body {
+  min-width: 540px;
 }
 </style>
