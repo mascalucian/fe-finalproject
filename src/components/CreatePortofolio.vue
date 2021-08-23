@@ -22,7 +22,7 @@
             />
             <div class="profile-picture-upload">
               <label v-if="!previewPhoto" for="profile-pic-input"
-                >Upload your profile picture</label
+                >Upload your profile picture:</label
               >
               <input
                 type="file"
@@ -210,6 +210,7 @@
                 id="phone-number"
                 placeholder="Phone Number"
                 v-model="newPortofolio.phoneNumber"
+                size="30"
               />
             </div>
             <div class="contact-form-field">
@@ -219,6 +220,7 @@
                 type="email"
                 id="email"
                 readonly
+                size="30"
               />
             </div>
           </div>
@@ -677,7 +679,8 @@ input[type="file"] {
   flex: 1 0 auto;
   flex-wrap: wrap;
   justify-content: center;
-
+  flex-direction: row;
+  background-image: url("https://media.istockphoto.com/vectors/bright-seamless-pattern-with-orange-slices-vector-id1305791045?b=1&k=6&m=1305791045&s=612x612&w=0&h=7N354TSz_-ZYq5xz7lAisjzcFKiKDJgggbhP3V0BxwM=");
   h3 {
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
@@ -700,6 +703,8 @@ input[type="file"] {
 
   .contact {
     margin-left: 3em;
+    background-color: $w-10;
+    padding: 1rem;
   }
 
   #add-socials-form {
