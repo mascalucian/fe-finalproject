@@ -43,6 +43,7 @@ const routes = [{
         path: "/create-portofolio",
         component: CreatePortofolio
     },
+
     {
         path: "/portofolios/:id",
         component: ViewPortofolio

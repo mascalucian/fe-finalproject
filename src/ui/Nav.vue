@@ -3,7 +3,7 @@
     <span>
       <router-link to="/test">Test Area</router-link>
       <router-link to="/portofolios">All Portofolios</router-link>
-      <router-link to="/portofolios/:id">View portofolio test</router-link>
+      <!-- <router-link to="/portofolios/:id">View portofolio test</router-link> -->
       <router-link to="/aboutus">About Us</router-link>
       <router-link to="/contact">Contact</router-link>
     </span>
@@ -26,6 +26,8 @@ export default {
 
 <style scoped>
 nav {
+  width: 100vw;
+  max-width: 100%;
   height: 60px;
   border-bottom: 1px solid black;
   background-color: darkorange;
