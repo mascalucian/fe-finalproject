@@ -1,19 +1,17 @@
 <template>
 
 <div class="all">
-    <div>
-        <h1>Featured on portofol.io</h1>
-    </div>
+    
     <div class="maincontainer">
         <div class="portfolio">
             <div class="infobox">
                 <h2 id="name">
-                    Lucian
+      {{fname }} {{ lname }}
                 </h2>
             </div>
             <div><img src="../assets/default.png" class="avatar"></div>
         </div>
-        <div class="portfolio">
+        <!-- <div class="portfolio">
             <div class="infobox infobox2">
                 <h2 id="name">
                     da
@@ -28,10 +26,44 @@
                 </h2>
             </div>
             <div><img src="../assets/default.png" class="avatar"></div>
-        </div>
+        </div> -->
     </div>
 </div>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { db } from "../config/db";
+export default {
+  name: "FeaturedPortfolio",
+  data() {
+    return {
+      username: "",
+      password: "",
+      switchTab: false,
+      unsubscribe: undefined,
+    };
+  },
+  props: {
+      fname: String,
+      lname: String
+  },
+  computed: {
+    //ai nevoie doar de allPortofolios, il poti folosi apoi in v-for portofolio in allPortofolios
+    ...mapGetters(
+      [
+        "allPortofolios"
+      ] // -> this.someGetter
+    ),
+  },
+  created() {
+    this.$store.dispatch("bindPortofolios");
+    
+  }
+  }
+</script>
 
 <style scoped>
 .all {

@@ -6,10 +6,12 @@
 <script>
 import Nav from "./ui/Nav.vue";
 
+
 export default {
   name: "App",
   components: {
     Nav,
+
   },
 };
 </script>
