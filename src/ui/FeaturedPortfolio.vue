@@ -51,11 +51,10 @@ export default {
 }
 .portfolio {
   width: 27%;
-  height: 510px;
   padding: 10px;
   display: flex;
   flex-direction: column-reverse;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
 }
 .portfolio .avatar {
@@ -71,7 +70,7 @@ export default {
 .portfolio .infobox {
   margin-top: -73px;
   width: 90%;
-  height: 450px;
+  height: 500px;
   background-image: url("https://wallpaperaccess.com/full/888745.jpg");
   display: flex;
   flex-direction: column;
@@ -91,7 +90,8 @@ export default {
 }
 p {
     padding: 25px;
-    max-height: 80px;
+    height:140px;
+    overflow:hidden;
 }
 @import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
 
