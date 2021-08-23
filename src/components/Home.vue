@@ -1,13 +1,14 @@
 <template>
   <div>
     <h1>Featured on portofol.io</h1>
-    <FeaturedPortfolio fname="Lucian" lname="Masca" />
-    <div>
+    <div class="all">
       <FeaturedPortfolio
         v-for="portofolio in allPortofolios"
         v-bind:key="portofolio.id"
         :fname="portofolio.firstName"
         :lname="portofolio.lastName"
+        :title="portofolio.title"
+        :about="portofolio.about"
       />
     </div>
   </div>
@@ -64,4 +65,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.all {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.each {
+flex: 1 0 30%;
+}
+</style>
