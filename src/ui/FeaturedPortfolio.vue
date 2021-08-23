@@ -6,7 +6,7 @@
           <p class="pp">{{about}}</p>
           <div class="containerr">
           <div class="centerr">
-          <router-link :to='`/portofolios/${id}`'>
+          <router-link :to='`/portofolios/${idd}`'>
           <button class="btnn">
                 <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
                 <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
@@ -18,7 +18,7 @@
           </div>
           </div>
         </div>
-        <div><img src="../assets/default.png" class="avatar" /></div>
+        <div><img :src='`${imgURL}`' class="avatar" /></div>
       </div>
 </template>
 
@@ -26,6 +26,7 @@
 import { mapGetters } from "vuex";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import "firebase/storage";
 import { db } from "../config/db";
 export default {
   name: "FeaturedPortfolio",
@@ -34,39 +35,28 @@ export default {
     lname: String,
     title: String,
     about: String,
-    id: String,
+    idd: String,
+  },
+  data() {
+    return {
+      imgURL:""
+    }
   },
   methods: {
     getpp(){
-        var profpic = storageRef.child('images/stars.jpg');
-
-        // Get the download URL
-        starsRef.getDownloadURL()
-        .then((url) => {
-          // Insert url into an <img> tag to "download"
-        })
-        .catch((error) => {
-          // A full list of error codes is available at
-          // https://firebase.google.com/docs/storage/web/handle-errors
-          switch (error.code) {
-            case 'storage/object-not-found':
-              // File doesn't exist
-              break;
-            case 'storage/unauthorized':
-              // User doesn't have permission to access the object
-              break;
-            case 'storage/canceled':
-              // User canceled the upload
-              break;
-
-            // ...
-
-            case 'storage/unknown':
-              // Unknown error occurred, inspect the server response
-              break;
-          }
+         var storageRef = firebase.storage().ref();
+         var ppRef = storageRef.child(`/${this.idd}/profile_picture.jpg`);
+         var linku=ppRef.getDownloadURL().then (url=> {
+           console.log("A mers "+url);
+          this.imgURL=url;
+        }).catch(function(error) {
+          // Handle any errors here
         });
     }
+
+  },
+  created() { 
+    this.getpp();
   }
 };
 </script>
@@ -96,6 +86,8 @@ export default {
   border-radius: 50%;
   display: block;
   width: 146px;
+  height: 146px;
+  object-fit: cover;
   margin: auto;
   margin-top: 40px;
 }

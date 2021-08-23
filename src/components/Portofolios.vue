@@ -6,12 +6,13 @@
     <div class="all">
       <FeaturedPortfolio
         v-for="portofolio in allPortofolios"
-        v-bind:key="portofolio.id"
+        v-bind:key="portofolio"
         :fname="portofolio.firstName"
         :lname="portofolio.lastName"
         :title="portofolio.title"
         :about="portofolio.about"
-        :id="portofolio.id"
+        :idd="portofolio.userId"
+        :imgURL="url"
       />
     </div>
 </template>
