@@ -55,8 +55,6 @@ d<template>
         <div>
           <p>UserId: {{ loggedInUser.uid }}</p>
           <p>Email: {{ loggedInUser.email }}</p>
-          <p>Your last visit : {{ loggedInUser.metadata.lastSignInTime }}</p>
-          <p>Created At: {{ loggedInUser.metadata.creationTime }}</p>
         </div>
         <button @click="logout()">Logout</button>
       </div>
@@ -94,16 +92,30 @@ export default {
   },
   methods: {
     login() {
-      this.$store.dispatch("signIn", {
-        username: this.username,
-        password: this.password,
-      });
+      this.$store
+        .dispatch("signIn", {
+          username: this.username,
+          password: this.password,
+        })
+        .then(() => {
+          this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
+          this.$store.dispatch("callSnackBar", {
+            payload: "Login successful!", //Your message!!
+          });
+        });
     },
     register() {
-      this.$store.dispatch("signUp", {
-        username: this.username,
-        password: this.password,
-      });
+      this.$store
+        .dispatch("signUp", {
+          username: this.username,
+          password: this.password,
+        })
+        .then(() => {
+          this.$store.commit("setSnackBarBackground", "#adff2f");
+          this.$store.dispatch("callSnackBar", {
+            payload: "Registration successful!",
+          });
+        });
     },
     logout() {
       this.$store.commit("logout");
@@ -154,6 +166,7 @@ export default {
     //     id: "GKekFwCupv3wfxb3Vhv3",
     //   });
     // }, 5000);
+    setTimeout(() => {}, 5000);
   },
   unmounted() {
     this.unsubscribe();

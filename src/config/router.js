@@ -18,7 +18,7 @@ const routes = [
   { path: "/register", component: Register },
   { path: "/portofolios", component: Portofolios },
   { path: "/test", component: HelloWorld },
-  { path: "/create-portofolio", component: CreatePortofolio },
+  { path: "/portofolios/create", component: CreatePortofolio },
   { path: "/portofolios/:id", component: ViewPortofolio },
   { path: "/aboutus", component: AboutUs },
   { path: "/contact", component: Contact },
