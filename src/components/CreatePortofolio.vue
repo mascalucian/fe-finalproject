@@ -4,7 +4,7 @@
       <h1>Create a new Portofol.io</h1>
     </header>
     <div id="main-container">
-      <form>
+      <form @submit.prevent="createPortofolio()">
         <div
           class="banner-image"
           :style="{
@@ -232,6 +232,8 @@
 </template>
 
 <script>
+import firebase from "firebase/app";
+import "firebase/storage";
 import { mapGetters } from "vuex";
 
 export default {
@@ -347,6 +349,51 @@ export default {
       this.project.title = "";
       this.project.description = "";
       console.log(this.projectPhotos);
+    },
+    createPortofolio() {
+      console.log("CALLED");
+      this.$store.dispatch("updatePortofolio", {
+        payload: this.newPortofolio,
+      });
+      var storageRef = firebase.storage().ref();
+      var resumeRef = storageRef.child(`/${this.loggedInUser.uid}/resume.pdf`);
+      var profilePicRef = storageRef.child(
+        `/${this.loggedInUser.uid}/profile_picture.jpg`
+      );
+      var coverPicRef = storageRef.child(
+        `/${this.loggedInUser.uid}/cover_picture.jpg`
+      );
+      const resumePdf = document.getElementById("pdf-input").files[0];
+      const profilePicture = document.getElementById("profile-pic-input")
+        .files[0];
+      const coverPicture = document.getElementById("banner-input").files[0];
+      resumeRef.put(resumePdf).then((snapshot) => {
+        console.log("Uploaded resume pdf!");
+      });
+      profilePicRef.put(profilePicture).then((snapshot) => {
+        console.log("Uploaded profile picture!");
+      });
+      coverPicRef.put(coverPicture).then((snapshot) => {
+        console.log("Uploaded cover picture!");
+      });
+
+      this.projects.forEach((project) => {
+        this.$store.dispatch("addProject", {
+          payload: project,
+        });
+      });
+      if (this.projectPhotos.length > 0) {
+        for (let index = 0; index < this.projectPhotos.length; index++) {
+          var projectPictureRef = storageRef.child(
+            `/${this.loggedInUser.uid}/projects/project_${index}.jpg`
+          );
+          projectPictureRef.put(this.projectPhotos[index]).then((snapshot) => {
+            console.log("Uploaded project picture!");
+          });
+        }
+      }
+
+      //   this.
     },
   },
   computed: {
