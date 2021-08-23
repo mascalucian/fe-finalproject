@@ -7,10 +7,20 @@
       <form>
         <div class="banner-image">
           <div class="profile-picture">
-            <img id="profile-picture-img" />
+            <img
+              id="profile-picture-img"
+              v-bind:src="
+                previewPhoto ||
+                  'https://www.pngitem.com/pimgs/m/464-4644415_employee-clipart-testimonial-illustration-hd-png-download.png'
+              "
+            />
             <div class="profile-picture-upload">
               <label>Upload your profile picture</label>
-              <input type="file" id="profile-pic-input" />
+              <input
+                type="file"
+                id="profile-pic-input"
+                @change="processImage('profile-pic-input')"
+              />
             </div>
           </div>
           <div class="names-title">
@@ -104,14 +114,79 @@ export default {
         lastName: "",
         title: "",
         tagline: "",
-        photo: undefined,
-        coverPhoto: undefined,
         about: "",
         socials: [],
         email: "",
         userId: "",
       },
+      previewPhoto: "",
+      previewBanner: "",
     };
+  },
+  methods: {
+    processImage(inputId) {
+      console.log("STARTED");
+      //   let loader = this.$loading.show({
+      //     // Optional parameters
+      //     container: this.$refs.previewParent,
+      //     isFullPage: false,
+      //   });
+      //   this.isLoadingPicture = false;
+      var file = document.getElementById(`${inputId}`).files[0];
+      const reader = new FileReader();
+      var that = this;
+      if (file) {
+        // this.isLoadingPicture = false;
+        // console.log("FILE");
+        reader.readAsDataURL(file);
+      } else {
+        console.log("NO FILE");
+        // loader.hide();
+        // this.isLoadingPicture = false;
+        return;
+      }
+      if (file.size > 10000000) {
+        // loader.hide();
+        // console.log("FILE BIGGER THAN 10MB");
+        document.getElementById(`${inputId}`).value = null;
+        switch (inputId) {
+          case "profile-pic-input":
+            this.previewPhoto = "";
+            this.newPortofolio.photo = null;
+            break;
+          case "banner-input":
+            this.previewBanner = "";
+            this.newPortofolio.coverPhoto = null;
+            break;
+          default:
+            break;
+        }
+
+        // this.isLoadingPicture = false;
+        return;
+      }
+      reader.addEventListener(
+        "load",
+        function() {
+          // console.log("LOADED");
+          //   loader.hide();
+          //   this.isLoadingPicture = false;
+          //   that.employeeMutated.photo = reader.result;
+
+          switch (inputId) {
+            case "profile-pic-input":
+              that.previewPhoto = reader.result;
+              break;
+            case "banner-input":
+              that.previewBanner = reader.result;
+              break;
+            default:
+              break;
+          }
+        },
+        false
+      );
+    },
   },
   computed: {
     //ai nevoie doar de allPortofolios, il poti folosi apoi in v-for portofolio in allPortofolios
