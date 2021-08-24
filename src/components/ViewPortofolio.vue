@@ -58,7 +58,11 @@
               ]"
             ></i>
           </a>
-          <button type="button" class="btn btn-light ">
+          <button
+            type="button"
+            class="btn btn-light "
+            v-if="this.isLoggedin && this.$route.params.id==this.loggedInUser.uid;"
+          >
             Get resume
           </button>
         </div>
@@ -366,7 +370,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 35px;
+  margin-top: 5%;
   &:hover {
     cursor: pointer;
   }
@@ -389,7 +393,7 @@ html {
     margin: 2em 0 0.25em 0;
   }
   &-about {
-    margin: 1em 0 1.5em 0;
+    margin: 1em 0 3em 0;
   }
   &-projects-title {
     // font-style: italic;
