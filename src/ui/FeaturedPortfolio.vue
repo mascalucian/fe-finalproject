@@ -1,6 +1,6 @@
 <template>
       <div class="portfolioo eachh">
-        <div class="infoboxx">
+        <div class="infoboxx  shadow">
           <h2 class="h22" id="name">{{ fname }} {{ lname }}</h2>
           <h4 class="h44" id="title">{{title}}</h4>
           <p class="pp">{{about}}</p>
@@ -103,6 +103,8 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-top-left-radius: 25%;
+  border-bottom-right-radius: 25%;
 }
 .portfolioo .infoboxcenter {
   margin-top: -78px;
