@@ -23,6 +23,7 @@
           <div class="header-occupation">
             {{ currentPortofolio.title }}
           </div>
+
           <a
             class="header-socials"
             v-for="social in currentPortofolio.socials"
@@ -53,6 +54,9 @@
               ]"
             ></i>
           </a>
+          <button type="button" class="btn btn-light ">
+            Get resume
+          </button>
         </div>
         <button class="more-details" v-if="show">
           More details
@@ -95,9 +99,10 @@
             <h5 style="color:red">No projects found!</h5>
           </div>
           <div class="details-contact text">
-            {{ currentPortofolio.email }}
-            {{ currentPortofolio.phoneNumber }}
+            <p>{{ currentPortofolio.email }}</p>
+            <p>{{ currentPortofolio.phoneNumber }}</p>
           </div>
+          <!-- <a class="link" href="#">Get resume</a> -->
         </div>
       </div>
     </div>
@@ -277,15 +282,10 @@ html {
   background-size: cover;
   background-attachment: fixed;
   color: #1b150d;
-  // width: 100vw;
-  // max-width: 100%;
-  // height: 100vh;
-  // max-height: 100%;
 }
 .content {
   position: relative;
   display: flex;
-  /* flex-flow: column; */
   flex-direction: column;
   align-content: center;
   align-items: center;
@@ -301,13 +301,10 @@ html {
 }
 
 .header {
-  // position: relative;
   display: flex;
-  /* flex-flow: column; */
   flex-direction: column;
   flex: 0 1 auto;
   align-items: center;
-  // margin: 25px;
   background-color: rgba(gray, 0.5);
   padding: 20px;
   border-radius: 30px;
@@ -319,7 +316,7 @@ html {
   }
   &-name {
     top: auto;
-    margin-top: 10%;
+    margin-top: 7%;
     margin-bottom: 0;
     font-size: $huge;
     font-weight: 400;
@@ -328,12 +325,13 @@ html {
     font-size: $big;
     font-family: "Raleway";
     padding: 0.35em 2.75em 0.35em 2.75em;
-    margin: 1.25em;
+    margin: 1.25em 1.5em 0.5em 1.5em;
     border-top: 1px solid $w;
     border-bottom: 1px solid $w;
   }
   &-socials {
-    padding: 1em 2.75em 1em 2.75em;
+    padding-top: 1em;
+    padding-bottom: 1em;
     transition: transform 0.2s;
     &:hover {
       transform: scale(1.2);
@@ -345,7 +343,13 @@ html {
   color: $w;
   /* width: 100px; */
 }
-
+.btn {
+  background-color: transparent;
+  font-weight: bolder;
+  font-size: $small;
+  color: $w;
+  margin: 0.5em;
+}
 .more-details {
   background-color: transparent;
   border: none;
@@ -369,19 +373,11 @@ html {
 }
 
 .details {
-  // position: relative;
   display: flex;
   flex-direction: column;
-  // justify-content: center;
-  // justify-items: center;
   align-items: center;
   background-color: transparent;
-  // width: 100vw;
-  // max-width: 100%;
-  // height: 100vh;
-  // max-height: 100%;
-  // padding-top: 5em;
-  // z-index: 10;
+
   &-tagline {
     font-size: $huge;
     margin: 2em 0 0.25em 0;
@@ -400,6 +396,9 @@ html {
 
   &-contact {
     padding: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 }
 .card {
@@ -422,7 +421,4 @@ html {
     flex-wrap: wrap;
   }
 }
-// .more-details:hover {
-//   cursor: pointer;
-// }
 </style>
