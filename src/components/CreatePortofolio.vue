@@ -220,11 +220,11 @@
                   </div>
                 </div>
                 <label>Upload a picture for your project! (Optional)</label>
-                <div class="project-form-field">
+                <div class="project-form-field" ref="projectImageRef">
                   <input
                     type="file"
                     id="project-image-input"
-                    @change="processImage('project-image-input')"
+                    @change="processImage($event, 'projectImageRef')"
                   />
                 </div>
                 <input type="submit" value="Add Project" />
@@ -478,7 +478,7 @@ export default {
             this.previewBanner = "";
             this.newPortofolio.coverPhoto = null;
             break;
-          case "project-image-input":
+          case "projectImageRef":
             break;
           default:
             break;
@@ -502,7 +502,7 @@ export default {
             case "bannerRef":
               that.previewBanner = reader.result;
               break;
-            case "project-image-input":
+            case "projectImageRef":
               // that.previewBanner = reader.result;
               break;
             default:
@@ -587,6 +587,7 @@ export default {
         });
       });
       this.loader.hide();
+      if (!this.editMode) this.$store.commit("confirmPortofolio");
       this.$store.commit("setSnackBarBackground", "#adff2f");
       this.$store.dispatch("callSnackBar", {
         payload: !this.editMode
