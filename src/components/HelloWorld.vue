@@ -104,18 +104,17 @@ export default {
         });
       }
     },
-    register() {
-      this.$store
-        .dispatch("signUp", {
-          username: this.username,
-          password: this.password,
-        })
-        .then(() => {
-          this.$store.commit("setSnackBarBackground", "#adff2f");
-          this.$store.dispatch("callSnackBar", {
-            payload: "Registration successful!",
-          });
+    async register() {
+      await this.$store.dispatch("signUp", {
+        username: this.username,
+        password: this.password,
+      });
+      if (this.isLoggedin) {
+        this.$store.commit("setSnackBarBackground", "#adff2f");
+        this.$store.dispatch("callSnackBar", {
+          payload: "Registration successful!",
         });
+      }
     },
     logout() {
       this.$store.dispatch("signOut");
