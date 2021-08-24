@@ -1,18 +1,30 @@
 <template>
-  <div class="wrapper">
-    <div v-if="loading" class="spring-spinner">
+  <div
+    class="wrapper"
+    v-bind:style="{ 'background-image': 'url(' + this.coverPicture + ')' }"
+  >
+    <!-- <div v-if="loading" class="spring-spinner">
       <div class="spring-spinner-part top">
         <div class="spring-spinner-rotator"></div>
       </div>
       <div class="spring-spinner-part bottom">
         <div class="spring-spinner-rotator"></div>
       </div>
+    </div> -->
+    <div class="vld-parent">
+      <loading
+        v-model:active="isLoading"
+        :can-cancel="true"
+        :on-cancel="onCancel"
+        :is-full-page="fullPage"
+      />
     </div>
     <div v-if="currentPortofolio">
       <div class="content">
         <div class="header">
           <div class="header-image">
             <!-- <i class="fas fa-laptop-code fa-10x "></i> -->
+            <img class="header-image-img " v-bind:src="this.profilePicture" />
           </div>
 
           <h1 class="header-name">
@@ -58,7 +70,7 @@
             Get resume
           </button>
         </div>
-        <button class="more-details" v-if="show">
+        <button class="more-details">
           More details
           <i class="fas fa-chevron-down"></i>
         </button>
@@ -107,7 +119,7 @@
       </div>
     </div>
 
-    <h1 v-if="!currentPortofolio && !loading" style="color:red;">
+    <h1 v-if="!currentPortofolio && !isLoading" style="color:red;">
       Portofolio does not exist
     </h1>
   </div>
@@ -117,6 +129,10 @@
 //Don't forget to add a loader spinner!
 import { db } from "../config/db";
 import { mapGetters } from "vuex";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+import firebase from "firebase/app";
+// import "firebase/firestore";
 
 export default {
   data() {
@@ -124,14 +140,27 @@ export default {
       currentPortofolio: undefined,
       projects: [],
       unsubscribe: undefined,
-      animated: false,
-      show: true,
-      loading: false,
+      isLoading: false,
+      fullPage: true,
+      profilePicture: "",
+      coverPicture: "",
     };
   },
+  components: {
+    Loading,
+  },
   methods: {
+    doAjax() {
+      this.isLoading = true;
+      // simulate AJAX
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1500);
+    },
+    onCancel() {
+      console.log("User cancelled the loader.");
+    },
     async getPortofolio(userId) {
-      this.loading = true;
       if (this.projects.length > 0) this.projects = [];
       await db
         .collection("portofolios")
@@ -152,7 +181,6 @@ export default {
         });
       if (this.currentPortofolio) await this.getProjects(userId);
       console.log(this.projects);
-      this.loading = false;
       this.$emit("getPortofolioID", userId);
     },
     async getProjects(userId) {
@@ -174,6 +202,29 @@ export default {
           });
         });
     },
+    async getStorageData(userId) {
+      var storageRef = firebase.storage().ref();
+      var profilePicRef = storageRef.child(userId + "/profile_picture.jpg");
+      var coverPicRef = storageRef.child(userId + "/cover_picture.jpg");
+      await profilePicRef
+        .getDownloadURL()
+        .then((url) => {
+          this.profilePicture = url;
+          console.log(url);
+        })
+        .catch((error) => {
+          alert("Error getting profile picture ", error);
+        });
+      await coverPicRef
+        .getDownloadURL()
+        .then((url) => {
+          this.coverPicture = url;
+          console.log(url);
+        })
+        .catch((error) => {
+          alert("Error getting profile picture ", error);
+        });
+    },
     methodThatForcesUpdate() {
       // ...
       this.$forceUpdate(); // Notice we have to use a $ here
@@ -185,7 +236,9 @@ export default {
   },
   created() {
     // this.loading = true;
+    this.doAjax();
     const initialUserId = this.$route.params.id;
+    this.getStorageData(initialUserId);
     this.getPortofolio(initialUserId);
   },
   unmounted() {
@@ -205,57 +258,6 @@ export default {
   justify-items: center;
   flex-direction: column;
 }
-.spring-spinner,
-.spring-spinner * {
-  box-sizing: border-box;
-}
-
-.spring-spinner {
-  margin-top: 250px;
-  height: 60px;
-  width: 60px;
-}
-
-.spring-spinner .spring-spinner-part {
-  overflow: hidden;
-  height: calc(60px / 2);
-  width: 60px;
-}
-
-.spring-spinner .spring-spinner-part.bottom {
-  transform: rotate(180deg) scale(-1, 1);
-}
-
-.spring-spinner .spring-spinner-rotator {
-  width: 60px;
-  height: 60px;
-  border: calc(60px / 7) solid transparent;
-  border-right-color: #0d6efd;
-  border-top-color: #0d6efd;
-  border-radius: 50%;
-  box-sizing: border-box;
-  animation: spring-spinner-animation 3s ease-in-out infinite;
-  transform: rotate(-200deg);
-}
-
-@keyframes spring-spinner-animation {
-  0% {
-    border-width: calc(60px / 7);
-  }
-  25% {
-    border-width: calc(60px / 23.33);
-  }
-  50% {
-    transform: rotate(115deg);
-    border-width: calc(60px / 7);
-  }
-  75% {
-    border-width: calc(60px / 23.33);
-  }
-  100% {
-    border-width: calc(60px / 7);
-  }
-}
 
 html {
   scroll-behavior: smooth;
@@ -264,11 +266,15 @@ html {
 
 .wrapper {
   position: absolute;
-  background-image: url(https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1907&q=80);
+  // background-image: url(https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1907&q=80);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   color: #1b150d;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
 }
 .content {
   position: relative;
@@ -277,7 +283,7 @@ html {
   align-content: center;
   align-items: center;
   color: $w;
-  padding-top: 100px;
+  padding-top: 4%;
   background: rgb(0, 0, 0);
   background: linear-gradient(
     180deg,
@@ -285,6 +291,8 @@ html {
     rgba(0, 0, 0, 1) 50%,
     rgba(0, 0, 0, 1) 100%
   );
+  width: 100vw;
+  max-width: 100%;
 }
 
 .header {
@@ -295,11 +303,28 @@ html {
   background-color: rgba(gray, 0.5);
   padding: 20px;
   border-radius: 30px;
+
   &-image {
     border-radius: 50%;
     border: 1px solid $w;
     width: 300px;
     height: 300px;
+    // display: flex;
+    // justify-content: center;
+    display: inline-block;
+    // text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    &-img {
+      left: -10px;
+      width: 320px;
+      height: 320px;
+      position: absolute;
+      display: block;
+      object-fit: cover;
+      border-radius: 50%;
+    }
   }
   &-name {
     top: auto;
@@ -333,9 +358,13 @@ html {
 .btn {
   background-color: transparent;
   font-weight: bolder;
-  font-size: $small;
+  font-size: 0.8em;
   color: $w;
   margin: 0.5em;
+  transition: transform 0.2s;
+  &:hover {
+    transform: scale(1.2);
+  }
 }
 .more-details {
   background-color: transparent;
@@ -343,7 +372,7 @@ html {
   margin-top: auto;
   text-decoration: none;
   font-weight: bolder;
-  font-size: $small;
+  font-size: 1em;
   color: $w;
   display: flex;
   flex-direction: column;
@@ -364,7 +393,8 @@ html {
   flex-direction: column;
   align-items: center;
   background-color: transparent;
-
+  width: 100vw;
+  max-width: 100%;
   &-tagline {
     font-size: $huge;
     margin: 2em 0 0.25em 0;
@@ -390,7 +420,7 @@ html {
 }
 .card {
   background-color: rgba($s-5, 0.8);
-  width: 18em;
+  width: 24em;
   border-radius: 30px;
   &-img-top {
     border-radius: 30px 30px 10px 10px;
