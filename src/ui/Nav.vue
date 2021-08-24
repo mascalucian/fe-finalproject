@@ -1,5 +1,4 @@
 <template>
-<div class="alll">
   <nav class="navMenu">
     
       <router-link to="/test" id="home"><a >Home</a></router-link>
@@ -13,7 +12,6 @@
     
     <!-- <div class="dot"></div> -->
   </nav>
-</div>
 </template>
 
 <script>
