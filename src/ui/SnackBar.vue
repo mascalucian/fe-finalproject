@@ -33,6 +33,7 @@ div {
   animation-name: appearance;
   animation-duration: 0.25s;
   padding: 1rem;
+  z-index: 1000;
 }
 
 @keyframes appearance {

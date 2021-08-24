@@ -91,20 +91,18 @@ export default {
     ),
   },
   methods: {
-    login() {
-      this.$store
-        .dispatch("signIn", {
-          username: this.username,
-          password: this.password,
-        })
-        .then(() => {
-          if (this.isLoggedin) {
-            this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
-            this.$store.dispatch("callSnackBar", {
-              payload: "Login successful!", //Your message!!
-            });
-          }
+    async login() {
+      await this.$store.dispatch("signIn", {
+        username: this.username,
+        password: this.password,
+      });
+      console.log("Finished");
+      if (this.isLoggedin) {
+        this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
+        this.$store.dispatch("callSnackBar", {
+          payload: "Login successful!", //Your message!!
         });
+      }
     },
     register() {
       this.$store

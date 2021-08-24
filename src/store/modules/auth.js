@@ -15,9 +15,9 @@ const auth = {
     },
   },
   actions: {
-    signUp({ commit }, { username, password }) {
+    async signUp({ commit }, { username, password }) {
       commit("loadData");
-      firebase
+      await firebase
         .auth()
         .createUserWithEmailAndPassword(username, password)
         .then((data) => {
@@ -42,9 +42,9 @@ const auth = {
         }
       });
     },
-    signIn({ commit }, { username, password }) {
+    async signIn({ commit }, { username, password }) {
       commit("loadData");
-      firebase
+      await firebase
         .auth()
         .signInWithEmailAndPassword(username, password)
         .then((data) => {
@@ -57,6 +57,7 @@ const auth = {
         });
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
+          console.log("GOOD");
           commit("showError", "");
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/firebase.User
