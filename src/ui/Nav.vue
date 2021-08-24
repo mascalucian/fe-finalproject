@@ -44,7 +44,7 @@ export default {
 
   margin-top: 20px;
   margin-left: 50%;
-  width: 100vw;
+  width: 99vw;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   background: darkorange;
@@ -73,8 +73,6 @@ export default {
 #login {
   margin-left: 43vw;
   vertical-align: middle;
-  position: fixed;
-  z-index: 10;
 }
 #register {
   margin-left: 1vw;
