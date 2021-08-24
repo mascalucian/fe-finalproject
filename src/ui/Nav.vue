@@ -45,7 +45,7 @@ export default {
   width: 99vw;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  background: darkorange;
+  background: transparent;
   font-family: "Montserrat", sans-serif;
 }
 .logo {
