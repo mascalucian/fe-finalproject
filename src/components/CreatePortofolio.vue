@@ -4,7 +4,10 @@
       <h1>Create a new Portofol.io</h1>
     </header>
     <div id="main-container">
-      <form @submit.prevent="createPortofolio()">
+      <Form
+        @submit.prevent="createPortofolio()"
+        :validation-schema="newPortSchema"
+      >
         <div
           class="banner-image"
           :style="{
@@ -22,55 +25,74 @@
             />
             <div class="profile-picture-upload">
               <label v-if="!previewPhoto" for="profile-pic-input"
-                >Upload your profile picture:</label
-              >
+                >Upload your profile picture: *
+              </label>
               <input
                 type="file"
                 id="profile-pic-input"
+                required
                 @change="processImage('profile-pic-input')"
               />
             </div>
           </div>
           <div class="names-title">
             <div class="names">
-              <input
-                v-model="newPortofolio.firstName"
-                :size="
-                  newPortofolio.firstName.length < 15 &&
-                  newPortofolio.firstName.length > 1
-                    ? newPortofolio.firstName.length
-                    : 15
-                "
-                type="text"
-                id="first-name"
-                placeholder="First Name"
-              />
-              <input
-                type="text"
-                id="last-name"
-                placeholder="Last Name"
-                v-model="newPortofolio.lastName"
-                :size="
-                  newPortofolio.lastName.length < 15 &&
-                  newPortofolio.lastName.length > 1
-                    ? newPortofolio.lastName.length
-                    : 15
-                "
-              />
+              <div class="form-field">
+                <Field
+                  v-model="newPortofolio.firstName"
+                  :size="
+                    newPortofolio.firstName == ''
+                      ? 10
+                      : newPortofolio.firstName.length < 15 &&
+                        newPortofolio.firstName != '' &&
+                        newPortofolio.lastName != ''
+                      ? newPortofolio.firstName.length
+                      : 15
+                  "
+                  type="text"
+                  id="first-name"
+                  placeholder="First Name *"
+                  name="firstName"
+                />
+                <ErrorMessage name="firstName" />
+              </div>
+              <div class="form-field">
+                <Field
+                  type="text"
+                  id="last-name"
+                  placeholder="Last Name *"
+                  name="lastName"
+                  v-model="newPortofolio.lastName"
+                  :size="
+                    newPortofolio.lastName == ''
+                      ? 10
+                      : newPortofolio.lastName.length < 15 &&
+                        newPortofolio.lastName != '' &&
+                        newPortofolio.firstName != ''
+                      ? newPortofolio.lastName.length
+                      : 15
+                  "
+                />
+                <ErrorMessage name="lastName" />
+              </div>
             </div>
             <div class="title">
-              <input
-                type="text"
-                id="title"
-                placeholder="Your post"
-                v-model="newPortofolio.title"
-                :size="
-                  newPortofolio.title.length < 15 &&
-                  newPortofolio.title.length > 1
-                    ? newPortofolio.title.length
-                    : 30
-                "
-              />
+              <div class="form-field">
+                <Field
+                  name="title"
+                  type="text"
+                  id="title"
+                  placeholder="Your post *"
+                  v-model="newPortofolio.title"
+                  :size="
+                    newPortofolio.title.length < 15 &&
+                    newPortofolio.title.length > 1
+                      ? newPortofolio.title.length
+                      : 30
+                  "
+                />
+                <ErrorMessage name="title" />
+              </div>
             </div>
           </div>
           <div class="banner-upload">
@@ -86,23 +108,37 @@
         </div>
         <div class="middle-section">
           <div class="tagline-form-field">
-            <label for="tagline">Tagline:</label>
-            <input
-              type="text"
-              id="tagline"
-              placeholder="What makes you awesome?"
-              size="40"
-              v-model="newPortofolio.tagline"
-            />
+            <label for="tagline">Tagline: *</label>
+            <div class="form-field">
+              <Field
+                name="tagline"
+                type="text"
+                id="tagline"
+                placeholder="What makes you awesome?"
+                size="40"
+                maxlength="50"
+                v-model="newPortofolio.tagline"
+              />
+              <ErrorMessage name="tagline" />
+            </div>
           </div>
           <div class="about">
-            <textarea
-              placeholder="Tell us about you"
-              v-model="newPortofolio.about"
-            ></textarea>
+            <div class="form-field">
+              <Field
+                v-slot="{ field }"
+                name="about"
+                v-model="newPortofolio.about"
+              >
+                <textarea
+                  v-bind="field"
+                  placeholder="Tell us about you *"
+                ></textarea>
+              </Field>
+              <ErrorMessage name="about" />
+            </div>
           </div>
           <div class="pdf">
-            <label>Upload your resume:<i class="fas fa-file-pdf"></i></label>
+            <label>Upload your resume:*<i class="fas fa-file-pdf"></i></label>
             <input type="file" id="pdf-input" />
           </div>
         </div>
@@ -118,8 +154,10 @@
           </div>
           <form id="add-project-form" @submit.prevent="addProject()">
             <div class="project-form-field">
-              <label for="project-title">Title:</label>
+              <label for="project-title">Title: *</label>
               <input
+                required
+                minlength="5"
                 type="text"
                 id="project-title"
                 placeholder="Your project's title"
@@ -128,14 +166,15 @@
               />
             </div>
             <div class="project-form-field">
-              <label for="project-description">Description:</label>
+              <label for="project-description">Description: *</label>
               <textarea
+                minlength="10"
                 id="project-description"
                 placeholder="What's it about?"
                 v-model="project.description"
               ></textarea>
             </div>
-            <label>Upload a picture for your project!</label>
+            <label>Upload a picture for your project! (Optional)</label>
             <div class="project-form-field">
               <input type="file" id="project-image-input" />
             </div>
@@ -145,7 +184,7 @@
         <div class="socials-contact">
           <div class="socials">
             <form id="add-socials-form" @submit.prevent="addSocial()">
-              <h3>Social accounts:</h3>
+              <h3>Social accounts: (Optional)</h3>
               <div class="socials-list">
                 <a
                   v-for="social in newPortofolio.socials"
@@ -179,8 +218,8 @@
               </div>
               <h4>Add social account:</h4>
               <div>
-                <label for="social-type-input">Website:</label>
-                <select id="social-type-input" v-model="socialsType">
+                <label for="social-type-input">Website: *</label>
+                <select id="social-type-input" v-model="socialsType" required>
                   <option value="facebook">Facebook</option>
                   <option value="instagram">Instagram</option>
                   <option value="linkedin">LinkedIn</option>
@@ -195,6 +234,7 @@
                   placeholder="Link"
                   size="40"
                   v-model="socialsUrl"
+                  required
                 />
               </div>
               <input type="submit" value="Add account" />
@@ -205,13 +245,17 @@
             <h3>Contact:</h3>
             <div class="contact-form-field">
               <label for="phone-number">Phone number: </label>
-              <input
-                type="text"
-                id="phone-number"
-                placeholder="Phone Number"
-                v-model="newPortofolio.phoneNumber"
-                size="30"
-              />
+              <div class="form-field">
+                <Field
+                  name="phoneNumber"
+                  type="text"
+                  id="phone-number"
+                  placeholder="Phone Number"
+                  v-model="newPortofolio.phoneNumber"
+                  size="30"
+                />
+                <ErrorMessage name="phoneNumber" />
+              </div>
             </div>
             <div class="contact-form-field">
               <label for="email">Email: </label>
@@ -228,18 +272,48 @@
             <input type="submit" value="Create Portofol.io" />
           </div>
         </div>
-      </form>
+      </Form>
     </div>
   </div>
 </template>
 
 <script>
+import * as yup from "yup";
+import { Form, Field, ErrorMessage } from "vee-validate";
 import firebase from "firebase/app";
 import "firebase/storage";
 import { mapGetters } from "vuex";
 
 export default {
+  components: {
+    Form,
+    Field,
+    ErrorMessage,
+  },
   data() {
+    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    const newPortSchema = yup.object({
+      firstName: yup.string().required(),
+      lastName: yup.string().required(),
+      title: yup
+        .string()
+        .min(5)
+        .required(),
+      tagline: yup
+        .string()
+        .min(10)
+        .max(50)
+        .required(),
+      about: yup
+        .string()
+        .min(20)
+        .required(),
+      phoneNumber: yup
+        .string()
+        .matches(phoneRegExp, "Phone number is not valid")
+        .max(15)
+        .required(),
+    });
     return {
       newPortofolio: {
         firstName: "",
@@ -263,6 +337,7 @@ export default {
         description: "",
         userId: "",
       },
+      newPortSchema,
     };
   },
   methods: {
@@ -446,6 +521,24 @@ label {
   display: block;
 }
 
+[role="alert"] {
+  color: rgb(143, 27, 27);
+  display: block;
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  padding: 0.1rem;
+  text-decoration: underline;
+  position: absolute;
+  bottom: -1rem;
+}
+
+.form-field {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
 input {
   display: inline-block;
   color: $w;
@@ -534,6 +627,10 @@ input[type="file"] {
   display: block;
   width: 90%;
   margin: 3px auto;
+
+  .error {
+    color: red;
+  }
 
   input {
     font-family: "Oswald", sans-serif;
