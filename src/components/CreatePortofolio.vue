@@ -159,9 +159,20 @@
               {{ !editMode ? "Add your projects:*" : "Manage your projects:" }}
             </h1>
             <h3>Let's see what you've accomplished</h3>
-            <div class="projects-list">
+            <div class="projects-list" v-if="!editMode">
               <h2>Project List:</h2>
               <div v-for="project in projects" :key="project" class="project">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+              </div>
+            </div>
+            <div class="projects-list" v-else>
+              <h2>Project List:</h2>
+              <div
+                v-for="project in getProjectsForPortofolio"
+                :key="project"
+                class="project"
+              >
                 <h3>{{ project.title }}</h3>
                 <p>{{ project.description }}</p>
               </div>
@@ -206,7 +217,11 @@
                 </div>
                 <label>Upload a picture for your project! (Optional)</label>
                 <div class="project-form-field">
-                  <input type="file" id="project-image-input" />
+                  <input
+                    type="file"
+                    id="project-image-input"
+                    @change="processImage('project-image-input')"
+                  />
                 </div>
                 <input type="submit" value="Add Project" />
               </form>
@@ -419,6 +434,7 @@ export default {
       newProjectSchema,
       newSocialSchema,
       editMode: false,
+      unsubscribe: undefined,
     };
   },
   methods: {
@@ -456,6 +472,8 @@ export default {
             this.previewBanner = "";
             this.newPortofolio.coverPhoto = null;
             break;
+          case "project-image-input":
+            break;
           default:
             break;
         }
@@ -477,6 +495,9 @@ export default {
               break;
             case "banner-input":
               that.previewBanner = reader.result;
+              break;
+            case "project-image-input":
+              // that.previewBanner = reader.result;
               break;
             default:
               break;
@@ -579,6 +600,7 @@ export default {
         .catch((error) => {
           console.log("Error getting document:", error);
         });
+      await this.getProjects(this.loggedInUser.uid);
       var storageRef = firebase.storage().ref();
       var profilePicRef = storageRef.child(
         `/${this.loggedInUser.uid}/profile_picture.jpg`
@@ -605,6 +627,25 @@ export default {
           // Handle any errors
         });
     },
+    async getProjects(userId) {
+      this.$store.dispatch("bindProjects", { payload: userId });
+      this.unsubscribe = db
+        .collection("projects")
+        .where("userId", "==", userId)
+        .onSnapshot((snapshot) => {
+          snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+              this.methodThatForcesUpdate();
+            }
+            if (change.type === "modified") {
+              this.methodThatForcesUpdate();
+            }
+            if (change.type === "removed") {
+              this.methodThatForcesUpdate();
+            }
+          });
+        });
+    },
     methodThatForcesUpdate() {
       // ...
       this.$forceUpdate(); // Notice we have to use a $ here
@@ -614,7 +655,7 @@ export default {
   computed: {
     //ai nevoie doar de allPortofolios, il poti folosi apoi in v-for portofolio in allPortofolios
     ...mapGetters(
-      ["loggedInUser", "getHasPortofolio"] // -> this.someGetter
+      ["loggedInUser", "getHasPortofolio", "getProjectsForPortofolio"] // -> this.someGetter
     ),
   },
   async created() {
