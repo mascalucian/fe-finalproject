@@ -500,9 +500,12 @@ export default {
         description: this.project.description,
         userId: this.project.userId,
       };
+      const projectRef = db.collection("projects").doc();
+      project = { id: projectRef.id, ...project };
       this.projects.push(project);
       let file = document.getElementById("project-image-input").files[0];
-      this.projectPhotos.push(file);
+      if (file);
+      this.projectPhotos.push({ projectId: projectRef.id, photoFile: file });
       document.getElementById("project-image-input").value = null;
       this.$refs.addProjectForm.reset();
       console.log(this.projectPhotos);
@@ -544,22 +547,18 @@ export default {
           payload: project,
         });
       });
-      if (this.projectPhotos.length > 0) {
-        for (let index = 0; index < this.projectPhotos.length; index++) {
-          var projectPictureRef = storageRef.child(
-            `/${this.loggedInUser.uid}/projects/project_${index}.jpg`
-          );
-          projectPictureRef.put(this.projectPhotos[index]).then((snapshot) => {
-            console.log("Uploaded project picture!");
-          });
-        }
-      }
+      await this.projectPhotos.forEach((projectPhotoData) => {
+        var projectPictureRef = storageRef.child(
+          `/${this.loggedInUser.uid}/projects/${projectPhotoData.projectId}/project.jpg`
+        );
+        projectPictureRef.put(projectPhotoData.photoFile).then((snapshot) => {
+          console.log("Uploaded project picture!");
+        });
+      });
       this.$store.commit("setSnackBarBackground", "#adff2f");
       this.$store.dispatch("callSnackBar", {
         payload: "Succes! Your portofol.io has been created!",
       });
-
-      //   this.
     },
     async loadForEdit() {
       await db
