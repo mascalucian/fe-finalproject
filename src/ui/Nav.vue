@@ -36,6 +36,8 @@ nav {
   display: flex;
   flex-wrap: wrap;
   vertical-align: middle;
+  position: fixed;
+  z-index: 10;
 }
 
 a {

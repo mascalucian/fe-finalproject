@@ -10,46 +10,55 @@
     </div>
     <div v-if="currentPortofolio">
       <div class="content background-image">
-        <div v-if="!show" class="header">
-          <i class="fas fa-laptop-code fa-10x"></i>
-          <h1 class="name">
+        <div class="header">
+          <div class="header-image">
+            <!-- <i class="fas fa-laptop-code fa-10x "></i> -->
+          </div>
+
+          <h1 class="header-name">
             {{ currentPortofolio.firstName }}
             {{ currentPortofolio.lastName }}
           </h1>
 
-          <div class="occupation">
+          <div class="header-occupation">
             {{ currentPortofolio.title }}
           </div>
+          <a
+            class="header-socials"
+            v-for="social in currentPortofolio.socials"
+            v-bind:key="social"
+            :href="social.url"
+          >
+            <i
+              class="fab "
+              :class="{
+                'fa-facebook-square fa-3x': social.socialType == 'facebook',
+                'fa-instagram fa-3x': social.socialType == 'instagram',
+                'fa-linkedin fa-3x': social.socialType == 'linkedin',
+                'fa-youtube fa-3x': social.socialType == 'youtube',
+                'fa-twitter fa-3x': social.socialType == 'twitter',
+              }"
+              :style="[
+                social.socialType == 'facebook'
+                  ? { color: '#fdfdfd' }
+                  : social.socialType == 'instagram'
+                  ? { color: '#fdfdfd' }
+                  : social.socialType == 'linkedin'
+                  ? { color: '#fdfdfd' }
+                  : social.socialType == 'youtube'
+                  ? { color: '#fdfdfd' }
+                  : social.socialType == 'twitter'
+                  ? { color: '#fdfdfd' }
+                  : '',
+              ]"
+            ></i>
+          </a>
         </div>
-        <button
-          @click="
-            animate;
-            show = !show;
-          "
-          v-if="!show"
-          class="more-details"
-        >
+        <button class="more-details" v-if="show">
           More details
-          <!-- <br /> -->
           <i class="fas fa-chevron-down"></i>
         </button>
-        <div
-          :class="{ 'fadeInUp animated': animated, delay: 500 }"
-          @animationend="animated = false"
-          v-if="show"
-          id="details"
-        >
-          <button
-            @click="
-              show = !show;
-              animate;
-            "
-            class="more-details"
-          >
-            <i class="fas fa-chevron-up"></i>
-            Go back
-          </button>
-
+        <div id="details">
           <h1 class="tagline text">{{ currentPortofolio.tagline }}</h1>
           <div class="about text">
             About me: <br />{{ currentPortofolio.about }}
@@ -94,18 +103,23 @@ export default {
       projects: [],
       unsubscribe: undefined,
       animated: false,
-      show: false,
+      show: true,
       loading: false,
-      // animationObject: {
-      //   classes: "fadeInUp",
-      //   delay: 5000,
-      //   duration: 5000,
-      // },
     };
   },
   methods: {
     animate() {
       this.animated = true;
+    },
+    hideButton() {
+      window.onscroll = () => {
+        if (pageYOffset > 0) {
+          this.show = !this.show;
+        }
+        if (pageYOffset <= 0) {
+          this.show = !this.show;
+        }
+      };
     },
     async getPortofolio(userId) {
       this.loading = true;
@@ -239,45 +253,73 @@ html {
   overflow: auto;
 }
 
-.background-image {
+.wrapper {
+  position: absolute;
   background-image: url(https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1907&q=80);
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   color: #1b150d;
   width: 100vw;
   max-width: 100%;
-  height: 93.5vh;
+  height: 100vh;
   max-height: 100%;
 }
 .content {
+  position: relative;
   display: flex;
   /* flex-flow: column; */
   flex-direction: column;
   align-content: center;
   align-items: center;
   color: $w;
+  padding-top: 100px;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
 }
 .header {
+  position: relative;
   display: flex;
   /* flex-flow: column; */
   flex-direction: column;
   flex: 0 1 auto;
   align-items: center;
-  margin: 25px;
-  .name {
+  // margin: 25px;
+  background-color: rgba(gray, 0.5);
+  padding: 20px;
+  border-radius: 30px;
+  &-image {
+    border-radius: 50%;
+    border: 1px solid $w;
+    width: 300px;
+    height: 300px;
+  }
+  &-name {
     top: auto;
     margin-top: 10%;
     margin-bottom: 0;
     font-size: 70px;
     font-weight: 400;
   }
-  .occupation {
+  &-occupation {
     font-size: 40px;
     font-family: "Raleway";
-    padding: 0.25em 2.75em 0.25em 2.75em;
-    margin: 0.5em;
+    padding: 0.35em 2.75em 0.35em 2.75em;
+    margin: 1.25em;
     border-top: 1px solid $w;
     border-bottom: 1px solid $w;
+  }
+  &-socials {
+    padding: 1em 2.75em 1em 2.75em;
+    transition: transform 0.2s;
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 }
 .fas {
@@ -295,18 +337,25 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  // margin-top: 360px;
+  margin-top: 35px;
   &:hover {
     cursor: pointer;
   }
 }
 
 #details {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  justify-items: center;
+  // justify-items: center;
   align-items: center;
+  background-color: transparent;
+  width: 100vw;
+  max-width: 100%;
+  height: 100vh;
+  max-height: 100%;
+  // padding-top: 5em;
 }
 // .more-details:hover {
 //   cursor: pointer;
