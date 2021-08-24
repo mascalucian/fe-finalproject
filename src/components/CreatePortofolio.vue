@@ -1,7 +1,9 @@
 <template>
   <div id="create-portofolio-body">
     <header>
-      <h1>Create a new Portofol.io</h1>
+      <h1>
+        {{ !editMode ? "Create a new Portofol.io" : "Edit your Portofol.io" }}
+      </h1>
     </header>
     <div id="main-container">
       <Form
@@ -31,9 +33,8 @@
                 <input
                   type="file"
                   id="profile-pic-input"
-                  required
                   accept="image/*"
-                  size="7"
+                  :required="!editMode"
                   @change="processImage('profile-pic-input')"
                 />
               </div>
@@ -141,12 +142,22 @@
               </div>
             </div>
             <div class="pdf">
-              <label>Upload your resume:*<i class="fas fa-file-pdf"></i></label>
-              <input type="file" id="pdf-input" accept="application/pdf" />
+              <label
+                >{{ !editMode ? "Upload your resume:*" : "Upload a new resume:"
+                }}<i class="fas fa-file-pdf"></i
+              ></label>
+              <input
+                type="file"
+                id="pdf-input"
+                :required="!editMode"
+                accept="application/pdf"
+              />
             </div>
           </div>
           <div class="projects">
-            <h1>Add your projects:</h1>
+            <h1>
+              {{ !editMode ? "Add your projects:*" : "Manage your projects:" }}
+            </h1>
             <h3>Let's see what you've accomplished</h3>
             <div class="projects-list">
               <h2>Project List:</h2>
@@ -313,7 +324,7 @@
             <div class="button-row">
               <input
                 type="submit"
-                value="Create Portofol.io"
+                :value="!editMode ? 'Create Portofol.io' : 'Edit Portofol.io'"
                 :disabled="isSubmitting"
               />
             </div>
@@ -330,6 +341,7 @@ import { Form, Field, ErrorMessage, ValidationObserver } from "vee-validate";
 import firebase from "firebase/app";
 import "firebase/storage";
 import { mapGetters } from "vuex";
+import { db } from "../config/db";
 
 export default {
   components: {
@@ -406,6 +418,7 @@ export default {
       newPortSchema,
       newProjectSchema,
       newSocialSchema,
+      editMode: false,
     };
   },
   methods: {
@@ -508,19 +521,24 @@ export default {
         `/${this.loggedInUser.uid}/cover_picture.jpg`
       );
       const resumePdf = document.getElementById("pdf-input").files[0];
+      if (resumePdf) {
+        await resumeRef.put(resumePdf).then((snapshot) => {
+          console.log("Uploaded resume pdf!");
+        });
+      }
       const profilePicture = document.getElementById("profile-pic-input")
         .files[0];
+      if (profilePicture) {
+        await profilePicRef.put(profilePicture).then((snapshot) => {
+          console.log("Uploaded profile picture!");
+        });
+      }
       const coverPicture = document.getElementById("banner-input").files[0];
-      await resumeRef.put(resumePdf).then((snapshot) => {
-        console.log("Uploaded resume pdf!");
-      });
-      await profilePicRef.put(profilePicture).then((snapshot) => {
-        console.log("Uploaded profile picture!");
-      });
-      await coverPicRef.put(coverPicture).then((snapshot) => {
-        console.log("Uploaded cover picture!");
-      });
-
+      if (coverPicture) {
+        await coverPicRef.put(coverPicture).then((snapshot) => {
+          console.log("Uploaded cover picture!");
+        });
+      }
       await this.projects.forEach((project) => {
         this.$store.dispatch("addProject", {
           payload: project,
@@ -543,18 +561,71 @@ export default {
 
       //   this.
     },
+    async loadForEdit() {
+      await db
+        .collection("portofolios")
+        .doc(this.loggedInUser.uid)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            this.newPortofolio = doc.data();
+            this.methodThatForcesUpdate();
+            console.log("edit mode");
+            console.log(this.newPortofolio);
+            this.editMode = true;
+          } else {
+            return;
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+      var storageRef = firebase.storage().ref();
+      var profilePicRef = storageRef.child(
+        `/${this.loggedInUser.uid}/profile_picture.jpg`
+      );
+      var coverPicRef = storageRef.child(
+        `/${this.loggedInUser.uid}/cover_picture.jpg`
+      );
+      await profilePicRef
+        .getDownloadURL()
+        .then((url) => {
+          console.log("loaded profile picture");
+          this.previewPhoto = url;
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
+      await coverPicRef
+        .getDownloadURL()
+        .then((url) => {
+          console.log("loaded cover picture");
+          this.previewBanner = url;
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
+    },
+    methodThatForcesUpdate() {
+      // ...
+      this.$forceUpdate(); // Notice we have to use a $ here
+      console.log("hehe. Rerendered!");
+    },
   },
   computed: {
     //ai nevoie doar de allPortofolios, il poti folosi apoi in v-for portofolio in allPortofolios
     ...mapGetters(
-      ["loggedInUser"] // -> this.someGetter
+      ["loggedInUser", "getHasPortofolio"] // -> this.someGetter
     ),
   },
-  created() {
+  async created() {
     if (this.loggedInUser) {
       this.newPortofolio.email = this.loggedInUser.email;
       this.newPortofolio.userId = this.loggedInUser.uid;
       this.project.userId = this.loggedInUser.uid;
+    }
+    if (this.getHasPortofolio) {
+      await this.loadForEdit();
     }
   },
 };
