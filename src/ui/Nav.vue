@@ -10,7 +10,7 @@
       <router-link to="/register" id="register" ><a>Register</a></router-link>
       <router-link to="/" id="logoid"><a ><img src="https://i.imgur.com/MGp2X3f.png" class="logo"></a></router-link>
     
-    <!-- <div class="dot"></div> -->
+     <div class="dot"></div> 
   </nav>
 </template>
 
@@ -122,45 +122,38 @@ a:active, a.router-link-active  {
 }
 
 .navMenu a:nth-child(2):hover ~ .dot {
-  -webkit-transform: translateX(110px);
-  transform: translateX(110px);
+  -webkit-transform: translateX(1vw);
+  transform: translateX(1vw);
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   opacity: 1;
 }
 
 .navMenu a:nth-child(3):hover ~ .dot {
-  -webkit-transform: translateX(200px);
-  transform: translateX(200px);
+  -webkit-transform: translateX(9.2vw);
+  transform: translateX(9.2vw);
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   opacity: 1;
 }
 
 .navMenu a:nth-child(4):hover ~ .dot {
-  -webkit-transform: translateX(285px);
-  transform: translateX(285px);
+  -webkit-transform: translateX(15.5vw);
+  transform: translateX(15.5vw);
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   opacity: 1;
 }
 .navMenu a:nth-child(5):hover ~ .dot {
-  -webkit-transform: translateX(67.2vw);
-  transform: translateX(67.2vw);
+  -webkit-transform: translateX(61.9w);
+  transform: translateX(61.9vw);
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   opacity: 1;
 }
 .navMenu a:nth-child(6):hover ~ .dot {
-  -webkit-transform: translateX(73.5vw);
-  transform: translateX(73.5vw);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  opacity: 1;
-}
-.navMenu a:nth-child(7):hover ~ .dot {
-  -webkit-transform: translateX(285px);
-  transform: translateX(285px);
+  -webkit-transform: translateX(68vw);
+  transform: translateX(68vw);
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   opacity: 1;
