@@ -12,6 +12,7 @@
       >
         <form @submit.prevent="handleSubmit($event, createPortofolio)">
           <div
+            ref="bannerRef"
             class="banner-image"
             :style="{
               backgroundImage: `url(${previewBanner ||
@@ -19,13 +20,16 @@
             }"
           >
             <div class="profile-picture">
-              <img
-                id="profile-picture-img"
-                v-bind:src="
-                  previewPhoto ||
-                    'https://www.pngitem.com/pimgs/m/464-4644415_employee-clipart-testimonial-illustration-hd-png-download.png'
-                "
-              />
+              <div ref="profilePicRef">
+                <img
+                  id="profile-picture-img"
+                  v-bind:src="
+                    previewPhoto ||
+                      'https://www.pngitem.com/pimgs/m/464-4644415_employee-clipart-testimonial-illustration-hd-png-download.png'
+                  "
+                />
+              </div>
+
               <div class="profile-picture-upload">
                 <label v-if="!previewPhoto" for="profile-pic-input"
                   >Upload your profile picture: *
@@ -35,7 +39,7 @@
                   id="profile-pic-input"
                   accept="image/*"
                   :required="!editMode"
-                  @change="processImage('profile-pic-input')"
+                  @change="processImage($event, 'profilePicRef')"
                 />
               </div>
             </div>
@@ -107,7 +111,7 @@
                 type="file"
                 id="banner-input"
                 accept="image/*"
-                @change="processImage('banner-input')"
+                @change="processImage($event, 'bannerRef')"
               />
             </div>
           </div>
@@ -435,18 +439,20 @@ export default {
       newSocialSchema,
       editMode: false,
       unsubscribe: undefined,
+      loader: undefined,
+      profilePictureLoader: undefined,
+      coverPictureLoader: undefined,
     };
   },
   methods: {
-    processImage(inputId) {
+    processImage($event, inputId) {
       console.log("STARTED");
-      //   let loader = this.$loading.show({
-      //     // Optional parameters
-      //     container: this.$refs.previewParent,
-      //     isFullPage: false,
-      //   });
-      //   this.isLoadingPicture = false;
-      var file = document.getElementById(`${inputId}`).files[0];
+      this.profilePictureLoader = this.$loading.show({
+        // Optional parameters
+        container: this.$refs[inputId],
+        isFullPage: false,
+      });
+      var file = $event.target.files[0];
       const reader = new FileReader();
       var that = this;
       if (file) {
@@ -455,20 +461,20 @@ export default {
         reader.readAsDataURL(file);
       } else {
         console.log("NO FILE");
-        // loader.hide();
+        this.profilePictureLoader.hide();
         // this.isLoadingPicture = false;
         return;
       }
       if (file.size > 10000000) {
-        // loader.hide();
+        this.profilePictureLoader.hide();
         // console.log("FILE BIGGER THAN 10MB");
-        document.getElementById(`${inputId}`).value = null;
+        $event.target.value = null;
         switch (inputId) {
-          case "profile-pic-input":
+          case "profilePicRef":
             this.previewPhoto = "";
             this.newPortofolio.photo = null;
             break;
-          case "banner-input":
+          case "bannerRef":
             this.previewBanner = "";
             this.newPortofolio.coverPhoto = null;
             break;
@@ -484,16 +490,16 @@ export default {
       reader.addEventListener(
         "load",
         function() {
-          // console.log("LOADED");
+          that.profilePictureLoader.hide();
           //   loader.hide();
           //   this.isLoadingPicture = false;
           //   that.employeeMutated.photo = reader.result;
           console.log(inputId);
           switch (inputId) {
-            case "profile-pic-input":
+            case "profilePicRef":
               that.previewPhoto = reader.result;
               break;
-            case "banner-input":
+            case "bannerRef":
               that.previewBanner = reader.result;
               break;
             case "project-image-input":
@@ -532,7 +538,9 @@ export default {
       console.log(this.projectPhotos);
     },
     async createPortofolio() {
-      console.log("CALLED");
+      this.loader = this.$loading.show({
+        backgroundColor: "none",
+      });
       await this.$store.dispatch("updatePortofolio", {
         payload: this.newPortofolio,
       });
@@ -554,12 +562,14 @@ export default {
         .files[0];
       if (profilePicture) {
         await profilePicRef.put(profilePicture).then((snapshot) => {
+          document.getElementById("profile-pic-input").value = null;
           console.log("Uploaded profile picture!");
         });
       }
       const coverPicture = document.getElementById("banner-input").files[0];
       if (coverPicture) {
         await coverPicRef.put(coverPicture).then((snapshot) => {
+          document.getElementById("banner-input").value = null;
           console.log("Uploaded cover picture!");
         });
       }
@@ -576,9 +586,12 @@ export default {
           console.log("Uploaded project picture!");
         });
       });
+      this.loader.hide();
       this.$store.commit("setSnackBarBackground", "#adff2f");
       this.$store.dispatch("callSnackBar", {
-        payload: "Succes! Your portofol.io has been created!",
+        payload: !this.editMode
+          ? "Succes! Your portofol.io has been created!"
+          : "Succes! Your portofol.io has been edited!",
       });
     },
     async loadForEdit() {
@@ -592,7 +605,6 @@ export default {
             this.methodThatForcesUpdate();
             console.log("edit mode");
             console.log(this.newPortofolio);
-            this.editMode = true;
           } else {
             return;
           }
@@ -600,6 +612,7 @@ export default {
         .catch((error) => {
           console.log("Error getting document:", error);
         });
+      this.loader.hide();
       await this.getProjects(this.loggedInUser.uid);
       var storageRef = firebase.storage().ref();
       var profilePicRef = storageRef.child(
@@ -608,20 +621,33 @@ export default {
       var coverPicRef = storageRef.child(
         `/${this.loggedInUser.uid}/cover_picture.jpg`
       );
-      await profilePicRef
+      this.profilePictureLoader = this.$loading.show({
+        // Optional parameters
+        container: this.$refs.profilePicRef,
+        isFullPage: false,
+      });
+      this.coverPictureLoader = this.$loading.show({
+        // Optional parameters
+        container: this.$refs.bannerRef,
+        isFullPage: false,
+      });
+
+      profilePicRef
         .getDownloadURL()
         .then((url) => {
           console.log("loaded profile picture");
           this.previewPhoto = url;
+          this.profilePictureLoader.hide();
         })
         .catch((error) => {
           // Handle any errors
         });
-      await coverPicRef
+      coverPicRef
         .getDownloadURL()
         .then((url) => {
           console.log("loaded cover picture");
           this.previewBanner = url;
+          this.coverPictureLoader.hide();
         })
         .catch((error) => {
           // Handle any errors
@@ -665,6 +691,8 @@ export default {
       this.project.userId = this.loggedInUser.uid;
     }
     if (this.getHasPortofolio) {
+      this.editMode = true;
+      this.loader = this.$loading.show();
       await this.loadForEdit();
     }
   },
@@ -673,7 +701,11 @@ export default {
 
 <style scoped lang="scss">
 header {
-  background-color: $w-9;
+  font-family: "Oswald", sans-serif;
+  font-weight: bolder;
+  background-repeat: repeat-x;
+  background-image: url("https://media.istockphoto.com/vectors/bright-seamless-pattern-with-orange-slices-vector-id1305791045?b=1&k=6&m=1305791045&s=612x612&w=0&h=7N354TSz_-ZYq5xz7lAisjzcFKiKDJgggbhP3V0BxwM=");
+  background-position-y: center;
   width: 100%;
   padding: 0.8em 0;
   display: flex;
@@ -737,6 +769,7 @@ input {
 }
 
 input[type="file"] {
+  font-family: "Work Sans", sans-serif;
   font-size: smaller;
   overflow: hidden;
   display: inline-block;
@@ -807,6 +840,7 @@ input[type="file"] {
   margin: 3px auto;
 
   input {
+    text-shadow: 2px 2px $o;
     font-family: "Oswald", sans-serif;
     display: inline-block;
     color: $w;
@@ -820,6 +854,7 @@ input[type="file"] {
     }
     &::placeholder {
       color: $sh-4;
+      text-shadow: none;
     }
     &#first-name {
       text-align: right;
@@ -923,9 +958,10 @@ input[type="file"] {
     bottom: 0.1rem;
   }
   textarea {
+    font-family: "Work Sans", sans-serif;
     font-size: large;
     width: 100% !important;
-    max-height: 7rem;
+    max-height: 12rem;
     min-height: 2rem;
     padding-bottom: 3rem;
     background-color: $s-1;
@@ -972,6 +1008,7 @@ input[type="file"] {
   justify-content: center;
   flex-direction: row;
   background-repeat: repeat-x;
+  background-position-y: 105%;
   background-image: url("https://media.istockphoto.com/vectors/bright-seamless-pattern-with-orange-slices-vector-id1305791045?b=1&k=6&m=1305791045&s=612x612&w=0&h=7N354TSz_-ZYq5xz7lAisjzcFKiKDJgggbhP3V0BxwM=");
   h3 {
     font-family: "Oswald", sans-serif;
@@ -1091,6 +1128,7 @@ input[type="file"] {
 }
 
 #add-project-form {
+  font-family: "Work Sans", sans-serif;
   background-color: $w-9;
   padding: 1rem 2rem;
   label {
@@ -1198,7 +1236,6 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   width: 100%;
-  background-color: rgb(238, 227, 173);
   padding: 2rem 0 10rem 0;
 
   input {
