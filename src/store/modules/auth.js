@@ -5,6 +5,7 @@ const auth = {
   state: {
     userData: null,
     errorMessage: "",
+    hasPortofolio: false,
   },
   mutations: {
     login(state, payload) {
@@ -12,6 +13,12 @@ const auth = {
     },
     logout(state) {
       state.userData = null;
+    },
+    confirmPortofolio(state) {
+      state.hasPortofolio = true;
+    },
+    deletePortofolio(state) {
+      state.hasPortofolio = false;
     },
   },
   actions: {
@@ -78,6 +85,7 @@ const auth = {
         .then(() => {
           commit("logout");
           commit("stopLoadData");
+          commit("deletePortofolio");
         })
         .catch((error) => {
           commit("stopLoadData");
@@ -88,6 +96,7 @@ const auth = {
   getters: {
     isLoggedin: (state) => state.userData !== null,
     loggedInUser: (state) => state.userData,
+    getHasPortofolio: (state) => state.hasPortofolio,
   },
 };
 export default auth;

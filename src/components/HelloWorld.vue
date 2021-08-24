@@ -102,6 +102,18 @@ export default {
         this.$store.dispatch("callSnackBar", {
           payload: "Login successful!", //Your message!!
         });
+        db.collection("portofolios")
+          .doc(this.loggedInUser.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              this.$store.commit("confirmPortofolio");
+              console.log("Has portofolio");
+            }
+          })
+          .catch((error) => {
+            console.log("Error getting document:", error);
+          });
       }
     },
     async register() {
