@@ -1,4 +1,6 @@
-<template><p>About us works!</p></template>
+<template>
+<p>About us works!</p>
+</template>
 
 <script>
 export default {};

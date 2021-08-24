@@ -163,7 +163,7 @@ svg {
 
 .btnn:hover {
   transition: 1s ease-in-out;
-  background: #4F95DA;
+  background: #f4690e;
 }
 
 .btnn:hover svg {

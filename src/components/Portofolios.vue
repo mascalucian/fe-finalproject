@@ -1,6 +1,6 @@
 <template>
   <div class="h1div">
-  <h1>Featured on </h1>
+  <h1>All the listings on </h1>
   <img src="https://i.imgur.com/MGp2X3f.png" alt="">
   </div>
     <div class="all">
