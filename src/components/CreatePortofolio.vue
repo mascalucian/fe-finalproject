@@ -5,273 +5,279 @@
     </header>
     <div id="main-container">
       <Form
-        @submit.prevent="createPortofolio()"
+        v-slot="{ handleSubmit, isSubmitting }"
         :validation-schema="newPortSchema"
       >
-        <div
-          class="banner-image"
-          :style="{
-            backgroundImage: `url(${previewBanner ||
-              'https://thumbs.dreamstime.com/b/%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B8%D0%B9-%D0%BD%D0%B0%D0%B1%D0%BE%D1%80-%D1%84%D0%BE%D0%BD%D0%B0-%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE-%D1%81%D1%82%D0%BE%D0%BB%D0%B0-%D0%BF%D0%BE%D0%BB%D1%83%D1%82%D0%BE%D0%BD%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B0-209014143.jpg'})`,
-          }"
-        >
-          <div class="profile-picture">
-            <img
-              id="profile-picture-img"
-              v-bind:src="
-                previewPhoto ||
-                  'https://www.pngitem.com/pimgs/m/464-4644415_employee-clipart-testimonial-illustration-hd-png-download.png'
-              "
-            />
-            <div class="profile-picture-upload">
-              <label v-if="!previewPhoto" for="profile-pic-input"
-                >Upload your profile picture: *
-              </label>
+        <form @submit.prevent="handleSubmit($event, createPortofolio)">
+          <div
+            class="banner-image"
+            :style="{
+              backgroundImage: `url(${previewBanner ||
+                'https://thumbs.dreamstime.com/b/%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B8%D0%B9-%D0%BD%D0%B0%D0%B1%D0%BE%D1%80-%D1%84%D0%BE%D0%BD%D0%B0-%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE-%D1%81%D1%82%D0%BE%D0%BB%D0%B0-%D0%BF%D0%BE%D0%BB%D1%83%D1%82%D0%BE%D0%BD%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B0-209014143.jpg'})`,
+            }"
+          >
+            <div class="profile-picture">
+              <img
+                id="profile-picture-img"
+                v-bind:src="
+                  previewPhoto ||
+                    'https://www.pngitem.com/pimgs/m/464-4644415_employee-clipart-testimonial-illustration-hd-png-download.png'
+                "
+              />
+              <div class="profile-picture-upload">
+                <label v-if="!previewPhoto" for="profile-pic-input"
+                  >Upload your profile picture: *
+                </label>
+                <input
+                  type="file"
+                  id="profile-pic-input"
+                  required
+                  @change="processImage('profile-pic-input')"
+                />
+              </div>
+            </div>
+            <div class="names-title">
+              <div class="names">
+                <div class="form-field">
+                  <Field
+                    v-model="newPortofolio.firstName"
+                    :size="
+                      newPortofolio.firstName == ''
+                        ? 10
+                        : newPortofolio.firstName.length < 15 &&
+                          newPortofolio.firstName != '' &&
+                          newPortofolio.lastName != ''
+                        ? newPortofolio.firstName.length
+                        : 15
+                    "
+                    type="text"
+                    id="first-name"
+                    placeholder="First Name *"
+                    name="firstName"
+                  />
+                  <ErrorMessage name="firstName" />
+                </div>
+                <div class="form-field">
+                  <Field
+                    type="text"
+                    id="last-name"
+                    placeholder="Last Name *"
+                    name="lastName"
+                    v-model="newPortofolio.lastName"
+                    :size="
+                      newPortofolio.lastName == ''
+                        ? 10
+                        : newPortofolio.lastName.length < 15 &&
+                          newPortofolio.lastName != '' &&
+                          newPortofolio.firstName != ''
+                        ? newPortofolio.lastName.length
+                        : 15
+                    "
+                  />
+                  <ErrorMessage name="lastName" />
+                </div>
+              </div>
+              <div class="title">
+                <div class="form-field">
+                  <Field
+                    name="title"
+                    type="text"
+                    id="title"
+                    placeholder="Your post *"
+                    v-model="newPortofolio.title"
+                    :size="
+                      newPortofolio.title.length < 15 &&
+                      newPortofolio.title.length > 1
+                        ? newPortofolio.title.length
+                        : 30
+                    "
+                  />
+                  <ErrorMessage name="title" />
+                </div>
+              </div>
+            </div>
+            <div class="banner-upload">
+              <label v-if="!previewBanner" for="banner-input"
+                >Choose your cover photo:</label
+              >
               <input
                 type="file"
-                id="profile-pic-input"
-                required
-                @change="processImage('profile-pic-input')"
+                id="banner-input"
+                @change="processImage('banner-input')"
               />
             </div>
           </div>
-          <div class="names-title">
-            <div class="names">
+          <div class="middle-section">
+            <div class="tagline-form-field">
+              <label for="tagline">Tagline: *</label>
               <div class="form-field">
                 <Field
-                  v-model="newPortofolio.firstName"
-                  :size="
-                    newPortofolio.firstName == ''
-                      ? 10
-                      : newPortofolio.firstName.length < 15 &&
-                        newPortofolio.firstName != '' &&
-                        newPortofolio.lastName != ''
-                      ? newPortofolio.firstName.length
-                      : 15
-                  "
+                  name="tagline"
                   type="text"
-                  id="first-name"
-                  placeholder="First Name *"
-                  name="firstName"
-                />
-                <ErrorMessage name="firstName" />
-              </div>
-              <div class="form-field">
-                <Field
-                  type="text"
-                  id="last-name"
-                  placeholder="Last Name *"
-                  name="lastName"
-                  v-model="newPortofolio.lastName"
-                  :size="
-                    newPortofolio.lastName == ''
-                      ? 10
-                      : newPortofolio.lastName.length < 15 &&
-                        newPortofolio.lastName != '' &&
-                        newPortofolio.firstName != ''
-                      ? newPortofolio.lastName.length
-                      : 15
-                  "
-                />
-                <ErrorMessage name="lastName" />
-              </div>
-            </div>
-            <div class="title">
-              <div class="form-field">
-                <Field
-                  name="title"
-                  type="text"
-                  id="title"
-                  placeholder="Your post *"
-                  v-model="newPortofolio.title"
-                  :size="
-                    newPortofolio.title.length < 15 &&
-                    newPortofolio.title.length > 1
-                      ? newPortofolio.title.length
-                      : 30
-                  "
-                />
-                <ErrorMessage name="title" />
-              </div>
-            </div>
-          </div>
-          <div class="banner-upload">
-            <label v-if="!previewBanner" for="banner-input"
-              >Choose your cover photo:</label
-            >
-            <input
-              type="file"
-              id="banner-input"
-              @change="processImage('banner-input')"
-            />
-          </div>
-        </div>
-        <div class="middle-section">
-          <div class="tagline-form-field">
-            <label for="tagline">Tagline: *</label>
-            <div class="form-field">
-              <Field
-                name="tagline"
-                type="text"
-                id="tagline"
-                placeholder="What makes you awesome?"
-                size="40"
-                maxlength="50"
-                v-model="newPortofolio.tagline"
-              />
-              <ErrorMessage name="tagline" />
-            </div>
-          </div>
-          <div class="about">
-            <div class="form-field">
-              <Field
-                v-slot="{ field }"
-                name="about"
-                v-model="newPortofolio.about"
-              >
-                <textarea
-                  v-bind="field"
-                  placeholder="Tell us about you *"
-                ></textarea>
-              </Field>
-              <ErrorMessage name="about" />
-            </div>
-          </div>
-          <div class="pdf">
-            <label>Upload your resume:*<i class="fas fa-file-pdf"></i></label>
-            <input type="file" id="pdf-input" />
-          </div>
-        </div>
-        <div class="projects">
-          <h1>Add your projects:</h1>
-          <h3>Let's see what you've accomplished</h3>
-          <div class="projects-list">
-            <h2>Project List:</h2>
-            <div v-for="project in projects" :key="project" class="project">
-              <h3>{{ project.title }}</h3>
-              <p>{{ project.description }}</p>
-            </div>
-          </div>
-          <form id="add-project-form" @submit.prevent="addProject()">
-            <div class="project-form-field">
-              <label for="project-title">Title: *</label>
-              <input
-                required
-                minlength="5"
-                type="text"
-                id="project-title"
-                placeholder="Your project's title"
-                size="45"
-                v-model="project.title"
-              />
-            </div>
-            <div class="project-form-field">
-              <label for="project-description">Description: *</label>
-              <textarea
-                minlength="10"
-                id="project-description"
-                placeholder="What's it about?"
-                v-model="project.description"
-              ></textarea>
-            </div>
-            <label>Upload a picture for your project! (Optional)</label>
-            <div class="project-form-field">
-              <input type="file" id="project-image-input" />
-            </div>
-            <input type="submit" value="Add Project" />
-          </form>
-        </div>
-        <div class="socials-contact">
-          <div class="socials">
-            <form id="add-socials-form" @submit.prevent="addSocial()">
-              <h3>Social accounts: (Optional)</h3>
-              <div class="socials-list">
-                <a
-                  v-for="social in newPortofolio.socials"
-                  v-bind:key="social"
-                  :href="social.url"
-                >
-                  <i
-                    class="fab "
-                    :class="{
-                      'fa-facebook-square': social.socialType == 'facebook',
-                      'fa-instagram-square': social.socialType == 'instagram',
-                      'fa-linkedin': social.socialType == 'linkedin',
-                      'fa-youtube': social.socialType == 'youtube',
-                      'fa-twitter': social.socialType == 'twitter',
-                    }"
-                    :style="[
-                      social.socialType == 'facebook'
-                        ? { color: 'DodgerBlue' }
-                        : social.socialType == 'instagram'
-                        ? { color: 'DeepPink' }
-                        : social.socialType == 'linkedin'
-                        ? { color: 'SkyBlue' }
-                        : social.socialType == 'youtube'
-                        ? { color: 'Red' }
-                        : social.socialType == 'twitter'
-                        ? { color: 'DeepSkyBlue' }
-                        : '',
-                    ]"
-                  ></i>
-                </a>
-              </div>
-              <h4>Add social account:</h4>
-              <div>
-                <label for="social-type-input">Website: *</label>
-                <select id="social-type-input" v-model="socialsType" required>
-                  <option value="facebook">Facebook</option>
-                  <option value="instagram">Instagram</option>
-                  <option value="linkedin">LinkedIn</option>
-                  <option value="youtube">YouTube</option>
-                  <option value="twitter">Twitter</option>
-                </select>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  id="socials-URL"
-                  placeholder="Link"
+                  id="tagline"
+                  placeholder="What makes you awesome?"
                   size="40"
-                  v-model="socialsUrl"
-                  required
+                  maxlength="50"
+                  v-model="newPortofolio.tagline"
                 />
+                <ErrorMessage name="tagline" />
               </div>
-              <input type="submit" value="Add account" />
-            </form>
-            <div></div>
-          </div>
-          <div class="contact">
-            <h3>Contact:</h3>
-            <div class="contact-form-field">
-              <label for="phone-number">Phone number: </label>
+            </div>
+            <div class="about">
               <div class="form-field">
                 <Field
-                  name="phoneNumber"
+                  v-slot="{ field }"
+                  name="about"
+                  v-model="newPortofolio.about"
+                >
+                  <textarea
+                    v-bind="field"
+                    placeholder="Tell us about you *"
+                  ></textarea>
+                </Field>
+                <ErrorMessage name="about" />
+              </div>
+            </div>
+            <div class="pdf">
+              <label>Upload your resume:*<i class="fas fa-file-pdf"></i></label>
+              <input type="file" id="pdf-input" />
+            </div>
+          </div>
+          <div class="projects">
+            <h1>Add your projects:</h1>
+            <h3>Let's see what you've accomplished</h3>
+            <div class="projects-list">
+              <h2>Project List:</h2>
+              <div v-for="project in projects" :key="project" class="project">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+              </div>
+            </div>
+            <form id="add-project-form" @submit.prevent="addProject()">
+              <div class="project-form-field">
+                <label for="project-title">Title: *</label>
+                <input
+                  required
+                  minlength="5"
                   type="text"
-                  id="phone-number"
-                  placeholder="Phone Number"
-                  v-model="newPortofolio.phoneNumber"
+                  id="project-title"
+                  placeholder="Your project's title"
+                  size="45"
+                  v-model="project.title"
+                />
+              </div>
+              <div class="project-form-field">
+                <label for="project-description">Description: *</label>
+                <textarea
+                  minlength="10"
+                  id="project-description"
+                  placeholder="What's it about?"
+                  v-model="project.description"
+                ></textarea>
+              </div>
+              <label>Upload a picture for your project! (Optional)</label>
+              <div class="project-form-field">
+                <input type="file" id="project-image-input" />
+              </div>
+              <input type="submit" value="Add Project" />
+            </form>
+          </div>
+          <div class="socials-contact">
+            <div class="socials">
+              <form id="add-socials-form" @submit.prevent="addSocial()">
+                <h3>Social accounts: (Optional)</h3>
+                <div class="socials-list">
+                  <a
+                    v-for="social in newPortofolio.socials"
+                    v-bind:key="social"
+                    :href="social.url"
+                  >
+                    <i
+                      class="fab "
+                      :class="{
+                        'fa-facebook-square': social.socialType == 'facebook',
+                        'fa-instagram-square': social.socialType == 'instagram',
+                        'fa-linkedin': social.socialType == 'linkedin',
+                        'fa-youtube': social.socialType == 'youtube',
+                        'fa-twitter': social.socialType == 'twitter',
+                      }"
+                      :style="[
+                        social.socialType == 'facebook'
+                          ? { color: 'DodgerBlue' }
+                          : social.socialType == 'instagram'
+                          ? { color: 'DeepPink' }
+                          : social.socialType == 'linkedin'
+                          ? { color: 'SkyBlue' }
+                          : social.socialType == 'youtube'
+                          ? { color: 'Red' }
+                          : social.socialType == 'twitter'
+                          ? { color: 'DeepSkyBlue' }
+                          : '',
+                      ]"
+                    ></i>
+                  </a>
+                </div>
+                <h4>Add social account:</h4>
+                <div>
+                  <label for="social-type-input">Website: *</label>
+                  <select id="social-type-input" v-model="socialsType" required>
+                    <option value="facebook">Facebook</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="linkedin">LinkedIn</option>
+                    <option value="youtube">YouTube</option>
+                    <option value="twitter">Twitter</option>
+                  </select>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="socials-URL"
+                    placeholder="Link"
+                    size="40"
+                    v-model="socialsUrl"
+                    required
+                  />
+                </div>
+                <input type="submit" value="Add account" />
+              </form>
+              <div></div>
+            </div>
+            <div class="contact">
+              <h3>Contact:</h3>
+              <div class="contact-form-field">
+                <label for="phone-number">Phone number: </label>
+                <div class="form-field">
+                  <Field
+                    name="phoneNumber"
+                    type="text"
+                    id="phone-number"
+                    placeholder="Only valid numbers accepted"
+                    v-model="newPortofolio.phoneNumber"
+                    size="30"
+                  />
+                  <ErrorMessage name="phoneNumber" />
+                </div>
+              </div>
+              <div class="contact-form-field">
+                <label for="email">Email: </label>
+                <input
+                  v-model="newPortofolio.email"
+                  type="email"
+                  id="email"
+                  readonly
                   size="30"
                 />
-                <ErrorMessage name="phoneNumber" />
               </div>
             </div>
-            <div class="contact-form-field">
-              <label for="email">Email: </label>
+            <div class="button-row">
               <input
-                v-model="newPortofolio.email"
-                type="email"
-                id="email"
-                readonly
-                size="30"
+                type="submit"
+                value="Create Portofol.io"
+                :disabled="isSubmitting"
               />
             </div>
           </div>
-          <div class="button-row">
-            <input type="submit" value="Create Portofol.io" />
-          </div>
-        </div>
+        </form>
       </Form>
     </div>
   </div>
@@ -600,6 +606,7 @@ input[type="file"] {
   background-position: center;
   background-size: cover;
   position: relative;
+  padding-bottom: 1rem;
 }
 
 #profile-picture-img {
@@ -627,10 +634,6 @@ input[type="file"] {
   display: block;
   width: 90%;
   margin: 3px auto;
-
-  .error {
-    color: red;
-  }
 
   input {
     font-family: "Oswald", sans-serif;
@@ -716,6 +719,11 @@ input[type="file"] {
   width: 100%;
   margin-bottom: 1rem;
 
+  [role="alert"] {
+    color: red;
+    font-size: medium;
+    bottom: -0.3rem;
+  }
   input {
     margin: auto;
     display: block;
@@ -735,6 +743,11 @@ input[type="file"] {
 
 .about {
   width: 40rem;
+  [role="alert"] {
+    color: red;
+    font-size: large;
+    bottom: 0.1rem;
+  }
   textarea {
     font-size: large;
     width: 100% !important;
@@ -807,6 +820,16 @@ input[type="file"] {
     margin-left: 3em;
     background-color: $w-10;
     padding: 1rem;
+
+    input {
+      margin-bottom: 1.5rem;
+    }
+
+    [role="alert"] {
+      color: red;
+      font-size: large;
+      bottom: -0.5rem;
+    }
   }
 
   #add-socials-form {
