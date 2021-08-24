@@ -28,7 +28,6 @@ const projects = {
       return db.collection("projects").add({
         title: payload.title,
         description: payload.description,
-        photo: payload.photo,
         userId: payload.userId,
       });
     }),
@@ -38,7 +37,6 @@ const projects = {
         .set({
           title: payload.title,
           description: payload.description,
-          photo: payload.photo,
           userId: payload.userId,
         });
     }),

@@ -55,8 +55,6 @@ d<template>
         <div>
           <p>UserId: {{ loggedInUser.uid }}</p>
           <p>Email: {{ loggedInUser.email }}</p>
-          <p>Your last visit : {{ loggedInUser.metadata.lastSignInTime }}</p>
-          <p>Created At: {{ loggedInUser.metadata.creationTime }}</p>
         </div>
         <button @click="logout()">Logout</button>
       </div>
@@ -93,20 +91,40 @@ export default {
     ),
   },
   methods: {
-    login() {
-      this.$store.dispatch("signIn", {
+    async login() {
+      await this.$store.dispatch("signIn", {
         username: this.username,
         password: this.password,
       });
+      console.log("Finished");
+      if (this.isLoggedin) {
+        this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
+        this.$store.dispatch("callSnackBar", {
+          payload: "Login successful!", //Your message!!
+        });
+      }
     },
-    register() {
-      this.$store.dispatch("signUp", {
+    async register() {
+      await this.$store.dispatch("signUp", {
         username: this.username,
         password: this.password,
       });
+      if (this.isLoggedin) {
+        this.$store.commit("setSnackBarBackground", "#adff2f");
+        this.$store.dispatch("callSnackBar", {
+          payload: "Registration successful!",
+        });
+      }
     },
     logout() {
-      this.$store.commit("logout");
+      this.$store.dispatch("signOut");
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          this.$store.dispatch("callSnackBar", {
+            payload: "Logged out!", //culoare default
+          });
+        }
+      });
     },
     methodThatForcesUpdate() {
       // ...
@@ -154,6 +172,7 @@ export default {
     //     id: "GKekFwCupv3wfxb3Vhv3",
     //   });
     // }, 5000);
+    setTimeout(() => {}, 5000);
   },
   unmounted() {
     this.unsubscribe();
