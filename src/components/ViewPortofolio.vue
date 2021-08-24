@@ -9,7 +9,7 @@
       </div>
     </div>
     <div v-if="currentPortofolio">
-      <div class="content background-image">
+      <div class="content">
         <div class="header">
           <div class="header-image">
             <!-- <i class="fas fa-laptop-code fa-10x "></i> -->
@@ -61,18 +61,35 @@
         <div class="details">
           <h1 class="details-tagline text">{{ currentPortofolio.tagline }}</h1>
           <div class="details-about text">
-            About me: <br />{{ currentPortofolio.about }}
+            <br />{{ currentPortofolio.about }} <br />
           </div>
-          <div class="details-contact text"></div>
-
-          <div class="text" v-if="getProjectsForPortofolio.length > 0">
-            <p>Projects:</p>
-            <span
-              v-for="project in getProjectsForPortofolio"
-              v-bind:key="project.id"
-            >
-              {{ project.title }}<br />
-            </span>
+          <!-- </div>
+        <div class="test"> -->
+          <div
+            class="details-projects-title text"
+            v-if="getProjectsForPortofolio.length > 0"
+          >
+            <div class="card-deck">
+              <span
+                class="details-projects-content"
+                v-for="project in getProjectsForPortofolio"
+                v-bind:key="project.id"
+              >
+                <div class="card">
+                  <img
+                    class="card-img-top"
+                    src="../assets/images/tst.jpg"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.description }}</p>
+                    <p class="card-text"></p>
+                  </div>
+                </div>
+                <br />
+              </span>
+            </div>
           </div>
           <div v-else>
             <h5 style="color:red">No projects found!</h5>
@@ -260,10 +277,10 @@ html {
   background-size: cover;
   background-attachment: fixed;
   color: #1b150d;
-  width: 100vw;
-  max-width: 100%;
-  height: 100vh;
-  max-height: 100%;
+  // width: 100vw;
+  // max-width: 100%;
+  // height: 100vh;
+  // max-height: 100%;
 }
 .content {
   position: relative;
@@ -282,8 +299,9 @@ html {
     rgba(0, 0, 0, 1) 100%
   );
 }
+
 .header {
-  position: relative;
+  // position: relative;
   display: flex;
   /* flex-flow: column; */
   flex-direction: column;
@@ -322,10 +340,12 @@ html {
     }
   }
 }
+
 .fas {
   color: $w;
   /* width: 100px; */
 }
+
 .more-details {
   background-color: transparent;
   border: none;
@@ -343,26 +363,66 @@ html {
   }
 }
 
+.text {
+  font-family: "Raleway", sans-serif;
+  font-size: $medium;
+}
+
 .details {
-  position: relative;
+  // position: relative;
   display: flex;
   flex-direction: column;
   // justify-content: center;
   // justify-items: center;
   align-items: center;
   background-color: transparent;
-  width: 100vw;
-  max-width: 100%;
-  height: 92vh;
-  max-height: 100%;
+  // width: 100vw;
+  // max-width: 100%;
+  // height: 100vh;
+  // max-height: 100%;
   // padding-top: 5em;
+  // z-index: 10;
+  &-tagline {
+    font-size: $huge;
+    margin: 2em 0 0.25em 0;
+  }
+  &-about {
+    margin: 1em 0 1.5em 0;
+  }
+  &-projects-title {
+    // font-style: italic;
+    font-weight: 700;
+  }
+  &-projects-content {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  &-contact {
+    padding: 15px;
+  }
+}
+.card {
+  background-color: rgba($s-5, 0.8);
+  width: 18em;
+  border-radius: 30px;
+  &-img-top {
+    border-radius: 30px 30px 10px 10px;
+  }
+  &-title {
+    font-size: $medium;
+  }
+  &-text {
+    font-size: $small;
+  }
+  &-deck {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
 }
 // .more-details:hover {
 //   cursor: pointer;
 // }
-
-.text {
-  font-family: "Raleway";
-  font-size: $medium;
-}
 </style>
