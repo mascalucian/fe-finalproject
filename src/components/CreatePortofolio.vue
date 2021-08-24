@@ -847,6 +847,7 @@ input[type="file"] {
 }
 
 .socials-contact {
+  background-color: rgb(238, 227, 173);
   width: 100%;
   padding-top: 2rem;
   border-top: 3px solid rgba(241, 234, 234, 0.699);
