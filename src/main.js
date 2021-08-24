@@ -1,4 +1,6 @@
-import { createApp } from "vue";
+import {
+    createApp
+} from "vue";
 import "firebase/firestore";
 import store from "./store";
 import router from "./config/router";
@@ -11,13 +13,11 @@ const app = createApp(App);
 app.use(store);
 app.use(router);
 app.use(
-  VueLoading,
-  {
-    color: "#fd7905",
-    backgroundColor: "#fed28a",
-  },
-  {
-    // slots
-  }
+    VueLoading, {
+        color: "#fd7905",
+        backgroundColor: "#fed28a",
+    }, {
+        // slots
+    }
 );
 app.mount("#app");
