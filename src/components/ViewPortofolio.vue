@@ -58,14 +58,14 @@
           More details
           <i class="fas fa-chevron-down"></i>
         </button>
-        <div id="details">
-          <h1 class="tagline text">{{ currentPortofolio.tagline }}</h1>
-          <div class="about text">
+        <div class="details">
+          <h1 class="details-tagline text">{{ currentPortofolio.tagline }}</h1>
+          <div class="details-about text">
             About me: <br />{{ currentPortofolio.about }}
           </div>
-          <div class="contact text"></div>
+          <div class="details-contact text"></div>
 
-          <div v-if="getProjectsForPortofolio.length > 0">
+          <div class="text" v-if="getProjectsForPortofolio.length > 0">
             <p>Projects:</p>
             <span
               v-for="project in getProjectsForPortofolio"
@@ -77,7 +77,7 @@
           <div v-else>
             <h5 style="color:red">No projects found!</h5>
           </div>
-          <div class="contact">
+          <div class="details-contact text">
             {{ currentPortofolio.email }}
             {{ currentPortofolio.phoneNumber }}
           </div>
@@ -303,11 +303,11 @@ html {
     top: auto;
     margin-top: 10%;
     margin-bottom: 0;
-    font-size: 70px;
+    font-size: $huge;
     font-weight: 400;
   }
   &-occupation {
-    font-size: 40px;
+    font-size: $big;
     font-family: "Raleway";
     padding: 0.35em 2.75em 0.35em 2.75em;
     margin: 1.25em;
@@ -332,7 +332,7 @@ html {
   margin-top: auto;
   text-decoration: none;
   font-weight: bolder;
-  font-size: 17px;
+  font-size: $small;
   color: $w;
   display: flex;
   flex-direction: column;
@@ -343,21 +343,26 @@ html {
   }
 }
 
-#details {
+.details {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   // justify-items: center;
   align-items: center;
   background-color: transparent;
   width: 100vw;
   max-width: 100%;
-  height: 100vh;
+  height: 92vh;
   max-height: 100%;
   // padding-top: 5em;
 }
 // .more-details:hover {
 //   cursor: pointer;
 // }
+
+.text {
+  font-family: "Raleway";
+  font-size: $medium;
+}
 </style>
