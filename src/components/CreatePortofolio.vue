@@ -211,7 +211,7 @@
                   id="add-socials-form"
                   @submit.prevent="handleSubmit($event, addSocial)"
                 >
-                  <h3>Social accounts: (Optional)</h3>
+                  <h3>Social accounts:</h3>
                   <div class="socials-list">
                     <a
                       v-for="social in newPortofolio.socials"
@@ -285,7 +285,7 @@
             <div class="contact">
               <h3>Contact:</h3>
               <div class="contact-form-field">
-                <label for="phone-number">Phone number: </label>
+                <label for="phone-number">Phone number: *</label>
                 <div class="form-field">
                   <Field
                     name="phoneNumber"
