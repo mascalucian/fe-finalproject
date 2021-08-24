@@ -130,19 +130,6 @@ export default {
     };
   },
   methods: {
-    animate() {
-      this.animated = true;
-    },
-    hideButton() {
-      window.onscroll = () => {
-        if (pageYOffset > 0) {
-          this.show = !this.show;
-        }
-        if (pageYOffset <= 0) {
-          this.show = !this.show;
-        }
-      };
-    },
     async getPortofolio(userId) {
       this.loading = true;
       if (this.projects.length > 0) this.projects = [];

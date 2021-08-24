@@ -1,7 +1,9 @@
 <template>
   <SnackBar />
   <Nav></Nav>
-  <router-view></router-view>
+  <div id="view">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -30,5 +32,9 @@ body {
   font-size: 100%;
   vertical-align: baseline;
   background: transparent;
+}
+
+#view {
+  padding-top: 60px;
 }
 </style>
