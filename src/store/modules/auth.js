@@ -44,18 +44,30 @@ const auth = {
     },
     signIn({ commit }, { username, password }) {
       commit("loadData");
-      return firebase
+      firebase
         .auth()
         .signInWithEmailAndPassword(username, password)
         .then((data) => {
-          data.user;
-          commit("login", data.user);
-          commit("stopLoadData");
+          // data.user;
+          // commit("login", data.user);
         })
         .catch((err) => {
           commit("stopLoadData");
           commit("showError", err.message);
         });
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          commit("showError", "");
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          commit("login", user);
+          commit("stopLoadData");
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+      });
     },
     signOut({ commit }) {
       commit("loadData");
