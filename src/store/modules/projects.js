@@ -25,11 +25,14 @@ const projects = {
       });
     }),
     addProject: firestoreAction((context, { payload }) => {
-      return db.collection("projects").add({
-        title: payload.title,
-        description: payload.description,
-        userId: payload.userId,
-      });
+      db.collection("projects")
+        .doc(payload.id)
+        .set({
+          id: payload.id,
+          title: payload.title,
+          description: payload.description,
+          userId: payload.userId,
+        });
     }),
     updateProject: firestoreAction((context, { payload, id }) => {
       db.collection("projects")

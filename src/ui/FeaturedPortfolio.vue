@@ -1,22 +1,24 @@
 <template>
-      <div class="portfolio each">
-        <div class="infobox">
-          <h2 id="name">{{ fname }} {{ lname }}</h2>
-          <h4 id="title">{{title}}</h4>
-          <p>{{about}}</p>
-          <div class="container">
-          <div class="center">
-          <button class="btn">
+      <div class="portfolioo eachh">
+        <div class="infoboxx  shadow">
+          <h2 class="h22" id="name">{{ fname }} {{ lname }}</h2>
+          <h4 class="h44" id="title">{{title}}</h4>
+          <p class="pp">{{about}}</p>
+          <div class="containerr">
+          <div class="centerr">
+          <router-link :to='`/portofolios/${idd}`'>
+          <button class="btnn">
                 <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
                 <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
                 <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
                 </svg>
                 <span>VIEW MORE</span>
           </button>
+          </router-link>
           </div>
           </div>
         </div>
-        <div><img src="../assets/default.png" class="avatar" /></div>
+        <div><img :src='`${imgURL}`' class="avatar" /></div>
       </div>
 </template>
 
@@ -24,6 +26,7 @@
 import { mapGetters } from "vuex";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import "firebase/storage";
 import { db } from "../config/db";
 export default {
   name: "FeaturedPortfolio",
@@ -32,24 +35,46 @@ export default {
     lname: String,
     title: String,
     about: String,
+    idd: String,
   },
+  data() {
+    return {
+      imgURL:""
+    }
+  },
+  methods: {
+    getpp(){
+         var storageRef = firebase.storage().ref();
+         var ppRef = storageRef.child(`/${this.idd}/profile_picture.jpg`);
+         var linku=ppRef.getDownloadURL().then (url=> {
+           console.log("A mers "+url);
+          this.imgURL=url;
+        }).catch(function(error) {
+          // Handle any errors here
+        });
+    }
+
+  },
+  created() { 
+    this.getpp();
+  }
 };
 </script>
 
 <style scoped>
-.all {
+.alll {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding-top: 20px;
   padding-bottom: 40px;
 }
-.maincontainer {
+.maincontainerr {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-.portfolio {
+.portfolioo {
   width: 27%;
   padding: 10px;
   display: flex;
@@ -57,45 +82,50 @@ export default {
   justify-content: flex-end;
   align-items: center;
 }
-.portfolio .avatar {
+.portfolioo .avatar {
   border-radius: 50%;
   display: block;
   width: 146px;
+  height: 146px;
+  object-fit: cover;
   margin: auto;
   margin-top: 40px;
 }
-.portfolio .avatar2 {
+.portfolioo .avatar2 {
   margin-top: -10px;
 }
-.portfolio .infobox {
+.portfolioo .infoboxx {
   margin-top: -73px;
   width: 90%;
-  height: 500px;
+  height: 400px;
   background-image: url("https://wallpaperaccess.com/full/888745.jpg");
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  border-top-left-radius: 25%;
+  border-bottom-right-radius: 25%;
 }
-.portfolio .infoboxcenter {
+.portfolioo .infoboxcenter {
   margin-top: -78px;
   width: 90%;
-  height: 460px;
+  height: 400px;
   background-image: url("https://wallpaperaccess.com/full/888745.jpg");
 }
 #name {
-  margin-top: 90px;
+  margin-top: 20px;
 }
 #title {
     margin-top: -20px;
 }
-p {
+.pp {
     padding: 25px;
     height:140px;
     overflow:hidden;
 }
 @import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
 
-.container {
+.containerr {
 
   left: 50%;
   top: 50%;
@@ -104,13 +134,13 @@ p {
   justify-content: center;
 }
 
-.center {
+.centerr {
   width: 180px;
   height: 60px;
   position: absolute;
 }
 
-.btn {
+.btnn {
   width: 180px;
   height: 60px;
   cursor: pointer;
@@ -131,19 +161,24 @@ svg {
   transition: 1s ease-in-out;
 }
 
-.btn:hover {
+.btnn:hover {
   transition: 1s ease-in-out;
-  background: #4F95DA;
+  background: #f4690e;
 }
 
-.btn:hover svg {
+.btnn:hover svg {
   stroke-dashoffset: -480;
 }
 
-.btn span {
+.btnn span {
   color: white;
   font-size: 18px;
   font-weight: 100;
+}
+
+.h44{ 
+  padding: 10px;
+  font-size: 20px;
 }
 
 

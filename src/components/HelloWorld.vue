@@ -58,6 +58,9 @@ d<template>
         </div>
         <button @click="logout()">Logout</button>
       </div>
+      <button @click="downloadResume()">
+        Download your resume
+      </button>
     </div>
   </div>
 </template>
@@ -76,6 +79,7 @@ export default {
       password: "",
       switchTab: false,
       unsubscribe: undefined,
+      downloadUrl: "",
     };
   },
   computed: {
@@ -91,6 +95,41 @@ export default {
     ),
   },
   methods: {
+    downloadResume() {
+      var storageRef = firebase.storage().ref();
+      var resumeRef = storageRef.child(`/${this.loggedInUser.uid}/resume.pdf`);
+
+      resumeRef
+        .getDownloadURL()
+        .then((url) => {
+          // `url` is the download URL for 'images/stars.jpg'
+
+          // This can be downloaded directly:
+          var xhr = new XMLHttpRequest();
+          xhr.responseType = "blob";
+          xhr.onload = (event) => {
+            var blob = xhr.response;
+            this.saveOrOpenBlob(blob);
+          };
+          this.downloadUrl = url;
+          xhr.open("GET", url);
+          xhr.send();
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
+    },
+    saveOrOpenBlob(blob) {
+      var fileName = "Resume.pdf"; ///Interpoleaza cu numele din portofolio
+      var tempEl = document.createElement("a");
+      document.body.appendChild(tempEl);
+      tempEl.style = "display: none";
+      const url = window.URL.createObjectURL(blob);
+      tempEl.href = url;
+      tempEl.download = fileName;
+      tempEl.click();
+      window.URL.revokeObjectURL(url);
+    },
     async login() {
       await this.$store.dispatch("signIn", {
         username: this.username,
@@ -102,6 +141,18 @@ export default {
         this.$store.dispatch("callSnackBar", {
           payload: "Login successful!", //Your message!!
         });
+        db.collection("portofolios")
+          .doc(this.loggedInUser.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              this.$store.commit("confirmPortofolio");
+              console.log("Has portofolio");
+            }
+          })
+          .catch((error) => {
+            console.log("Error getting document:", error);
+          });
       }
     },
     async register() {

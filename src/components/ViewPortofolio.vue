@@ -3,6 +3,14 @@
     class="wrapper"
     v-bind:style="{ 'background-image': 'url(' + this.coverPicture + ')' }"
   >
+    <!-- <div v-if="loading" class="spring-spinner">
+      <div class="spring-spinner-part top">
+        <div class="spring-spinner-rotator"></div>
+      </div>
+      <div class="spring-spinner-part bottom">
+        <div class="spring-spinner-rotator"></div>
+      </div>
+    </div> -->
     <div class="vld-parent">
       <loading
         v-model:active="isLoading"
@@ -58,11 +66,7 @@
               ]"
             ></i>
           </a>
-          <button
-            type="button"
-            class="btn btn-light "
-            v-if="this.isLoggedin && this.$route.params.id==this.loggedInUser.uid;"
-          >
+          <button type="button" class="btn btn-light ">
             Get resume
           </button>
         </div>
@@ -305,7 +309,10 @@ html {
     border: 1px solid $w;
     width: 300px;
     height: 300px;
+    // display: flex;
+    // justify-content: center;
     display: inline-block;
+    // text-align: center;
     position: relative;
     overflow: hidden;
 
@@ -370,7 +377,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5%;
+  margin-top: 35px;
   &:hover {
     cursor: pointer;
   }
@@ -393,7 +400,7 @@ html {
     margin: 2em 0 0.25em 0;
   }
   &-about {
-    margin: 1em 0 3em 0;
+    margin: 1em 0 1.5em 0;
   }
   &-projects-title {
     // font-style: italic;
