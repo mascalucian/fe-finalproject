@@ -32,6 +32,7 @@
                   type="file"
                   id="profile-pic-input"
                   required
+                  accept="image/*"
                   @change="processImage('profile-pic-input')"
                 />
               </div>
@@ -103,6 +104,7 @@
               <input
                 type="file"
                 id="banner-input"
+                accept="image/*"
                 @change="processImage('banner-input')"
               />
             </div>
@@ -117,7 +119,6 @@
                   id="tagline"
                   placeholder="What makes you awesome?"
                   size="40"
-                  maxlength="50"
                   v-model="newPortofolio.tagline"
                 />
                 <ErrorMessage name="tagline" />
@@ -140,7 +141,7 @@
             </div>
             <div class="pdf">
               <label>Upload your resume:*<i class="fas fa-file-pdf"></i></label>
-              <input type="file" id="pdf-input" />
+              <input type="file" id="pdf-input" accept="application/pdf" />
             </div>
           </div>
           <div class="projects">
@@ -153,93 +154,132 @@
                 <p>{{ project.description }}</p>
               </div>
             </div>
-            <form id="add-project-form" @submit.prevent="addProject()">
-              <div class="project-form-field">
-                <label for="project-title">Title: *</label>
-                <input
-                  required
-                  minlength="5"
-                  type="text"
-                  id="project-title"
-                  placeholder="Your project's title"
-                  size="45"
-                  v-model="project.title"
-                />
-              </div>
-              <div class="project-form-field">
-                <label for="project-description">Description: *</label>
-                <textarea
-                  minlength="10"
-                  id="project-description"
-                  placeholder="What's it about?"
-                  v-model="project.description"
-                ></textarea>
-              </div>
-              <label>Upload a picture for your project! (Optional)</label>
-              <div class="project-form-field">
-                <input type="file" id="project-image-input" />
-              </div>
-              <input type="submit" value="Add Project" />
-            </form>
+            <Form
+              :validation-schema="newProjectSchema"
+              v-slot="{ handleSubmit }"
+            >
+              <form
+                ref="addProjectForm"
+                id="add-project-form"
+                @submit.prevent="handleSubmit($event, addProject)"
+              >
+                <div class="project-form-field">
+                  <label for="project-title">Title: *</label>
+                  <div class="form-field">
+                    <Field
+                      name="title"
+                      id="project-title"
+                      placeholder="Your project's title"
+                      size="45"
+                      v-model="project.title"
+                    />
+                    <ErrorMessage name="title" />
+                  </div>
+                </div>
+                <div class="project-form-field">
+                  <label for="project-description">Description: *</label>
+                  <div class="form-field description-form-field">
+                    <Field
+                      v-slot="{ field }"
+                      name="description"
+                      v-model="project.description"
+                    >
+                      <textarea
+                        v-bind="field"
+                        placeholder="What's it about?"
+                      ></textarea>
+                    </Field>
+                    <ErrorMessage name="description" />
+                  </div>
+                </div>
+                <label>Upload a picture for your project! (Optional)</label>
+                <div class="project-form-field">
+                  <input type="file" id="project-image-input" />
+                </div>
+                <input type="submit" value="Add Project" />
+              </form>
+            </Form>
           </div>
           <div class="socials-contact">
             <div class="socials">
-              <form id="add-socials-form" @submit.prevent="addSocial()">
-                <h3>Social accounts: (Optional)</h3>
-                <div class="socials-list">
-                  <a
-                    v-for="social in newPortofolio.socials"
-                    v-bind:key="social"
-                    :href="social.url"
-                  >
-                    <i
-                      class="fab "
-                      :class="{
-                        'fa-facebook-square': social.socialType == 'facebook',
-                        'fa-instagram-square': social.socialType == 'instagram',
-                        'fa-linkedin': social.socialType == 'linkedin',
-                        'fa-youtube': social.socialType == 'youtube',
-                        'fa-twitter': social.socialType == 'twitter',
-                      }"
-                      :style="[
-                        social.socialType == 'facebook'
-                          ? { color: 'DodgerBlue' }
-                          : social.socialType == 'instagram'
-                          ? { color: 'DeepPink' }
-                          : social.socialType == 'linkedin'
-                          ? { color: 'SkyBlue' }
-                          : social.socialType == 'youtube'
-                          ? { color: 'Red' }
-                          : social.socialType == 'twitter'
-                          ? { color: 'DeepSkyBlue' }
-                          : '',
-                      ]"
-                    ></i>
-                  </a>
-                </div>
-                <h4>Add social account:</h4>
-                <div>
-                  <label for="social-type-input">Website: *</label>
-                  <select id="social-type-input" v-model="socialsType" required>
-                    <option value="facebook">Facebook</option>
-                    <option value="instagram">Instagram</option>
-                    <option value="linkedin">LinkedIn</option>
-                    <option value="youtube">YouTube</option>
-                    <option value="twitter">Twitter</option>
-                  </select>
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    id="socials-URL"
-                    placeholder="Link"
-                    size="40"
-                    v-model="socialsUrl"
-                    required
-                  />
-                </div>
-                <input type="submit" value="Add account" />
-              </form>
+              <Form
+                v-slot="{ handleSubmit }"
+                :validation-schema="newSocialSchema"
+              >
+                <form
+                  ref="addSocialForm"
+                  id="add-socials-form"
+                  @submit.prevent="handleSubmit($event, addSocial)"
+                >
+                  <h3>Social accounts: (Optional)</h3>
+                  <div class="socials-list">
+                    <a
+                      v-for="social in newPortofolio.socials"
+                      v-bind:key="social"
+                      :href="social.url"
+                    >
+                      <i
+                        class="fab "
+                        :class="{
+                          'fa-facebook-square': social.socialType == 'facebook',
+                          'fa-instagram-square':
+                            social.socialType == 'instagram',
+                          'fa-linkedin': social.socialType == 'linkedin',
+                          'fa-youtube': social.socialType == 'youtube',
+                          'fa-twitter': social.socialType == 'twitter',
+                        }"
+                        :style="[
+                          social.socialType == 'facebook'
+                            ? { color: 'DodgerBlue' }
+                            : social.socialType == 'instagram'
+                            ? { color: 'DeepPink' }
+                            : social.socialType == 'linkedin'
+                            ? { color: 'SkyBlue' }
+                            : social.socialType == 'youtube'
+                            ? { color: 'Red' }
+                            : social.socialType == 'twitter'
+                            ? { color: 'DeepSkyBlue' }
+                            : '',
+                        ]"
+                      ></i>
+                    </a>
+                  </div>
+                  <h4>Add social account:</h4>
+                  <div>
+                    <label for="social-type-input">Website: *</label>
+                    <div class="form-field">
+                      <Field
+                        id="social-type-input"
+                        v-model="socialsType"
+                        as="select"
+                        name="socialsType"
+                      >
+                        <option value="facebook">Facebook</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="twitter">Twitter</option>
+                      </Field>
+                      <ErrorMessage name="socialsType" />
+                    </div>
+                  </div>
+                  <div>
+                    <div class="form-field">
+                      <Field
+                        name="socialsURL"
+                        type="text"
+                        id="socials-URL"
+                        placeholder="Link"
+                        size="40"
+                        v-model="socialsUrl"
+                      />
+                      <ErrorMessage name="socialsURL" />
+                    </div>
+                  </div>
+                  <input type="submit" value="Add account" />
+                </form>
+              </Form>
+
               <div></div>
             </div>
             <div class="contact">
@@ -285,7 +325,7 @@
 
 <script>
 import * as yup from "yup";
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { Form, Field, ErrorMessage, ValidationObserver } from "vee-validate";
 import firebase from "firebase/app";
 import "firebase/storage";
 import { mapGetters } from "vuex";
@@ -303,7 +343,7 @@ export default {
       lastName: yup.string().required(),
       title: yup
         .string()
-        .min(5)
+        .min(5, "Please enter at least 5 characters")
         .required(),
       tagline: yup
         .string()
@@ -319,6 +359,25 @@ export default {
         .matches(phoneRegExp, "Phone number is not valid")
         .max(15)
         .required(),
+    });
+    const newProjectSchema = yup.object({
+      title: yup
+        .string()
+        .min(5)
+        .max(50)
+        .required(),
+      description: yup
+        .string()
+        .min(10)
+        .max(500)
+        .required(),
+    });
+    const newSocialSchema = yup.object({
+      socialsType: yup.string().required("A website type is required"),
+      socialsURL: yup
+        .string()
+        .url("Invalid URL")
+        .required("Please enter a URL"),
     });
     return {
       newPortofolio: {
@@ -344,6 +403,8 @@ export default {
         userId: "",
       },
       newPortSchema,
+      newProjectSchema,
+      newSocialSchema,
     };
   },
   methods: {
@@ -416,8 +477,7 @@ export default {
         url: this.socialsUrl,
       };
       this.newPortofolio.socials.push(social);
-      this.socialsType = "facebook";
-      this.socialsUrl = "";
+      this.$refs.addSocialForm.reset();
       console.log(social);
     },
     addProject() {
@@ -430,8 +490,7 @@ export default {
       let file = document.getElementById("project-image-input").files[0];
       this.projectPhotos.push(file);
       document.getElementById("project-image-input").value = null;
-      this.project.title = "";
-      this.project.description = "";
+      this.$refs.addProjectForm.reset();
       console.log(this.projectPhotos);
     },
     async createPortofolio() {
@@ -757,6 +816,7 @@ input[type="file"] {
     background-color: $s-1;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    margin-bottom: 2rem;
     &:focus-visible {
       border: 1px solid $w;
       outline: 0;
@@ -795,6 +855,7 @@ input[type="file"] {
   flex-wrap: wrap;
   justify-content: center;
   flex-direction: row;
+  background-repeat: repeat-x;
   background-image: url("https://media.istockphoto.com/vectors/bright-seamless-pattern-with-orange-slices-vector-id1305791045?b=1&k=6&m=1305791045&s=612x612&w=0&h=7N354TSz_-ZYq5xz7lAisjzcFKiKDJgggbhP3V0BxwM=");
   h3 {
     font-family: "Oswald", sans-serif;
@@ -840,6 +901,9 @@ input[type="file"] {
   }
 
   .socials {
+    .form-field {
+      justify-content: flex-start;
+    }
     select {
       width: 15rem;
       height: 2rem;
@@ -867,6 +931,13 @@ input[type="file"] {
     input {
       margin-top: 2rem;
     }
+
+    [role="alert"] {
+      color: rgb(255, 146, 146);
+      font-size: large;
+      bottom: -1.8rem;
+    }
+
     input[type="submit"] {
       cursor: pointer;
       &:hover,
@@ -919,6 +990,7 @@ input[type="file"] {
     padding-bottom: 3rem;
     background-color: $s-1;
     border-radius: 5px;
+    margin-bottom: 2rem;
     &:focus-visible {
       border: 1px solid $w;
       outline: 0;
@@ -926,9 +998,25 @@ input[type="file"] {
   }
 
   input {
+    border-bottom: 2px solid $w;
     font-size: large;
     margin-bottom: 0.5rem;
     color: $w;
+    text-decoration: none;
+  }
+
+  [role="alert"] {
+    color: red;
+    font-size: large;
+    bottom: -1.4rem;
+  }
+
+  .description-form-field {
+    [role="alert"] {
+      color: red;
+      font-size: large;
+      bottom: 0.2rem;
+    }
   }
 
   ::-webkit-file-upload-button {
@@ -994,7 +1082,7 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   width: 100%;
-  background-color: $w-1;
+  background-color: rgb(238, 227, 173);
   padding: 2rem 0 10rem 0;
 
   input {
