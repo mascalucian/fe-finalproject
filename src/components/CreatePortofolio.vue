@@ -33,6 +33,7 @@
                   id="profile-pic-input"
                   required
                   accept="image/*"
+                  size="7"
                   @change="processImage('profile-pic-input')"
                 />
               </div>
@@ -731,7 +732,7 @@ input[type="file"] {
 }
 
 .profile-picture-upload {
-  max-width: 15rem;
+  max-width: 20rem;
   margin: 1.5rem auto;
   padding: 0, 3rem 0, 5rem;
   background-color: rgba(53, 53, 53, 0.699);
@@ -744,6 +745,9 @@ input[type="file"] {
   ::-webkit-file-upload-button {
     font-size: smaller;
     margin-top: 0.5rem;
+  }
+  input {
+    width: 100%;
   }
 }
 
