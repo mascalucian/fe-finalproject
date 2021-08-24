@@ -98,10 +98,12 @@ export default {
           password: this.password,
         })
         .then(() => {
-          this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
-          this.$store.dispatch("callSnackBar", {
-            payload: "Login successful!", //Your message!!
-          });
+          if (this.isLoggedin) {
+            this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
+            this.$store.dispatch("callSnackBar", {
+              payload: "Login successful!", //Your message!!
+            });
+          }
         });
     },
     register() {
@@ -118,7 +120,14 @@ export default {
         });
     },
     logout() {
-      this.$store.commit("logout");
+      this.$store.dispatch("signOut");
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          this.$store.dispatch("callSnackBar", {
+            payload: "Logged out!", //culoare default
+          });
+        }
+      });
     },
     methodThatForcesUpdate() {
       // ...

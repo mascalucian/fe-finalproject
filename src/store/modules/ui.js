@@ -3,12 +3,15 @@ const snackBarColors = {
   succes: "#adff2f",
 };
 
+const errorTimeout = 5000;
+
 const ui = {
   state: {
     snackBarTimeout: 5000,
     snackBarMessage: "",
     snackBarBackground: "#ff4500",
     snackBarColor: "white",
+    authError: "",
   },
   mutations: {
     setSnackBarMessage(state, payload) {
@@ -29,6 +32,12 @@ const ui = {
       state.snackBarBackground = "#ff4500";
       state.snackBarTimeout = 5000;
     },
+    showError(state, payload) {
+      state.authError = payload;
+      setTimeout(() => {
+        state.authError = null;
+      }, errorTimeout);
+    },
   },
   actions: {
     callSnackBar({ commit, getters }, { payload }) {
@@ -44,6 +53,7 @@ const ui = {
     getSnackBarColor: (state) => state.snackBarColor,
     getSnackBarBackground: (state) => state.snackBarBackground,
     getSnackBarTimeout: (state) => state.snackBarTimeout,
+    getErrorMessage: (state) => state.authError,
   },
 };
 export default ui;

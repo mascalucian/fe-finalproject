@@ -1,8 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 
-const errorTimeout = 5000;
-
 const auth = {
   state: {
     userData: null,
@@ -15,28 +13,34 @@ const auth = {
     logout(state) {
       state.userData = null;
     },
-    showError(state, payload) {
-      state.errorMessage = payload;
-      setTimeout(() => {
-        state.errorMessage = null;
-      }, errorTimeout);
-    },
   },
   actions: {
     signUp({ commit }, { username, password }) {
       commit("loadData");
-      return firebase
+      firebase
         .auth()
         .createUserWithEmailAndPassword(username, password)
         .then((data) => {
-          data.user;
-          commit("login", data.user);
-          commit("stopLoadData");
+          // data.user;
+          // commit("login", data.user);
         })
         .catch((err) => {
           commit("stopLoadData");
           commit("showError", err.message);
         });
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          commit("showError", "");
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          commit("login", user);
+          commit("stopLoadData");
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+      });
     },
     signIn({ commit }, { username, password }) {
       commit("loadData");
@@ -53,11 +57,24 @@ const auth = {
           commit("showError", err.message);
         });
     },
+    signOut({ commit }) {
+      commit("loadData");
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          commit("logout");
+          commit("stopLoadData");
+        })
+        .catch((error) => {
+          commit("stopLoadData");
+          commit("showError", error.message);
+        });
+    },
   },
   getters: {
     isLoggedin: (state) => state.userData !== null,
     loggedInUser: (state) => state.userData,
-    getErrorMessage: (state) => state.errorMessage,
   },
 };
 export default auth;
