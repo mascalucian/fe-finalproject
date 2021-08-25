@@ -2,30 +2,47 @@
   <div class="alll">
     <nav class="navMenu">
       <div id="left">
-        <router-link to="/test" id="home">Home</router-link>
-        <router-link to="/portofolios" id="portos">Portofolios</router-link>
-        <router-link to="/aboutus" id="about">About</router-link>
-        <router-link to="/contact" id="contact">Contact</router-link>
+        <router-link to="/test">Home</router-link>
+        <router-link to="/portofolios">Portofolios</router-link>
+        <router-link to="/aboutus">About</router-link>
+        <router-link to="/contact">Contact</router-link>
       </div>
 
       <div id="right">
-        <router-link to="/login" id="login"><a>Login</a></router-link>
-        <router-link to="/register" id="register"><a>Register</a></router-link>
+        <router-link v-if="!isLoggedin" to="/login">Login</router-link>
+        <router-link
+          to="/portofolios/manage/"
+          v-if="isLoggedin"
+          :class="{ 'create-edit-button': !getHasPortofolio, 'edit-button': getHasPortofolio}"
+        >
+          {{ getHasPortofolio ? "Edit Portofol.io" : "Create Portofol.io" }}
+        </router-link>
+        <a v-if="isLoggedin" @click="logOut()">
+          Logout
+        </a>
         <router-link to="/" id="logoid"
-          ><img src="https://i.imgur.com/MGp2X3f.png" class="logo"
+          ><img src="https://i.imgur.com/Jwuropl.png" class="logo"
         /></router-link>
       </div>
+
       <div class="dot"></div>
     </nav>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   methods: {
-    goToPortofolio(portofolioId) {
-      return portofolioId;
+    async logOut() {
+      await this.$store.dispatch("signOut");
     },
+  },
+  computed: {
+    ...mapGetters(
+      ["isLoggedin", "getHasPortofolio"] // -> this.someGetter
+    ),
   },
 };
 </script>
@@ -46,11 +63,16 @@ nav {
   flex: 1 0 auto;
   flex-wrap: nowrap;
   height: 80px;
+  width: 100vw;
   background: transparent;
   font-family: "Montserrat", sans-serif;
   div {
     display: inline-block;
   }
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 #left {
@@ -71,9 +93,11 @@ nav {
   }
 }
 .logo {
-  height: 80px;
+  padding-left: 3rem;
+  height: 50px;
   vertical-align: middle;
   flex: 1 1 80px;
+  margin-right: 20px;
 }
 
 #logoid {
@@ -81,7 +105,8 @@ nav {
 }
 
 a {
-  color: #f6f4e6;
+  cursor: pointer;
+  color: #f6f4e6 !important;
   text-decoration: none;
   font-size: 1.2em;
   text-transform: uppercase;
@@ -92,14 +117,30 @@ a {
   margin: 0 1rem;
   vertical-align: middle;
   text-align: center;
+  &:hover,
+  &:active,
+  &.router-link-active {
+    color: #fddb3a !important;
+  }
 }
 
-a:hover {
-  color: #fddb3a;
+.create-edit-button {
+  background-color: limegreen;
+  border-radius: 40px;
+  padding: 0.1rem 0.5rem;
+  &.router-link-active {
+    display: none;
+  }
 }
-a:active,
-a.router-link-active {
-  color: #fddb3a;
+.edit-button {
+  background-color: darkorange;
+  border-radius: 40px;
+  opacity: 70%;
+  background-blend-mode: color-burn;
+  padding: 0.1rem 0.5rem;
+  &.router-link-active {
+    display: none;
+  }
 }
 
 .dot {

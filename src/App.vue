@@ -35,6 +35,6 @@ body {
 }
 
 #view {
-  padding-top: 60px;
+  padding-top: 80px;
 }
 </style>

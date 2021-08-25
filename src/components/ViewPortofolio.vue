@@ -3,14 +3,6 @@
     class="wrapper"
     v-bind:style="{ 'background-image': 'url(' + this.coverPicture + ')' }"
   >
-    <!-- <div v-if="loading" class="spring-spinner">
-      <div class="spring-spinner-part top">
-        <div class="spring-spinner-rotator"></div>
-      </div>
-      <div class="spring-spinner-part bottom">
-        <div class="spring-spinner-rotator"></div>
-      </div>
-    </div> -->
     <div class="vld-parent">
       <loading
         v-model:active="isLoading"
@@ -66,9 +58,23 @@
               ]"
             ></i>
           </a>
-          <button type="button" class="btn btn-light ">
+          <button
+            type="button"
+            class="btn btn-light"
+            v-on:click="downloadResume()"
+          >
             Get resume
           </button>
+          <router-link
+            type="button"
+            class="btn btn-light"
+            v-if="
+              this.isLoggedin && this.$route.params.id == this.loggedInUser.uid
+            "
+            v-bind:to="'/portofolios/manage'"
+          >
+            Edit
+          </router-link>
         </div>
         <button class="more-details">
           More details
@@ -111,10 +117,11 @@
             <h5 style="color:red">No projects found!</h5>
           </div>
           <div class="details-contact text">
-            <p>{{ currentPortofolio.email }}</p>
+            <a class="text" v-bind:href="'mailto:' + currentPortofolio.email">{{
+              currentPortofolio.email
+            }}</a>
             <p>{{ currentPortofolio.phoneNumber }}</p>
           </div>
-          <!-- <a class="link" href="#">Get resume</a> -->
         </div>
       </div>
     </div>
@@ -144,11 +151,13 @@ export default {
       fullPage: true,
       profilePicture: "",
       coverPicture: "",
+      downloadUrl: "",
     };
   },
   components: {
     Loading,
   },
+
   methods: {
     doAjax() {
       this.isLoading = true;
@@ -225,6 +234,48 @@ export default {
           alert("Error getting profile picture ", error);
         });
     },
+    downloadResume() {
+      const userId = this.$route.params.id;
+      var storageRef = firebase.storage().ref();
+      var resumeRef = storageRef.child(userId + "/resume.pdf");
+
+      resumeRef
+        .getDownloadURL()
+        .then((url) => {
+          // `url` is the download URL for 'images/stars.jpg'
+
+          // This can be downloaded directly:
+          var xhr = new XMLHttpRequest();
+          xhr.responseType = "blob";
+          xhr.onload = (event) => {
+            var blob = xhr.response;
+            this.saveOrOpenBlob(blob);
+          };
+          this.downloadUrl = url;
+          xhr.open("GET", url);
+          xhr.send();
+        })
+
+        .catch((error) => {
+          alert("Can't get resume ", error);
+        });
+    },
+    saveOrOpenBlob(blob) {
+      var fileName =
+        this.currentPortofolio.firstName +
+        "_" +
+        this.currentPortofolio.lastName +
+        "_" +
+        "Resume.pdf"; ///Interpoleaza cu numele din portofolio
+      var tempEl = document.createElement("a");
+      document.body.appendChild(tempEl);
+      tempEl.style = "display: none";
+      const url = window.URL.createObjectURL(blob);
+      tempEl.href = url;
+      tempEl.download = fileName;
+      tempEl.click();
+      window.URL.revokeObjectURL(url);
+    },
     methodThatForcesUpdate() {
       // ...
       this.$forceUpdate(); // Notice we have to use a $ here
@@ -232,7 +283,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getProjectsForPortofolio"]),
+    ...mapGetters(["getProjectsForPortofolio", "isLoggedin", "loggedInUser"]),
   },
   created() {
     // this.loading = true;
@@ -275,6 +326,7 @@ html {
   flex-direction: column;
   align-content: center;
   align-items: center;
+  width: 100%;
 }
 .content {
   position: relative;
@@ -291,8 +343,8 @@ html {
     rgba(0, 0, 0, 1) 50%,
     rgba(0, 0, 0, 1) 100%
   );
-  width: 100vw;
-  max-width: 100%;
+  // width: 98.8vw;
+  // max-width: 100%;
 }
 
 .header {
@@ -309,10 +361,7 @@ html {
     border: 1px solid $w;
     width: 300px;
     height: 300px;
-    // display: flex;
-    // justify-content: center;
     display: inline-block;
-    // text-align: center;
     position: relative;
     overflow: hidden;
 
@@ -377,7 +426,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 35px;
+  margin-top: 5%;
   &:hover {
     cursor: pointer;
   }
@@ -386,6 +435,7 @@ html {
 .text {
   font-family: "Raleway", sans-serif;
   font-size: $medium;
+  color: $w;
 }
 
 .details {
@@ -393,17 +443,19 @@ html {
   flex-direction: column;
   align-items: center;
   background-color: transparent;
-  width: 100vw;
-  max-width: 100%;
+  // width: 100vw;
+  // max-width: 100%;
   &-tagline {
     font-size: $huge;
     margin: 2em 0 0.25em 0;
   }
   &-about {
-    margin: 1em 0 1.5em 0;
+    padding: 0 5% 0 5%;
+    margin: 1em 0 3em 0;
+    // padding: 0 5% 0 5%;
+    text-align: center;
   }
   &-projects-title {
-    // font-style: italic;
     font-weight: 700;
   }
   &-projects-content {
@@ -416,6 +468,10 @@ html {
     display: flex;
     align-items: center;
     flex-direction: column;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 .card {
