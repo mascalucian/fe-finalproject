@@ -75,12 +75,17 @@ export default {
         password: this.password,
       });
       console.log("Finished");
-      if (this.isLoggedin) {
-        this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
-        this.$store.dispatch("callSnackBar", {
-          payload: "Login successful!", //Your message!!
-        });
+      if (!this.isLoggedin) {
+        return;
       }
+      this.$store.commit("setSnackBarTimeout", 2500);
+      this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
+      this.$store.dispatch("callSnackBar", {
+        payload: "Login successful!", //Your message!!
+      });
+      setTimeout(() => {
+        this.$router.push({ name: "Home" });
+      }, 2000);
     },
     async register() {
       await this.$store.dispatch("signUp", {
