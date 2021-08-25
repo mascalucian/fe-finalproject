@@ -72,6 +72,7 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
 .all {
   display: flex;
   flex-wrap: wrap;
@@ -81,11 +82,13 @@ export default {
 flex: 1 0 30%;
 }
 h1 {
+  padding-top: 25px;
  text-align: center;
  align-content: center;
  align-items: center;
- font-size: 40px;
+ font-size: 33px;
  margin-bottom: -20px;
+ font-family: "Montserrat", sans-serif;
  
 }
 .h1div {
@@ -94,6 +97,7 @@ h1 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-family: "Montserrat", sans-serif;
 }
 
 @media screen and (max-width: 900px) {

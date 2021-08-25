@@ -155,7 +155,7 @@ export default {
   cursor: pointer;
 
   background: transparent;
-  border: 1px solid #ffffff;
+  border: 1px solid #fff;
   outline: none;
   transition: 1s ease-in-out;
 }
@@ -175,6 +175,7 @@ svg {
 .btnn:hover {
   transition: 1s ease-in-out;
   background: #f4690e;
+  color: white;
 }
 
 .btnn:hover svg {
@@ -182,7 +183,7 @@ svg {
 }
 
 .btnn span {
-  color: white;
+  color: black;
   font-size: 18px;
   font-weight: 100;
 }

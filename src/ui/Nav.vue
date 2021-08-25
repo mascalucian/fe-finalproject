@@ -82,9 +82,9 @@ export default {
   box-sizing: border-box;
 }
 .marire{
-  height:230px;
+  height:220px;
   .navMenu {
-    height: 230px !important;
+    height: 220px !important;
     -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
   }
