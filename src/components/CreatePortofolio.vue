@@ -13,7 +13,7 @@
         <form @submit.prevent="handleSubmit($event, createPortofolio)">
           <div
             ref="bannerRef"
-            class="banner-image"
+            class="banner-image vld-parent"
             :style="{
               backgroundImage: `url(${previewBanner ||
                 'https://thumbs.dreamstime.com/b/%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B8%D0%B9-%D0%BD%D0%B0%D0%B1%D0%BE%D1%80-%D1%84%D0%BE%D0%BD%D0%B0-%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE-%D1%81%D1%82%D0%BE%D0%BB%D0%B0-%D0%BF%D0%BE%D0%BB%D1%83%D1%82%D0%BE%D0%BD%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B0-209014143.jpg'})`,
@@ -23,6 +23,7 @@
               <div ref="profilePicRef">
                 <img
                   id="profile-picture-img"
+                  class="vld-parent"
                   v-bind:src="
                     previewPhoto ||
                       'https://www.pngitem.com/pimgs/m/464-4644415_employee-clipart-testimonial-illustration-hd-png-download.png'
