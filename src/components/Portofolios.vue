@@ -1,7 +1,7 @@
 <template>
   <div class="h1div">
   <h1>All the listings on </h1>
-  <img src="https://i.imgur.com/MGp2X3f.png" alt="">
+  <img src="https://i.imgur.com/MGp2X3f.png" class="biglogo">
   </div>
     <div class="all">
       <FeaturedPortfolio
@@ -73,16 +73,19 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin-top: -60px;
 }
 .each {
 flex: 1 0 30%;
 }
 h1 {
+  padding-top: 25px;
  text-align: center;
  align-content: center;
  align-items: center;
- font-size: 40px;
+ font-size: 33px;
  margin-bottom: -20px;
+ font-family: "Montserrat", sans-serif;
  
 }
 .h1div {
@@ -92,5 +95,11 @@ h1 {
   align-items: center;
   flex-direction: column;
 }
-
+@media screen and (max-width: 900px) {
+  .biglogo {
+    width: 80vw;
+    padding-top: 20px;
+    padding-bottom: 60px;
+  }
+}
 </style>
