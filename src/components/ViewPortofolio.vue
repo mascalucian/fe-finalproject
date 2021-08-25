@@ -443,9 +443,10 @@ html {
   }
   &-about {
     margin: 1em 0 3em 0;
+    padding: 0 5% 0 5%;
+    text-align: center;
   }
   &-projects-title {
-    // font-style: italic;
     font-weight: 700;
   }
   &-projects-content {
