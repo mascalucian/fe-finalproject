@@ -70,13 +70,16 @@ export default {
   padding-top: 20px;
   padding-bottom: 40px;
 }
+.eachh{
+  flex: 0 1 33%;  box-sizing: border-box;
+}
 .maincontainerr {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 .portfolioo {
-  width: 27%;
+  
   padding: 10px;
   display: flex;
   flex-direction: column-reverse;
@@ -98,6 +101,7 @@ export default {
 .portfolioo .infoboxx {
   margin-top: -73px;
   width: 90%;
+  min-width: 400px;
   height: 400px;
   background-image: url("https://wallpaperaccess.com/full/888745.jpg");
   display: flex;
@@ -187,6 +191,8 @@ svg {
   padding: 10px;
   font-size: 20px;
 }
+
+
 
 
 

@@ -1,7 +1,7 @@
 <template>
   <div class="h1div">
   <h1>Welcome to </h1>
-  <img src="https://i.imgur.com/MGp2X3f.png" alt="">
+  <img src="https://i.imgur.com/MGp2X3f.png" class="biglogo">
   </div>
   <div class="h1div">
   <h1>Here are our Top 3 picks: </h1>
@@ -94,5 +94,13 @@ h1 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+@media screen and (max-width: 900px) {
+  .biglogo {
+    width: 80vw;
+    padding-top: 20px;
+    padding-bottom: 60px;
+  }
 }
 </style>
