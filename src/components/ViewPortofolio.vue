@@ -336,7 +336,7 @@ html {
     rgba(0, 0, 0, 1) 50%,
     rgba(0, 0, 0, 1) 100%
   );
-  width: 99.2vw;
+  width: 98.8vw;
   max-width: 100%;
 }
 
