@@ -117,10 +117,11 @@
             <h5 style="color:red">No projects found!</h5>
           </div>
           <div class="details-contact text">
-            <p>{{ currentPortofolio.email }}</p>
+            <a class="text" v-bind:href="'mailto:' + currentPortofolio.email">{{
+              currentPortofolio.email
+            }}</a>
             <p>{{ currentPortofolio.phoneNumber }}</p>
           </div>
-          <!-- <a class="link" href="#">Get resume</a> -->
         </div>
       </div>
     </div>
@@ -260,7 +261,12 @@ export default {
         });
     },
     saveOrOpenBlob(blob) {
-      var fileName = "Resume.pdf"; ///Interpoleaza cu numele din portofolio
+      var fileName =
+        this.currentPortofolio.firstName +
+        "_" +
+        this.currentPortofolio.lastName +
+        "_" +
+        "Resume.pdf"; ///Interpoleaza cu numele din portofolio
       var tempEl = document.createElement("a");
       document.body.appendChild(tempEl);
       tempEl.style = "display: none";
@@ -320,6 +326,7 @@ html {
   flex-direction: column;
   align-content: center;
   align-items: center;
+  width: 100%;
 }
 .content {
   position: relative;
@@ -428,6 +435,7 @@ html {
 .text {
   font-family: "Raleway", sans-serif;
   font-size: $medium;
+  color: $w;
 }
 
 .details {
@@ -460,6 +468,10 @@ html {
     display: flex;
     align-items: center;
     flex-direction: column;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 .card {
