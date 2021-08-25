@@ -58,13 +58,14 @@ export default {
 
 nav {
   display: flex;
+  background-image: linear-gradient(#F9AB2F, #F4690E);
   justify-content: space-between;
   align-items: center;
   flex: 1 0 auto;
   flex-wrap: nowrap;
   height: 80px;
   width: 100vw;
-  background: transparent;
+  
   font-family: "Montserrat", sans-serif;
   div {
     display: inline-block;
@@ -106,7 +107,7 @@ nav {
 
 a {
   cursor: pointer;
-  color: #f6f4e6 !important;
+  color: #fff !important;
   text-decoration: none;
   font-size: 1.2em;
   text-transform: uppercase;
@@ -120,7 +121,7 @@ a {
   &:hover,
   &:active,
   &.router-link-active {
-    color: #fddb3a !important;
+    color: black !important;
   }
 }
 
@@ -133,14 +134,17 @@ a {
   }
 }
 .edit-button {
-  background-color: darkorange;
+  background-color: red;
   border-radius: 40px;
-  opacity: 70%;
+  opacity: 40%;
   background-blend-mode: color-burn;
   padding: 0.1rem 0.5rem;
   &.router-link-active {
     display: none;
   }
+}
+.edit-button:hover {
+  opacity: 100%;
 }
 
 .dot {
