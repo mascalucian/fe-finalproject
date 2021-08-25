@@ -88,6 +88,7 @@ nav {
   }
 }
 .logo {
+  padding-left: 3rem;
   height: 80px;
   vertical-align: middle;
   flex: 1 1 80px;
