@@ -149,8 +149,9 @@ export default {
   width: 180px;
   height: 60px;
   cursor: pointer;
+
   background: transparent;
-  border: 1px solid #91C9FF;
+  border: 1px solid #ffffff;
   outline: none;
   transition: 1s ease-in-out;
 }
@@ -161,6 +162,7 @@ svg {
   top: 0;
   fill: none;
   stroke: #fff;
+  
   stroke-dasharray: 150 480;
   stroke-dashoffset: 150;
   transition: 1s ease-in-out;
