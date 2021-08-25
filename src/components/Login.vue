@@ -59,6 +59,12 @@ import "firebase/firestore";
 import { db } from "../config/db";
 import { mapGetters } from "vuex";
 export default {
+      data() {
+    return {
+      username: "",
+      password: ""
+    };
+  },
           computed: {
     
     ...mapGetters(
