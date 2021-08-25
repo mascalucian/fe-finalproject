@@ -336,8 +336,8 @@ html {
     rgba(0, 0, 0, 1) 50%,
     rgba(0, 0, 0, 1) 100%
   );
-  width: 98.8vw;
-  max-width: 100%;
+  // width: 98.8vw;
+  // max-width: 100%;
 }
 
 .header {
@@ -435,8 +435,8 @@ html {
   flex-direction: column;
   align-items: center;
   background-color: transparent;
-  width: 100vw;
-  max-width: 100%;
+  // width: 100vw;
+  // max-width: 100%;
   &-tagline {
     font-size: $huge;
     margin: 2em 0 0.25em 0;
