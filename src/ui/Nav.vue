@@ -21,7 +21,7 @@
           Logout
         </a>
         <router-link to="/" id="logoid"
-          ><img src="https://i.imgur.com/MGp2X3f.png" class="logo"
+          ><img src="https://i.imgur.com/Jwuropl.png" class="logo"
         /></router-link>
       </div>
 
