@@ -68,6 +68,10 @@ nav {
   div {
     display: inline-block;
   }
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 #left {
@@ -122,6 +126,9 @@ a {
   background-color: limegreen;
   border-radius: 40px;
   padding: 0.1rem 0.5rem;
+  &.router-link-active {
+    display: none;
+  }
 }
 
 .dot {
