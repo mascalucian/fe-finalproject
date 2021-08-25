@@ -1,8 +1,10 @@
 <template>
-  <div class="alll">
-    <nav class="navMenu">
+  <div class="topnav" id="myTopnav">
+    <nav class="navMenu" id="navv">
+      
       <div id="left">
-        <router-link to="/test">Home</router-link>
+        
+        <router-link to="/test" class="active">Home</router-link>
         <router-link to="/portofolios">Portofolios</router-link>
         <router-link to="/aboutus">About</router-link>
         <router-link to="/contact">Contact</router-link>
@@ -10,6 +12,7 @@
 
       <div id="right">
         <router-link v-if="!isLoggedin" to="/login">Login</router-link>
+        
         <router-link
           to="/portofolios/manage/"
           v-if="isLoggedin"
@@ -25,7 +28,14 @@
         <router-link to="/" id="logoid"
           ><img src="https://i.imgur.com/Jwuropl.png" class="logo"
         /></router-link>
+        <router-link to="/" id="slogo"
+          ><img src="https://cdn.discordapp.com/attachments/769127565239255061/880137163314970624/or.png" class="slogo"
+        /></router-link>
+        
       </div>
+      <a href="javascript:void(0);" class="icon" v-on:click="myFunction">
+        <i class="fa fa-bars"></i>
+        </a>
 
       <div class="dot"></div>
     </nav>
@@ -40,6 +50,20 @@ export default {
     async logOut() {
       await this.$store.dispatch("signOut");
     },
+            myFunction() {
+          var x = document.getElementById("myTopnav");
+          if (x.className === "topnav") {
+            x.className += " responsive";
+          } else {
+            x.className = "topnav";
+          }
+           var y = document.getElementById("myTopnav");
+          if (y.className === "topnav responsive") {
+            y.className += " marire";
+          } else {
+            y.className = "topnav";
+          }
+        }
   },
   computed: {
     ...mapGetters(
@@ -57,9 +81,111 @@ export default {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+.marire{
+  height:230px;
+  .navMenu {
+    height: 230px !important;
+  }
+  .edit-button{
+    margin-left: -2px !important;
+  }
+  .create-edit-button{
+    margin-left: -2px !important;
+  }
+}
+/* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+  display: none;
+}
+@media screen and (max-width: 1290px) {
+  nav {
+    height: 160px !important;
+  }
+  .topnav{
+    height: 160px;
+  }
+  #left {
+    padding-left:20vw !important;
+    float:none !important;
+  }
+  #right {
+    padding-right:2vw !important;
+    float:right !important;
+  }
+}
+@media screen and (max-width: 927px) {
+  #logoid {
+    display:none;
+  }
+   .topnav{
+    height: 120px;
+  }
+  .topnav .slogo{
+      float: right !important;
+      display: block !important;
+      padding-right:20vw !important;
+    }
+}
+.slogo {
+  display: none;
+  height: 40px;
+}
+
+/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+    position: absolute;
+    right: 100px;
+    top: 20px;
+  }
+  .slogo{
+    position: absolute;
+    left: 20px;
+    top: 10px;
+  }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive a.icon {
+    position: absolute;
+    right: 100px;
+    top: 20px;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .slogo{
+    position: absolute !important;
+    left: 20px !important;
+    top: 10px !important;
+    display: block !important;
+  }
+  nav {
+    height: 120px !important;
+  }
+  #right {
+    float: left !important;
+    margin-left:20vw !important;
+    margin-top: -30px;
+  }
+  .edit-button{
+    margin-left: -2px !important;
+  }
+  .create-edit-button{
+    margin-left: -2px !important;
+  }
+}
 
 nav {
-  display: flex;
+  display: block;
+  
   background-image: linear-gradient(#F9AB2F, #F4690E);
   justify-content: space-between;
   align-items: center;
@@ -79,16 +205,22 @@ nav {
 }
 
 #left {
-  display: flex;
+  display: block;
+  padding: 20px;
+  float:left;
   justify-items: flex-start;
   flex: 1 1 auto;
   flex-wrap: wrap;
   flex-direction: row;
-  min-width: 270px;
+  align-items: center;
+  
+  
 }
 
 #right {
-  display: flex;
+  padding: 10px;
+  display: block;
+  float:right;
   justify-items: flex-end;
   align-items: center;
   a {
