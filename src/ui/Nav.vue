@@ -136,6 +136,7 @@ a {
   background-color: darkorange;
   border-radius: 40px;
   opacity: 70%;
+  background-blend-mode: color-burn;
   padding: 0.1rem 0.5rem;
   &.router-link-active {
     display: none;

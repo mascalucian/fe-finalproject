@@ -62,6 +62,7 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 .alll {
   display: flex;
   flex-direction: column;
@@ -114,14 +115,17 @@ export default {
 }
 #name {
   margin-top: 20px;
+    font-family: "Montserrat", sans-serif;
 }
 #title {
     margin-top: -20px;
+      font-family: "Montserrat", sans-serif;
 }
 .pp {
     padding: 25px;
     height:140px;
     overflow:hidden;
+      font-family: "Montserrat", sans-serif;
 }
 @import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
 
@@ -131,6 +135,7 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   display: flex;
+    font-family: "Montserrat", sans-serif;
   justify-content: center;
 }
 
