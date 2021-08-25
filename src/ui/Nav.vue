@@ -68,6 +68,10 @@ nav {
   div {
     display: inline-block;
   }
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 #left {
