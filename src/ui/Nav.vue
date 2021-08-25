@@ -13,7 +13,7 @@
         <router-link
           to="/portofolios/manage/"
           v-if="isLoggedin"
-          :class="{ 'create-edit-button': !getHasPortofolio }"
+          :class="{ 'create-edit-button': !getHasPortofolio, 'edit-button': getHasPortofolio}"
         >
           {{ getHasPortofolio ? "Edit Portofol.io" : "Create Portofol.io" }}
         </router-link>
@@ -63,6 +63,7 @@ nav {
   flex: 1 0 auto;
   flex-wrap: nowrap;
   height: 80px;
+  width: 100vw;
   background: transparent;
   font-family: "Montserrat", sans-serif;
   div {
@@ -93,9 +94,10 @@ nav {
 }
 .logo {
   padding-left: 3rem;
-  height: 80px;
+  height: 50px;
   vertical-align: middle;
   flex: 1 1 80px;
+  margin-right: 20px;
 }
 
 #logoid {
@@ -125,6 +127,15 @@ a {
 .create-edit-button {
   background-color: limegreen;
   border-radius: 40px;
+  padding: 0.1rem 0.5rem;
+  &.router-link-active {
+    display: none;
+  }
+}
+.edit-button {
+  background-color: darkorange;
+  border-radius: 40px;
+  opacity: 70%;
   padding: 0.1rem 0.5rem;
   &.router-link-active {
     display: none;
