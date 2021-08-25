@@ -122,6 +122,9 @@ a {
   background-color: limegreen;
   border-radius: 40px;
   padding: 0.1rem 0.5rem;
+  &.router-link-active {
+    display: none;
+  }
 }
 
 .dot {
