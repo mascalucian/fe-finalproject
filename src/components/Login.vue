@@ -1,14 +1,23 @@
 <template>
 
- 
+      
 <div class="container" id="container">
+     <div class="auth-status" v-if="isLoggedin">
+        <h3>You are currently logged in!</h3>
+        <small>Your user data:</small>
+        <div>
+          <p>UserId: {{ loggedInUser.uid }}</p>
+          <p>Email: {{ loggedInUser.email }}</p>
+        </div>
+        <button @click="logout()">Logout</button>
+      </div>
 	<div class="form-container sign-up-container">
 		<form action="#">
 			<h1>Create Account</h1>
             <input type="email" placeholder="Email" v-model="username" />
 			<input type="password" placeholder="Password" v-model="password" />
             <input type="password" placeholder="Re-Type Password" />
-			<button>Sign Up</button>
+			<button @click="register()">Sign Up</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
@@ -17,7 +26,7 @@
 			<input type="email" placeholder="Email" v-model="username" />
 			<input type="password" placeholder="Password" v-model="password"/>
 			<a href="#">Forgot your password?</a>
-			<button>Sign In</button>
+			<button @click="login()">Sign in</button>
 		</form>
 	</div>
 	<div class="overlay-container">
@@ -45,8 +54,22 @@
 </template>
 
 <script>
-
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { db } from "../config/db";
+import { mapGetters } from "vuex";
 export default {
+          computed: {
+    
+    ...mapGetters(
+      [
+        "isLoggedin",
+        "loggedInUser",
+        "loadingData",
+        "getErrorMessage",
+      ] // -> this.someGetter
+    ),
+  },
     methods:{
 
         left:function()
@@ -58,8 +81,44 @@ export default {
         {
             const container = document.getElementById('container');
         container.classList.remove("right-panel-active");
+        },
+        async login() {
+      await this.$store.dispatch("signIn", {
+        username: this.username,
+        password: this.password,
+      });
+      console.log("Finished");
+      if (this.isLoggedin) {
+        this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
+        this.$store.dispatch("callSnackBar", {
+          payload: "Login successful!", //Your message!!
+        });
         }
-    }
+    },
+       async register() {
+      await this.$store.dispatch("signUp", {
+        username: this.username,
+        password: this.password,
+      });
+      if (this.isLoggedin) {
+        this.$store.commit("setSnackBarBackground", "#adff2f");
+        this.$store.dispatch("callSnackBar", {
+          payload: "Registration successful!",
+        });
+      }
+    },
+    logout() {
+      this.$store.dispatch("signOut");
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          this.$store.dispatch("callSnackBar", {
+            payload: "Logged out!", //culoare default
+          });
+        }
+      });
+    },
+
+}
 }
 </script>
 
