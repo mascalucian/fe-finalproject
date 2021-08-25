@@ -17,7 +17,9 @@
         >
           {{ getHasPortofolio ? "Edit Portofol.io" : "Create Portofol.io" }}
         </router-link>
-        <a v-if="isLoggedin" @click="logOut()">
+        <a v-if="isLoggedin"
+        @click="logOut()"
+        :class="{ 'logoutt': isLoggedin}" >
           Logout
         </a>
         <router-link to="/" id="logoid"
@@ -93,6 +95,7 @@ nav {
     margin: 0 0.4rem;
   }
 }
+
 .logo {
   padding-left: 3rem;
   height: 50px;
@@ -134,17 +137,26 @@ a {
   }
 }
 .edit-button {
-  background-color: red;
+  background-color: rgba(255, 255, 255, 0.281);
   border-radius: 40px;
-  opacity: 40%;
+  color: rgba(255, 255, 255, 0.623);
   background-blend-mode: color-burn;
   padding: 0.1rem 0.5rem;
   &.router-link-active {
     display: none;
   }
 }
+.logoutt:hover {
+  color:red;
+   &:hover,
+  &:active,
+  &.router-link-active {
+    color: red !important;
+  }
+}
 .edit-button:hover {
   opacity: 100%;
+  background-color: white;
 }
 
 .dot {
