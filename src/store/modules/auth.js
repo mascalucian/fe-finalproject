@@ -77,9 +77,9 @@ const auth = {
         }
       });
     },
-    signOut({ commit }) {
+    async signOut({ commit }) {
       commit("loadData");
-      firebase
+      await firebase
         .auth()
         .signOut()
         .then(() => {
