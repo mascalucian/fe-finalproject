@@ -37,7 +37,7 @@
         <i class="fa fa-bars"></i>
         </a>
 
-      <div class="dot"></div>
+      <!-- <div class="dot"></div> -->
     </nav>
   </div>
 </template>
@@ -85,6 +85,8 @@ export default {
   height:230px;
   .navMenu {
     height: 230px !important;
+    -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
   }
   .edit-button{
     margin-left: -2px !important;
@@ -141,10 +143,12 @@ export default {
     right: 100px;
     top: 20px;
   }
-  .slogo{
-    position: absolute;
-    left: 20px;
-    top: 10px;
+  .slogo {
+    display: block !important;
+    position: absolute !important;
+    left: 20px !important;
+    top: 10px !important;
+    
   }
 }
 
@@ -161,7 +165,7 @@ export default {
     display: block;
     text-align: left;
   }
-  .slogo{
+  .slogo {
     position: absolute !important;
     left: 20px !important;
     top: 10px !important;
