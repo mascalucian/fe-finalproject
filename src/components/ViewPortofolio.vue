@@ -442,8 +442,9 @@ html {
     margin: 2em 0 0.25em 0;
   }
   &-about {
-    margin: 1em 0 3em 0;
     padding: 0 5% 0 5%;
+    margin: 1em 0 3em 0;
+    // padding: 0 5% 0 5%;
     text-align: center;
   }
   &-projects-title {
