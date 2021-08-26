@@ -8,7 +8,7 @@
         <h3>
           For any business related inquiries, please feel free to contact us at:
         </h3>
-        <a href="mailto:bussiness@portofol.io">bussiness@portofol.io</a>
+        <a href="mailto:business@portofol.io">business@portofol.io</a>
       </div>
       <div>
         <h3>
