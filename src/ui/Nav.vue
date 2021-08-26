@@ -99,7 +99,7 @@ export default {
 .topnav .icon {
   display: none;
 }
-@media screen and (max-width: 1290px) {
+@media screen and (max-width: 1310px) {
   nav {
     height: 160px !important;
   }
@@ -188,6 +188,9 @@ export default {
   .create-edit-button {
     margin-left: -2px !important;
   }
+}
+.topnav {
+  padding-bottom: 35px;
 }
 
 nav {
