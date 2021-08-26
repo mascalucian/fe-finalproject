@@ -291,7 +291,13 @@ a {
   &:hover,
   &:active,
   &.router-link-active {
-    color: red !important;
+    background-color: red;
+  border-radius: 40px;
+  color: rgba(255, 255, 255, 0.623);
+  background-blend-mode: color-burn;
+  padding: 0rem 0.5rem;
+  margin-left: -15px;
+  margin-top:15px;
   }
 }
 .edit-button:hover {
