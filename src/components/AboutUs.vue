@@ -3,56 +3,84 @@
     <h1>About us</h1>
   </header>
   <main>
-    <div class="my-card">
-      <img src="http://imgur.com/ua1wx.jpg" />
-      <span class="card-content">
-        <p>
-          Our story starts 1 week ago, during our Frontend Internship when our
-          team was chilling at <strong>Templul Manelelor</strong> in Costinești,
-          Constanța, Romania. Our Frontend mentor tasked us with creating a
-          portfolio website, not individual ones, but rather as a team. We
-          thought why not harnessing the power of colaboration and rather then
-          design our own portfolio websites, why not create a platform where
-          anyone could create and host their portfolio website, free of charge.
-        </p>
-      </span>
-    </div>
-    <div class="my-card">
-      <img
-        src="https://www.funmag.org/wp-content/uploads/2012/09/funny-orange-peel-04.jpg"
-      />
-      <span class="card-content">
-        <p>
-          And thus <strong>Portofol.io</strong> got it's start. A free platform
-          where anyone cand join and host their own modern professional grade
-          portfolio. We're constantly working on adding new features and we'd
-          like to take a moment to thank our community for their utmost support.
-        </p>
-      </span>
-    </div>
-    <div class="my-card">
-      <img
-        src="https://ruinmyweek.com/wp-content/uploads/2017/06/funny-pics-to-share-orange-slices-in-a-huddle.jpeg"
-      />
-      <span class="card-content">
-        <p>
-          Our project started up as an assignment but we'd never thought to see
-          it go to such heights! We are forever endebted to our own friends and
-          family for keeping us on the right track and keep this project afloat
-          and constantly expanding.
-        </p>
-        <p style="text-align:right">
-          <em>
-            The Portofol.io Team
-          </em>
-        </p>
-      </span>
-    </div>
+    <section id="cards">
+      <div class="my-card">
+        <img src="http://imgur.com/ua1wx.jpg" />
+        <span class="card-content">
+          <p>
+            Our story starts 1 week ago, during our Frontend Internship when our
+            team was chilling at <strong>Templul Manelelor</strong> in
+            Costinești, Constanța, Romania. Our Frontend mentor tasked us with
+            creating a portfolio website, not individual ones, but rather as a
+            team. We thought why not harnessing the power of colaboration and
+            rather then design our own portfolio websites, why not create a
+            platform where anyone could create and host their portfolio website,
+            free of charge.
+          </p>
+        </span>
+      </div>
+      <div class="my-card">
+        <img
+          src="https://www.funmag.org/wp-content/uploads/2012/09/funny-orange-peel-04.jpg"
+        />
+        <span class="card-content">
+          <p>
+            And thus <strong>Portofol.io</strong> got it's start. A free
+            platform where anyone cand join and host their own modern
+            professional grade portfolio. We're constantly working on adding new
+            features and we'd like to take a moment to thank our community for
+            their utmost support.
+          </p>
+        </span>
+      </div>
+      <div class="my-card">
+        <img
+          src="https://ruinmyweek.com/wp-content/uploads/2017/06/funny-pics-to-share-orange-slices-in-a-huddle.jpeg"
+        />
+        <span class="card-content">
+          <p>
+            Our project started up as an assignment but we'd never thought to
+            see it go to such heights! We are forever endebted to our own
+            friends and family for keeping us on the right track and keep this
+            project afloat and constantly expanding.
+          </p>
+          <p style="text-align:right">
+            <em>
+              The Portofol.io Team
+            </em>
+          </p>
+        </span>
+      </div>
+    </section>
+    <section id="team-members">
+      <h2>
+        Team Members:
+        <FeaturedPortfolio
+          v-for="portofolio in teamMember"
+          v-bind:key="portofolio.id"
+          :fname="portofolio.firstName"
+          :lname="portofolio.lastName"
+          :title="portofolio.title"
+          :about="portofolio.about"
+          :idd="portofolio.userId"
+        />
+      </h2>
+    </section>
   </main>
 </template>
 
 <script>
-export default {};
+import FeaturedPortfolio from "../ui/FeaturedPortfolio.vue";
+export default {
+  components: {
+    FeaturedPortfolio,
+  },
+  data() {
+    return {
+      teamMembers: [],
+    };
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -81,6 +109,10 @@ header {
 
 main {
   padding: 3rem 6rem;
+}
+
+#cards {
+  border-bottom: 3px solid $w-2;
 }
 img {
   overflow: hidden;
@@ -126,6 +158,16 @@ img {
   background-color: rgb(255, 235, 197);
 }
 
-@media screen {
+#team-members {
+  background-color: $w;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  h2 {
+    font-family: $f-o;
+    color: black;
+    font-size: 3rem;
+    padding: 1rem 0;
+    border-bottom: 2px solid black;
+  }
 }
 </style>
