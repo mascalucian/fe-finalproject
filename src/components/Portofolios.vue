@@ -1,20 +1,19 @@
 <template>
   <div class="h1div">
-  <h1>All the listings on </h1>
-  <img src="https://i.imgur.com/MGp2X3f.png" class="biglogo">
+    <h1>All the listings on</h1>
+    <img src="https://i.imgur.com/MGp2X3f.png" class="biglogo" />
   </div>
-    <div class="all">
-      <FeaturedPortfolio
-        v-for="portofolio in allPortofolios"
-        v-bind:key="portofolio"
-        :fname="portofolio.firstName"
-        :lname="portofolio.lastName"
-        :title="portofolio.title"
-        :about="portofolio.about"
-        :idd="portofolio.userId"
-        :imgURL="url"
-      />
-    </div>
+  <div class="all">
+    <FeaturedPortfolio
+      v-for="portofolio in allPortofolios"
+      v-bind:key="portofolio"
+      :fname="portofolio.firstName"
+      :lname="portofolio.lastName"
+      :title="portofolio.title"
+      :about="portofolio.about"
+      :idd="portofolio.userId"
+    />
+  </div>
 </template>
 
 <script>
@@ -76,17 +75,16 @@ export default {
   margin-top: -60px;
 }
 .each {
-flex: 1 0 30%;
+  flex: 1 0 30%;
 }
 h1 {
   padding-top: 25px;
- text-align: center;
- align-content: center;
- align-items: center;
- font-size: 33px;
- margin-bottom: -20px;
- font-family: "Montserrat", sans-serif;
- 
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  font-size: 33px;
+  margin-bottom: -20px;
+  font-family: "Montserrat", sans-serif;
 }
 .h1div {
   vertical-align: middle;
