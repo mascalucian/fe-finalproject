@@ -8,8 +8,8 @@
         <img src="http://imgur.com/ua1wx.jpg" />
         <span class="card-content">
           <p>
-            Our story starts {{ daysWeBeenWorking }} days ago, during our
-            Frontend Internship when our team was chilling at
+            Our story starts <strong>{{ daysWeBeenWorking }} days ago</strong>,
+            during our Frontend Internship when our team was chilling at
             <strong>Templul Manelelor</strong> in Costinești, Constanța,
             Romania. Our Frontend mentor tasked us with creating a portfolio
             website, not individual ones, but rather as a team. We thought why
