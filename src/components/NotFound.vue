@@ -16,6 +16,7 @@ export default {};
 
 <style scoped lang="scss">
 div {
+  height: 100%;
   padding: 3rem 7rem;
   main {
     h1 {
@@ -23,9 +24,10 @@ div {
       font-family: $f-o;
       text-transform: uppercase;
     }
+    margin: auto;
     font-family: $f-w;
     font-size: 1.5rem;
-    height: 30rem;
+    height: 90%;
     background-color: white;
     border-radius: 45px;
     padding: 3rem 2rem;

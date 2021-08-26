@@ -20,7 +20,10 @@ export default {
 </script>
 
 <style>
+html,
 body {
+  height: 100%;
+  overflow: auto;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -32,5 +35,15 @@ body {
   font-size: 100%;
   vertical-align: baseline;
   background: transparent;
+}
+
+#view {
+  flex-grow: 1;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>
