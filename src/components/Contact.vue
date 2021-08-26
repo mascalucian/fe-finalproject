@@ -114,6 +114,11 @@ main {
       text-align: center;
       display: block;
       padding: 0.5rem;
+      &:hover,
+      :active,
+      :focus-visible {
+        color: $o-6;
+      }
     }
   }
 }
