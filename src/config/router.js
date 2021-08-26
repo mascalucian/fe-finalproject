@@ -23,7 +23,8 @@ const routes = [
     component: NotFound,
   },
   {
-    path: "/login",
+    path: "/login/:returnUrl?",
+    name: "Login",
     component: Login,
   },
   {
@@ -67,9 +68,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresLogin)) {
+    console.log(to);
     if (!store.getters.isLoggedin)
       next({
-        path: "/login",
+        name: "Login",
+        params: { returnUrl: to.fullPath },
       });
     else next();
   } else {
