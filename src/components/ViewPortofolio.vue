@@ -3,31 +3,22 @@
     class="wrapper"
     v-bind:style="{ 'background-image': 'url(' + this.coverPicture + ')' }"
   >
-    <div class="vld-parent">
-      <loading
-        v-model:active="isLoading"
-        :can-cancel="true"
-        :on-cancel="onCancel"
-        :is-full-page="fullPage"
-      />
-    </div>
-    <div v-if="currentPortofolio">
-      <div class="content">
-        <div class="header">
-          <div class="header-image">
-            <!-- <i class="fas fa-laptop-code fa-10x "></i> -->
-            <img class="header-image-img " v-bind:src="this.profilePicture" />
-          </div>
+    <div class="content" v-if="currentPortofolio">
+      <div class="header">
+        <div class="header-image">
+          <!-- <i class="fas fa-laptop-code fa-10x "></i> -->
+          <img class="header-image-img " v-bind:src="this.profilePicture" />
+        </div>
 
-          <h1 class="header-name">
-            {{ currentPortofolio.firstName }}
-            {{ currentPortofolio.lastName }}
-          </h1>
+        <h1 class="header-name">
+          {{ currentPortofolio.firstName }}
+          {{ currentPortofolio.lastName }}
+        </h1>
 
-          <div class="header-occupation">
-            {{ currentPortofolio.title }}
-          </div>
-
+        <div class="header-occupation">
+          {{ currentPortofolio.title }}
+        </div>
+        <div class="header-socials-wrapper">
           <a
             class="header-socials"
             v-for="social in currentPortofolio.socials"
@@ -58,77 +49,73 @@
               ]"
             ></i>
           </a>
-          <button
-            type="button"
-            class="btn btn-light"
-            v-on:click="downloadResume()"
-          >
-            Get resume
-          </button>
-          <router-link
-            type="button"
-            class="btn btn-light"
-            v-if="
-              this.isLoggedin && this.$route.params.id == this.loggedInUser.uid
-            "
-            v-bind:to="'/portofolios/manage'"
-          >
-            Edit
-          </router-link>
         </div>
-        <button class="more-details">
-          More details
-          <i class="fas fa-chevron-down"></i>
+        <button
+          type="button"
+          class="btn btn-light"
+          v-on:click="downloadResume()"
+        >
+          Get resume
         </button>
-        <div class="details">
-          <h1 class="details-tagline text">{{ currentPortofolio.tagline }}</h1>
-          <div class="details-about text">
-            <br />{{ currentPortofolio.about }} <br />
-          </div>
-          <!-- </div>
+        <router-link
+          type="button"
+          class="btn btn-light"
+          v-if="
+            this.isLoggedin && this.$route.params.id == this.loggedInUser.uid
+          "
+          v-bind:to="'/portofolios/manage'"
+        >
+          Edit
+        </router-link>
+      </div>
+      <button class="more-details">
+        More details
+        <i class="fas fa-chevron-down"></i>
+      </button>
+      <div class="details">
+        <h1 class="details-tagline text">{{ currentPortofolio.tagline }}</h1>
+        <div class="details-about text">
+          <br />{{ currentPortofolio.about }} <br />
+        </div>
+        <!-- </div>
         <div class="test"> -->
-          <div
-            class="details-projects-title text"
-            v-if="getProjectsForPortofolio.length > 0"
-          >
-            <div class="card-deck">
-              <span
-                class="details-projects-content"
-                v-for="project in getProjectsForPortofolio"
-                v-bind:key="project.id"
-              >
-                <div class="card">
-                  <img
-                    class="card-img-top"
-                    src="../assets/images/tst.jpg"
-                    alt="Card image cap"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">{{ project.title }}</h5>
-                    <p class="card-text">{{ project.description }}</p>
-                    <p class="card-text"></p>
-                  </div>
+        <div
+          class="details-projects-title text"
+          v-if="getProjectsForPortofolio.length > 0"
+        >
+          <div class="card-deck">
+            <span
+              class="details-projects-content"
+              v-for="project in getProjectsForPortofolio"
+              v-bind:key="project.id"
+            >
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src="../assets/images/tst.jpg"
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{{ project.title }}</h5>
+                  <p class="card-text">{{ project.description }}</p>
+                  <p class="card-text"></p>
                 </div>
-                <br />
-              </span>
-            </div>
+              </div>
+              <br />
+            </span>
           </div>
-          <div v-else>
-            <h5 style="color:red">No projects found!</h5>
-          </div>
-          <div class="details-contact text">
-            <a class="text" v-bind:href="'mailto:' + currentPortofolio.email">{{
-              currentPortofolio.email
-            }}</a>
-            <p>{{ currentPortofolio.phoneNumber }}</p>
-          </div>
+        </div>
+        <div v-else>
+          <h5 style="color:red">No projects found!</h5>
+        </div>
+        <div class="details-contact text">
+          <a class="text" v-bind:href="'mailto:' + currentPortofolio.email">{{
+            currentPortofolio.email
+          }}</a>
+          <p>{{ currentPortofolio.phoneNumber }}</p>
         </div>
       </div>
     </div>
-
-    <h1 v-if="!currentPortofolio && !isLoading" style="color:red;">
-      Portofolio does not exist
-    </h1>
   </div>
 </template>
 
@@ -152,23 +139,11 @@ export default {
       profilePicture: "",
       coverPicture: "",
       downloadUrl: "",
+      loading: undefined,
     };
-  },
-  components: {
-    Loading,
   },
 
   methods: {
-    doAjax() {
-      this.isLoading = true;
-      // simulate AJAX
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 1500);
-    },
-    onCancel() {
-      console.log("User cancelled the loader.");
-    },
     async getPortofolio(userId) {
       if (this.projects.length > 0) this.projects = [];
       await db
@@ -187,9 +162,10 @@ export default {
         .catch((error) => {
           console.log("Error getting document:", error);
         });
-      if (this.currentPortofolio) await this.getStorageData(userId);
-      if (this.currentPortofolio) await this.getProjects(userId);
-      console.log(this.projects);
+      if (!this.currentPortofolio) return;
+      await this.getStorageData(userId);
+      await this.getProjects(userId);
+      this.loader.hide();
       this.$emit("getPortofolioID", userId);
     },
     async getProjects(userId) {
@@ -287,7 +263,7 @@ export default {
   },
   created() {
     // this.loading = true;
-    this.doAjax();
+    this.loader = this.$loading.show();
     const initialUserId = this.$route.params.id;
     this.getPortofolio(initialUserId);
   },
@@ -318,6 +294,7 @@ html {
   position: absolute;
   // background-image: url(https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1907&q=80);
   background-repeat: no-repeat;
+  background-position: top;
   background-size: cover;
   background-attachment: fixed;
   color: #1b150d;
@@ -328,6 +305,7 @@ html {
   width: 100%;
 }
 .content {
+  width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -492,5 +470,18 @@ html {
     justify-content: space-evenly;
     flex-wrap: wrap;
   }
+}
+
+.card-deck {
+  width: 100%;
+}
+
+.details-projects-content {
+  flex: 0 1 0;
+}
+
+.header-socials {
+  display: inline-block !important;
+  padding: 1rem;
 }
 </style>
