@@ -62,7 +62,7 @@ const router = createRouter({
   routes, // short for `routes: routes`
   history: createWebHashHistory(),
   scrollBehavior() {
-    return { left: 0, top: 0 };
+    document.getElementById("app").scrollIntoView();
   },
 });
 
