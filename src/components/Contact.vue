@@ -68,12 +68,11 @@ header {
     font-size: xxx-large;
     color: $w;
     background-color: $o;
-    margin: auto;
     border: 3px solid rgba(42, 158, 207, 0.45);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     padding: 1.5rem 5rem;
     border-radius: 100px;
-    margin: 3rem 0;
+    margin: 5rem 0;
   }
 }
 main {
