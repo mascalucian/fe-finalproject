@@ -25,7 +25,7 @@
         <div>
           <GoogleMap
             api-key="AIzaSyChAjp5DnMOrs3YFbiR2-RYtjKSiOWkG5E"
-            style="width: 100%; height: 500px"
+            style="width: 100%; height: 500px; margin:auto;"
             :center="center"
             :zoom="13"
           >
@@ -86,12 +86,13 @@ main {
     margin: 1rem 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     div {
+      margin: auto;
       box-shadow: none;
       div {
         border: 3px solid rgba(42, 158, 207, 0.45);
         border-radius: 0;
         padding: 0;
-        margin: 0;
+        margin: auto;
         margin-top: -2rem;
       }
     }
@@ -103,6 +104,7 @@ main {
       margin-top: 0.5rem;
       padding: 0 2rem;
       font-size: $big;
+      text-align: center;
     }
     a {
       cursor: pointer;
