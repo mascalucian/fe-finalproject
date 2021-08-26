@@ -180,14 +180,14 @@ export default {
             this.currentPortofolio = doc.data();
             console.log(this.currentPortofolio);
           } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-            this.currentPortofolio = undefined;
+            this.$router.push({ name: "NotFound" });
+            return;
           }
         })
         .catch((error) => {
           console.log("Error getting document:", error);
         });
+      if (this.currentPortofolio) await this.getStorageData(userId);
       if (this.currentPortofolio) await this.getProjects(userId);
       console.log(this.projects);
       this.$emit("getPortofolioID", userId);
@@ -289,7 +289,6 @@ export default {
     // this.loading = true;
     this.doAjax();
     const initialUserId = this.$route.params.id;
-    this.getStorageData(initialUserId);
     this.getPortofolio(initialUserId);
   },
   unmounted() {

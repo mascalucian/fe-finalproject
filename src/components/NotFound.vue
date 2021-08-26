@@ -16,7 +16,7 @@ export default {};
 
 <style scoped lang="scss">
 div {
-  padding: 1rem 3rem;
+  padding: 3rem 7rem;
   main {
     h1 {
       font-size: 3rem;
