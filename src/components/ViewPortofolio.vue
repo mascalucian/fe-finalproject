@@ -162,7 +162,10 @@ export default {
         .catch((error) => {
           console.log("Error getting document:", error);
         });
-      if (!this.currentPortofolio) return;
+      if (!this.currentPortofolio) {
+        this.loader.hide();
+        return;
+      }
       await this.getStorageData(userId);
       await this.getProjects(userId);
       this.loader.hide();
@@ -263,9 +266,12 @@ export default {
   },
   created() {
     // this.loading = true;
-    this.loader = this.$loading.show();
+
     const initialUserId = this.$route.params.id;
     this.getPortofolio(initialUserId);
+  },
+  mounted() {
+    this.loader = this.$loading.show();
   },
   unmounted() {
     if (this.currentPortofolio) {
@@ -292,7 +298,7 @@ html {
 
 .wrapper {
   position: absolute;
-  // background-image: url(https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1907&q=80);
+  background-image: url("https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1907&q=80");
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
