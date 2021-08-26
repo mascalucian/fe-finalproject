@@ -25,11 +25,11 @@
         />
         <span class="card-content">
           <p>
-            And thus <strong>Portofol.io</strong> got it's start. A free
-            platform where anyone cand join and host their own modern
-            professional grade portfolio. We're constantly working on adding new
-            features and we'd like to take a moment to thank our community for
-            their utmost support.
+            And thus <strong>Portofol.io</strong> got its start. A free platform
+            where anyone can join and host their own modern professional grade
+            portfolio. We're constantly working on adding new features and we'd
+            like to take a moment to thank our community for their utmost
+            support.
           </p>
         </span>
       </div>
@@ -52,25 +52,26 @@
         </span>
       </div>
     </section>
+    <h2>
+      Team Members:
+    </h2>
     <section id="team-members">
-      <h2>
-        Team Members:
-        <FeaturedPortfolio
-          v-for="portofolio in teamMember"
-          v-bind:key="portofolio.id"
-          :fname="portofolio.firstName"
-          :lname="portofolio.lastName"
-          :title="portofolio.title"
-          :about="portofolio.about"
-          :idd="portofolio.userId"
-        />
-      </h2>
+      <FeaturedPortfolio
+        v-for="portofolio in teamMembers"
+        v-bind:key="portofolio.id"
+        :fname="portofolio.firstName"
+        :lname="portofolio.lastName"
+        :title="portofolio.title"
+        :about="portofolio.about"
+        :idd="portofolio.userId"
+      />
     </section>
   </main>
 </template>
 
 <script>
 import FeaturedPortfolio from "../ui/FeaturedPortfolio.vue";
+import { db } from "../config/db";
 export default {
   components: {
     FeaturedPortfolio,
@@ -78,7 +79,17 @@ export default {
   data() {
     return {
       teamMembers: [],
+      ids: ["NZxUP4ToFKYuzttqx7HqGXzwoyO2", "gQ1BnypuXgh3lihBVcgQz8bUb3v2"],
     };
+  },
+  created() {
+    db.collection("portofolios")
+      .where("userId", "in", this.ids)
+      .onSnapshot((snapshotChange) => {
+        snapshotChange.forEach((doc) => {
+          this.teamMembers.push(doc.data());
+        });
+      });
   },
 };
 </script>
@@ -118,7 +129,7 @@ img {
   overflow: hidden;
   height: auto;
   max-width: 30rem;
-  object-fit: contain;
+  object-fit: cover;
   display: inline-block;
   margin: 1rem 0;
   border: 1px solid black;
@@ -158,16 +169,28 @@ img {
   background-color: rgb(255, 235, 197);
 }
 
+h2 {
+  font-family: $f-o;
+  color: black;
+  font-size: 3rem;
+  padding: 1rem 0;
+  border-bottom: 4px solid black;
+  padding-left: 3rem;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-top: 3rem;
+}
+
 #team-members {
   background-color: $w;
   padding: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  h2 {
-    font-family: $f-o;
-    color: black;
-    font-size: 3rem;
-    padding: 1rem 0;
-    border-bottom: 2px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  FeaturedPortfolio {
+    width: 200px;
   }
 }
 </style>
