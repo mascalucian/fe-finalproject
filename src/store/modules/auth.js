@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import { db } from "../../config/db";
 
 const auth = {
   state: {
@@ -35,7 +36,7 @@ const auth = {
           commit("stopLoadData");
           commit("showError", err.message);
         });
-      firebase.auth().onAuthStateChanged((user) => {
+      await firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           commit("showError", "");
           // User is signed in, see docs for a list of available properties
@@ -49,7 +50,7 @@ const auth = {
         }
       });
     },
-    async signIn({ commit }, { username, password }) {
+    async signIn({ commit, getters }, { username, password }) {
       commit("loadData");
       await firebase
         .auth()
@@ -70,6 +71,18 @@ const auth = {
           // https://firebase.google.com/docs/reference/js/firebase.User
           commit("login", user);
           commit("stopLoadData");
+          db.collection("portofolios")
+            .doc(getters.loggedInUser.uid)
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                commit("confirmPortofolio");
+                console.log("Has portofolio");
+              }
+            })
+            .catch((error) => {
+              console.log("Error getting document:", error);
+            });
           // ...
         } else {
           // User is signed out

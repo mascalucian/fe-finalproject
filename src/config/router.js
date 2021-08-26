@@ -15,6 +15,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
   {
     path: "/",
+    name: "Home",
     component: Home,
   },
   {
@@ -23,13 +24,9 @@ const routes = [
     component: NotFound,
   },
   {
-    path: "/login/:returnUrl?",
+    path: "/auth/:returnUrl?",
     name: "Login",
     component: Login,
-  },
-  {
-    path: "/register",
-    component: Register,
   },
   {
     path: "/portofolios",

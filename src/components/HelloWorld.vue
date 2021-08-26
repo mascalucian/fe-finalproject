@@ -136,24 +136,17 @@ export default {
         password: this.password,
       });
       console.log("Finished");
-      if (this.isLoggedin) {
-        this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
-        this.$store.dispatch("callSnackBar", {
-          payload: "Login successful!", //Your message!!
-        });
-        db.collection("portofolios")
-          .doc(this.loggedInUser.uid)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              this.$store.commit("confirmPortofolio");
-              console.log("Has portofolio");
-            }
-          })
-          .catch((error) => {
-            console.log("Error getting document:", error);
-          });
+      if (!this.isLoggedin) {
+        return;
       }
+      this.$store.commit("setSnackBarBackground", "#adff2f"); //how to change color!
+      this.$store.dispatch("callSnackBar", {
+        payload: "Login successful!", //Your message!!
+      });
+      setTimeout(() => {
+        this.$router.push({ name: "Home" });
+        console.log("TIMEOUT");
+      }, 5000);
     },
     async register() {
       await this.$store.dispatch("signUp", {
