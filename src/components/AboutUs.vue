@@ -8,14 +8,14 @@
         <img src="http://imgur.com/ua1wx.jpg" />
         <span class="card-content">
           <p>
-            Our story starts 1 week ago, during our Frontend Internship when our
-            team was chilling at <strong>Templul Manelelor</strong> in
-            Costinești, Constanța, Romania. Our Frontend mentor tasked us with
-            creating a portfolio website, not individual ones, but rather as a
-            team. We thought why not harnessing the power of colaboration and
-            rather than design our own portfolio websites, why not create a
-            platform where anyone could create and host their portfolio website,
-            free of charge.
+            Our story starts {{ daysWeBeenWorking }} days ago, during our
+            Frontend Internship when our team was chilling at
+            <strong>Templul Manelelor</strong> in Costinești, Constanța,
+            Romania. Our Frontend mentor tasked us with creating a portfolio
+            website, not individual ones, but rather as a team. We thought why
+            not harnessing the power of colaboration and rather than design our
+            own portfolio websites, why not create a platform where anyone could
+            create and host their portfolio website, free of charge.
           </p>
         </span>
       </div>
@@ -70,6 +70,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import FeaturedPortfolio from "../ui/FeaturedPortfolio.vue";
 import { db } from "../config/db";
 export default {
@@ -78,11 +79,19 @@ export default {
   },
   data() {
     return {
+      daysWeBeenWorking: "",
       teamMembers: [],
       ids: ["NZxUP4ToFKYuzttqx7HqGXzwoyO2", "gQ1BnypuXgh3lihBVcgQz8bUb3v2"],
     };
   },
+  methods: {
+    calcDays() {
+      this.daysWeBeenWorking = moment().diff("2021-08-20", "days");
+      console.log(this.daysWeBeenWorking);
+    },
+  },
   created() {
+    this.calcDays();
     db.collection("portofolios")
       .where("userId", "in", this.ids)
       .onSnapshot((snapshotChange) => {
