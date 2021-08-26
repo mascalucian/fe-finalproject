@@ -99,7 +99,7 @@ export default {
 .topnav .icon {
   display: none;
 }
-@media screen and (max-width: 1290px) {
+@media screen and (max-width: 1310px) {
   nav {
     height: 160px !important;
   }
@@ -188,6 +188,9 @@ export default {
   .create-edit-button {
     margin-left: -2px !important;
   }
+}
+.topnav {
+  padding-bottom: 35px;
 }
 
 nav {
@@ -288,7 +291,13 @@ a {
   &:hover,
   &:active,
   &.router-link-active {
-    color: red !important;
+    background-color: red;
+  border-radius: 40px;
+  color: rgba(255, 255, 255, 0.623);
+  background-blend-mode: color-burn;
+  padding: 0rem 0.5rem;
+  margin-left: -15px;
+  margin-top:15px;
   }
 }
 .edit-button:hover {
