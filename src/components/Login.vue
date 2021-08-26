@@ -84,7 +84,9 @@ export default {
         payload: "Login successful!", //Your message!!
       });
       setTimeout(() => {
-        this.$router.push({ name: "Home" });
+        if (this.$route.params.returnUrl)
+          this.$router.push({ path: this.$route.params.returnUrl });
+        else this.$router.push({ name: "Home" });
       }, 2000);
     },
     async register() {

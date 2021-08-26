@@ -1,9 +1,7 @@
 <template>
   <div class="topnav" id="myTopnav">
     <nav class="navMenu" id="navv">
-      
       <div id="left">
-        
         <router-link to="/test" class="active">Home</router-link>
         <router-link to="/portofolios">Portofolios</router-link>
         <router-link to="/aboutus">About</router-link>
@@ -11,31 +9,33 @@
       </div>
 
       <div id="right">
-        <router-link v-if="!isLoggedin" to="/login">Login</router-link>
-        
+        <router-link v-if="!isLoggedin" to="/auth">Login</router-link>
+
         <router-link
           to="/portofolios/manage/"
           v-if="isLoggedin"
-          :class="{ 'create-edit-button': !getHasPortofolio, 'edit-button': getHasPortofolio}"
+          :class="{
+            'create-edit-button': !getHasPortofolio,
+            'edit-button': getHasPortofolio,
+          }"
         >
           {{ getHasPortofolio ? "Edit Portofol.io" : "Create Portofol.io" }}
         </router-link>
-        <a v-if="isLoggedin"
-        @click="logOut()"
-        :class="{ 'logoutt': isLoggedin}" >
+        <a v-if="isLoggedin" @click="logOut()" :class="{ logoutt: isLoggedin }">
           Logout
         </a>
         <router-link to="/" id="logoid"
           ><img src="https://i.imgur.com/Jwuropl.png" class="logo"
         /></router-link>
         <router-link to="/" id="slogo"
-          ><img src="https://cdn.discordapp.com/attachments/769127565239255061/880137163314970624/or.png" class="slogo"
+          ><img
+            src="https://cdn.discordapp.com/attachments/769127565239255061/880137163314970624/or.png"
+            class="slogo"
         /></router-link>
-        
       </div>
       <a href="javascript:void(0);" class="icon" v-on:click="myFunction">
         <i class="fa fa-bars"></i>
-        </a>
+      </a>
 
       <!-- <div class="dot"></div> -->
     </nav>
@@ -50,20 +50,20 @@ export default {
     async logOut() {
       await this.$store.dispatch("signOut");
     },
-            myFunction() {
-          var x = document.getElementById("myTopnav");
-          if (x.className === "topnav") {
-            x.className += " responsive";
-          } else {
-            x.className = "topnav";
-          }
-           var y = document.getElementById("myTopnav");
-          if (y.className === "topnav responsive") {
-            y.className += " marire";
-          } else {
-            y.className = "topnav";
-          }
-        }
+    myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+      var y = document.getElementById("myTopnav");
+      if (y.className === "topnav responsive") {
+        y.className += " marire";
+      } else {
+        y.className = "topnav";
+      }
+    },
   },
   computed: {
     ...mapGetters(
@@ -81,17 +81,17 @@ export default {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.marire{
-  height:220px;
+.marire {
+  height: 220px;
   .navMenu {
     height: 220px !important;
     -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
   }
-  .edit-button{
+  .edit-button {
     margin-left: -2px !important;
   }
-  .create-edit-button{
+  .create-edit-button {
     margin-left: -2px !important;
   }
 }
@@ -103,30 +103,30 @@ export default {
   nav {
     height: 160px !important;
   }
-  .topnav{
+  .topnav {
     height: 160px;
   }
   #left {
-    padding-left:20vw !important;
-    float:none !important;
+    padding-left: 20vw !important;
+    float: none !important;
   }
   #right {
-    padding-right:2vw !important;
-    float:right !important;
+    padding-right: 2vw !important;
+    float: right !important;
   }
 }
 @media screen and (max-width: 927px) {
   #logoid {
-    display:none;
+    display: none;
   }
-   .topnav{
+  .topnav {
     height: 120px;
   }
-  .topnav .slogo{
-      float: right !important;
-      display: block !important;
-      padding-right:20vw !important;
-    }
+  .topnav .slogo {
+    float: right !important;
+    display: block !important;
+    padding-right: 20vw !important;
+  }
 }
 .slogo {
   display: none;
@@ -135,7 +135,9 @@ export default {
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 600px) {
-  .topnav a:not(:first-child) {display: none;}
+  .topnav a:not(:first-child) {
+    display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
@@ -148,13 +150,14 @@ export default {
     position: absolute !important;
     left: 20px !important;
     top: 10px !important;
-    
   }
 }
 
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
 @media screen and (max-width: 600px) {
-  .topnav.responsive {position: relative;}
+  .topnav.responsive {
+    position: relative;
+  }
   .topnav.responsive a.icon {
     position: absolute;
     right: 100px;
@@ -176,28 +179,28 @@ export default {
   }
   #right {
     float: left !important;
-    margin-left:20vw !important;
+    margin-left: 20vw !important;
     margin-top: -30px;
   }
-  .edit-button{
+  .edit-button {
     margin-left: -2px !important;
   }
-  .create-edit-button{
+  .create-edit-button {
     margin-left: -2px !important;
   }
 }
 
 nav {
   display: block;
-  
-  background-image: linear-gradient(#F9AB2F, #F4690E);
+
+  background-image: linear-gradient(#f9ab2f, #f4690e);
   justify-content: space-between;
   align-items: center;
   flex: 1 0 auto;
   flex-wrap: nowrap;
   height: 80px;
   width: 100vw;
-  
+
   font-family: "Montserrat", sans-serif;
   div {
     display: inline-block;
@@ -211,20 +214,18 @@ nav {
 #left {
   display: block;
   padding: 20px;
-  float:left;
+  float: left;
   justify-items: flex-start;
   flex: 1 1 auto;
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  
-  
 }
 
 #right {
   padding: 10px;
   display: block;
-  float:right;
+  float: right;
   justify-items: flex-end;
   align-items: center;
   a {
@@ -283,8 +284,8 @@ a {
   }
 }
 .logoutt:hover {
-  color:red;
-   &:hover,
+  color: red;
+  &:hover,
   &:active,
   &.router-link-active {
     color: red !important;
