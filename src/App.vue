@@ -39,6 +39,7 @@ body {
 
 #view {
   flex-grow: 1;
+  position: relative;
 }
 
 #app {

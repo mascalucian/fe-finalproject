@@ -1,5 +1,5 @@
 <template
-  ><div>
+  ><div style="position: relative">
     <header>
       <h1>Contact us!</h1>
     </header>
