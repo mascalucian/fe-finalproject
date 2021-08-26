@@ -65,7 +65,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresLogin)) {
-    console.log(to);
     if (!store.getters.isLoggedin)
       next({
         name: "Login",

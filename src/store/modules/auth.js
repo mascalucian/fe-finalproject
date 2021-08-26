@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import { db } from "../../config/db";
+import router from "../../config/router";
 
 const auth = {
   state: {
@@ -92,6 +93,7 @@ const auth = {
     },
     async signOut({ commit }) {
       commit("loadData");
+
       await firebase
         .auth()
         .signOut()
@@ -99,6 +101,10 @@ const auth = {
           commit("logout");
           commit("stopLoadData");
           commit("deletePortofolio");
+          let route = router.currentRoute;
+          if (route._value.meta.requiresLogin === true) {
+            router.push({ name: "Home" });
+          }
         })
         .catch((error) => {
           commit("stopLoadData");
