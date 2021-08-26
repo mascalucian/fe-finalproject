@@ -13,7 +13,7 @@
             Costinești, Constanța, Romania. Our Frontend mentor tasked us with
             creating a portfolio website, not individual ones, but rather as a
             team. We thought why not harnessing the power of colaboration and
-            rather then design our own portfolio websites, why not create a
+            rather than design our own portfolio websites, why not create a
             platform where anyone could create and host their portfolio website,
             free of charge.
           </p>
