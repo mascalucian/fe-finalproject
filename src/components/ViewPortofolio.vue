@@ -162,7 +162,10 @@ export default {
         .catch((error) => {
           console.log("Error getting document:", error);
         });
-      if (!this.currentPortofolio) return;
+      if (!this.currentPortofolio) {
+        this.loader.hide();
+        return;
+      }
       await this.getStorageData(userId);
       await this.getProjects(userId);
       this.loader.hide();
@@ -263,9 +266,12 @@ export default {
   },
   created() {
     // this.loading = true;
-    this.loader = this.$loading.show();
+
     const initialUserId = this.$route.params.id;
     this.getPortofolio(initialUserId);
+  },
+  mounted() {
+    this.loader = this.$loading.show();
   },
   unmounted() {
     if (this.currentPortofolio) {
