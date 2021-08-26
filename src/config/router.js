@@ -61,6 +61,9 @@ const router = createRouter({
   // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
   routes, // short for `routes: routes`
   history: createWebHashHistory(),
+  scrollBehavior() {
+    return { left: 0, top: 0 };
+  },
 });
 
 router.beforeEach((to, from, next) => {
