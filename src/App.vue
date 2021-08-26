@@ -33,8 +33,4 @@ body {
   vertical-align: baseline;
   background: transparent;
 }
-
-#view {
-  padding-top: 80px;
-}
 </style>
