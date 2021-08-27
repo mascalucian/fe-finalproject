@@ -107,7 +107,6 @@ export default {
     height: 160px !important;
   }
   .topnav {
-    position: absolute;
     height: 160px;
   }
   #left {
@@ -144,11 +143,11 @@ export default {
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {
     display: none;
-    position: absolute;
   }
   .topnav a.icon {
     float: right;
     display: block;
+    position: absolute;
     right: 100px;
     top: 20px;
   }
@@ -166,8 +165,10 @@ export default {
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
 @media screen and (max-width: 600px) {
   .topnav.responsive {
+    position: relative;
   }
   .topnav.responsive a.icon {
+    position: absolute;
     right: 100px;
     top: 20px;
   }
@@ -197,10 +198,10 @@ export default {
     margin-left: -2px !important;
   }
 }
-
-#slogo {
-  display: inline-block;
+.topnav {
+  padding-bottom: 35px;
 }
+
 nav {
   display: block;
   position: fixed;
