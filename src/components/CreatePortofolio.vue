@@ -174,7 +174,7 @@
               <h2>Project List:</h2>
               <div
                 v-for="project in getProjectsForPortofolio"
-                :key="project"
+                :key="project.id"
                 class="project"
               >
                 <h3>{{ project.title }}</h3>
@@ -521,21 +521,44 @@ export default {
       this.$refs.addSocialForm.reset();
       console.log(social);
     },
-    addProject() {
+    async addProject() {
+      const projectRef = db.collection("projects").doc();
       let project = {
         title: this.project.title,
         description: this.project.description,
         userId: this.project.userId,
       };
-      const projectRef = db.collection("projects").doc();
       project = { id: projectRef.id, ...project };
-      this.projects.push(project);
       let file = document.getElementById("project-image-input").files[0];
-      if (file);
-      this.projectPhotos.push({ projectId: projectRef.id, photoFile: file });
-      document.getElementById("project-image-input").value = null;
       this.$refs.addProjectForm.reset();
-      console.log(this.projectPhotos);
+      if (file) document.getElementById("project-image-input").value = null;
+      if (!this.editMode) {
+        this.projects.push(project);
+        console.log("Pushed to local Projects");
+        if (file) {
+          this.projectPhotos.push({
+            projectId: projectRef.id,
+            photoFile: file,
+          });
+        }
+        return;
+      }
+      console.log("Adding to Firestore..");
+      await this.$store.dispatch("addProject", {
+        payload: project,
+      });
+      if (!file) {
+        console.log("No picture");
+        return;
+      }
+
+      var storageRef = firebase.storage().ref();
+      var projectPictureRef = storageRef.child(
+        `/${this.loggedInUser.uid}/projects/${project.id}/project.jpg`
+      );
+      await projectPictureRef.put(file).then((snapshot) => {
+        console.log("Uploaded project picture!");
+      });
     },
     async createPortofolio() {
       this.loader = this.$loading.show({
@@ -676,7 +699,6 @@ export default {
     methodThatForcesUpdate() {
       // ...
       this.$forceUpdate(); // Notice we have to use a $ here
-      console.log("hehe. Rerendered!");
     },
   },
   computed: {
@@ -696,6 +718,9 @@ export default {
       this.loader = this.$loading.show();
       await this.loadForEdit();
     }
+  },
+  unmounted() {
+    this.unsubscribe();
   },
 };
 </script>
