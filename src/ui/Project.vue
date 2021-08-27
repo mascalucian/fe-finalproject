@@ -99,6 +99,7 @@ h5 {
   border-radius: 0.3rem;
   border: 1px solid white;
   background-size: cover;
+  background-position: center;
 }
 
 p {
