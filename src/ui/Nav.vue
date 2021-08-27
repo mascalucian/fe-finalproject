@@ -33,6 +33,9 @@ export default {};
   box-sizing: border-box;
 }
 
+#slogo {
+  display: inline-block;
+}
 nav {
   display: flex;
   justify-content: space-between;
