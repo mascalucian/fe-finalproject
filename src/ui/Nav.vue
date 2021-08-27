@@ -189,9 +189,6 @@ export default {
     margin-left: -2px !important;
   }
 }
-.topnav {
-  padding-bottom: 35px;
-}
 
 nav {
   display: block;

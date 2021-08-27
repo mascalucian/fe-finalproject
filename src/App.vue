@@ -35,6 +35,26 @@ body {
 }
 
 #view {
-  padding-top: 80px;
+  flex-grow: 1;
+  position: relative;
+  margin-top: 80px;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 1310px) {
+  #view {
+    margin-top: 160px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #view {
+    margin-top: 120px;
+  }
 }
 </style>
