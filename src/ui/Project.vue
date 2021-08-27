@@ -85,6 +85,7 @@ export default {
   min-width: 25rem;
   font-family: $f-w;
   font-style: normal;
+  word-break: break-word;
 }
 
 h5 {
@@ -100,9 +101,5 @@ h5 {
   border: 1px solid white;
   background-size: cover;
   background-position: center;
-}
-
-p {
-  word-break: break-word;
 }
 </style>
