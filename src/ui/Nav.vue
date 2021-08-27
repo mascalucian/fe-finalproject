@@ -40,6 +40,9 @@
       <!-- <div class="dot"></div> -->
     </nav>
   </div>
+  <div class="spacing">
+.
+  </div>
 </template>
 
 <script>
@@ -81,6 +84,9 @@ export default {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+.spacing {
+  padding: 10px;
+}
 .marire {
   height: 220px;
   .navMenu {
@@ -114,6 +120,9 @@ export default {
     padding-right: 2vw !important;
     float: right !important;
   }
+  .spacing {
+    padding: 50px;
+  }
 }
 @media screen and (max-width: 927px) {
   #logoid {
@@ -127,6 +136,7 @@ export default {
     display: block !important;
     padding-right: 20vw !important;
   }
+
 }
 .slogo {
   display: none;
@@ -150,6 +160,9 @@ export default {
     position: absolute !important;
     left: 20px !important;
     top: 10px !important;
+  }
+  .spacing {
+    padding: 30px;
   }
 }
 
@@ -192,6 +205,10 @@ export default {
 
 nav {
   display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 
   background-image: linear-gradient(#f9ab2f, #f4690e);
   justify-content: space-between;
@@ -205,10 +222,6 @@ nav {
   div {
     display: inline-block;
   }
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
 }
 
 #left {
@@ -288,7 +301,13 @@ a {
   &:hover,
   &:active,
   &.router-link-active {
-    color: red !important;
+    background-color: red;
+    border-radius: 40px;
+    color: rgba(255, 255, 255, 0.623);
+    background-blend-mode: color-burn;
+    padding: 0rem 0.5rem;
+    margin-left: -15px;
+    margin-top: 15px;
   }
 }
 .edit-button:hover {

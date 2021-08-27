@@ -61,11 +61,13 @@ const router = createRouter({
   // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
   routes, // short for `routes: routes`
   history: createWebHashHistory(),
+  scrollBehavior() {
+    document.getElementById("app").scrollIntoView();
+  },
 });
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresLogin)) {
-    console.log(to);
     if (!store.getters.isLoggedin)
       next({
         name: "Login",
