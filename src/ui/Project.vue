@@ -48,21 +48,24 @@ export default {
     project: Object,
   },
   methods: {
-    downloadPicture() {
+    async downloadPicture() {
       var storageRef = firebase.storage().ref();
       var ppRef = storageRef.child(
         `/${this.project.userId}/projects//${this.project.id}/project.jpg`
       );
-      var linku = ppRef
+      const that = this;
+      await ppRef
         .getDownloadURL()
         .then((url) => {
           this.imgUrl = url;
-          this.isLoading = false;
         })
-        .catch(function(error) {
-          this.isLoading = false;
-          //   console.log(error);
-        });
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => (this.isLoading = false));
+    },
+    stopLoading() {
+      this.isLoading = false;
     },
   },
   created() {
