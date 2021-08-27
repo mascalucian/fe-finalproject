@@ -40,9 +40,6 @@
       <!-- <div class="dot"></div> -->
     </nav>
   </div>
-  <div class="spacing">
-.
-  </div>
 </template>
 
 <script>
@@ -136,7 +133,6 @@ export default {
     display: block !important;
     padding-right: 20vw !important;
   }
-
 }
 .slogo {
   display: none;
