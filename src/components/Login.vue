@@ -4,22 +4,30 @@
     id="container"
   >
     <div class="form-container sign-up-container">
-      <form @submit.prevent="register()">
+
+      <form @submit.prevent="register()" >
         <h1>Create Account</h1>
         <input type="email" placeholder="Email" v-model="username" />
+       
         <input type="password" placeholder="Password" v-model="password" />
         <input type="password" placeholder="Re-Type Password" />
         <button type="submit">Sign Up</button>
       </form>
     </div>
     <div class="form-container sign-in-container">
-      <form action="#" @submit.prevent="login()">
+      <Form v-slot="{ handleSubmit }"
+      : validation-schema="login_schema">
+        <form action="#" @submit.prevent="handleSubmit($event, login)" >
         <h1>Sign in</h1>
-        <input type="email" placeholder="Email" v-model="username" />
+        <label for="email">Your Email</label>
+        <Field type="email" id="email" name="email" v-model="username" />
+         <ErrorMessage name="email" />
         <input type="password" placeholder="Password" v-model="password" />
         <a href="#">Forgot your password?</a>
         <button type="submit" :disabled="isLoggedin">Sign in</button>
       </form>
+      </Form>
+     
     </div>
     <div class="overlay-container">
       <div class="overlay">
@@ -52,13 +60,26 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../config/db";
 import { mapGetters } from "vuex";
+import * as yup from "yup";
+import { Form, Field, ErrorMessage } from "vee-validate";
 export default {
   data() {
     return {
       username: "",
       password: "",
       rightPanelActive: false,
+      login_schema,
     };
+  },
+  components:{
+    Field,
+    Form, 
+    ErrorMessage,
+  },
+  setup:{
+    const :login_schema = yup.object().shape({
+      email: yup.string().email().required
+    })
   },
   computed: {
     ...mapGetters(
@@ -84,7 +105,9 @@ export default {
         payload: "Login successful!", //Your message!!
       });
       setTimeout(() => {
-        this.$router.push({ name: "Home" });
+        if (this.$route.params.returnUrl)
+          this.$router.push({ path: this.$route.params.returnUrl });
+        else this.$router.push({ name: "Home" });
       }, 2000);
     },
     async register() {
