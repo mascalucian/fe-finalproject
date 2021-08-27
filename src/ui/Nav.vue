@@ -198,6 +198,9 @@ export default {
   }
 }
 
+#slogo {
+  display: inline-block;
+}
 nav {
   display: block;
   position: fixed;
