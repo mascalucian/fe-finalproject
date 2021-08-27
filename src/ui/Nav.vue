@@ -127,6 +127,7 @@ export default {
   }
   .topnav {
     height: 120px;
+    position: absolute;
   }
   .topnav .slogo {
     float: right !important;
