@@ -84,25 +84,11 @@
           v-if="getProjectsForPortofolio.length > 0"
         >
           <div class="card-deck">
-            <span
-              class="details-projects-content"
+            <Project
+              :project="project"
               v-for="project in getProjectsForPortofolio"
               v-bind:key="project.id"
-            >
-              <div class="card">
-                <img
-                  class="card-img-top"
-                  src="../assets/images/tst.jpg"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">{{ project.title }}</h5>
-                  <p class="card-text">{{ project.description }}</p>
-                  <p class="card-text"></p>
-                </div>
-              </div>
-              <br />
-            </span>
+            />
           </div>
         </div>
         <div v-else>
@@ -126,6 +112,7 @@ import { mapGetters } from "vuex";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import firebase from "firebase/app";
+import Project from "../ui/Project.vue";
 // import "firebase/firestore";
 
 export default {
@@ -142,7 +129,9 @@ export default {
       loading: undefined,
     };
   },
-
+  components: {
+    Project,
+  },
   methods: {
     async getPortofolio(userId) {
       if (this.projects.length > 0) this.projects = [];
