@@ -155,7 +155,7 @@ img {
   height: 100%;
   display: inline-block;
   font-family: $f-w;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-indent: 4rem;
   text-align: justify;
   overflow: hidden;
@@ -205,6 +205,12 @@ h2 {
 
   FeaturedPortfolio {
     width: 200px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .card-content {
+    font-size: 1rem;
   }
 }
 </style>
