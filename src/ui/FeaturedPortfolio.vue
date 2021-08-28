@@ -222,4 +222,9 @@ svg {
   padding: 10px;
   font-size: 20px;
 }
+@media  screen and (max-width:700px) {
+.portfolioo .infoboxx {
+  min-width: 74vw;
+}
+}
 </style>
