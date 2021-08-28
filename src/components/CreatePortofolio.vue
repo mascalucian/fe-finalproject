@@ -749,13 +749,11 @@ header {
     text-align: center;
   }
 }
-
 label {
   margin: auto;
   text-align: center;
   display: block;
 }
-
 [role="alert"] {
   color: rgb(143, 27, 27);
   display: block;
@@ -767,13 +765,11 @@ label {
   position: absolute;
   bottom: -1rem;
 }
-
 .form-field {
   display: flex;
   justify-content: center;
   position: relative;
 }
-
 input {
   display: inline-block;
   color: $w;
@@ -787,13 +783,11 @@ input {
     color: $sh-4;
   }
 }
-
 #main-container {
   background-color: $w-10;
   color: $w;
   min-height: 100vh;
 }
-
 input[type="file"] {
   font-family: "Work Sans", sans-serif;
   font-size: smaller;
@@ -802,7 +796,6 @@ input[type="file"] {
   margin: 0;
   color: transparent;
 }
-
 ::-webkit-file-upload-button {
   background: none;
   color: $s;
@@ -822,7 +815,6 @@ input[type="file"] {
     border: 3px solid $sh;
   }
 }
-
 .banner-image {
   width: 100%;
   display: flex;
@@ -838,7 +830,6 @@ input[type="file"] {
   position: relative;
   padding-bottom: 1rem;
 }
-
 #profile-picture-img {
   width: 14rem;
   height: 14rem;
@@ -849,18 +840,15 @@ input[type="file"] {
   border: 3px solid rgba(42, 158, 207, 0.45);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
-
 #create-portofolio-body {
   width: 100%;
 }
-
 .profile-picture {
   margin: 17% auto 0 auto;
   display: block;
   width: 100%;
   z-index: 10;
 }
-
 .names-title {
   display: block;
   width: 90%;
@@ -893,7 +881,6 @@ input[type="file"] {
     }
   }
 }
-
 .names {
   width: 100%;
   display: flex;
@@ -903,7 +890,6 @@ input[type="file"] {
   text-align: center;
   justify-content: center;
 }
-
 .profile-picture-upload {
   max-width: 20rem;
   margin: 1.5rem auto;
@@ -923,7 +909,6 @@ input[type="file"] {
     width: 100%;
   }
 }
-
 .banner-upload {
   position: absolute;
   bottom: 0;
@@ -933,13 +918,11 @@ input[type="file"] {
   background-color: rgba(53, 53, 53, 0.699);
   padding-top: 1rem;
 }
-
 .title input {
   text-align: center;
   margin: auto;
   width: 100%;
 }
-
 .middle-section {
   width: 100%;
   padding-top: 2rem;
@@ -949,7 +932,6 @@ input[type="file"] {
   justify-content: center;
   border-top: 3px solid rgba(241, 234, 234, 0.699);
 }
-
 .tagline-form-field {
   display: block;
   width: 100%;
@@ -972,12 +954,10 @@ input[type="file"] {
     border-radius: 30px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   }
-
   label {
     margin-bottom: 0.5rem;
   }
 }
-
 .about {
   width: 40rem;
   [role="alert"] {
@@ -1003,20 +983,17 @@ input[type="file"] {
     }
   }
 }
-
 .pdf {
   margin-left: 1rem;
   height: 100%;
   border: 3px solid black;
   padding-top: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-
   i {
     padding-left: 1rem;
     text-align: right;
     font-size: large;
   }
-
   input {
     color: $w;
     padding-top: 1rem;
@@ -1025,7 +1002,6 @@ input[type="file"] {
     text-align: center;
   }
 }
-
 .socials-contact {
   background-color: rgb(238, 227, 173);
   width: 100%;
@@ -1043,13 +1019,11 @@ input[type="file"] {
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
   }
-
   label {
     text-align: left;
     margin-bottom: 0.6rem;
     margin-top: 0.6rem;
   }
-
   input {
     font-size: medium;
     color: $w;
@@ -1058,32 +1032,27 @@ input[type="file"] {
     overflow: auto;
     border: 1px solid rgba(241, 234, 234, 0.699);
   }
-
   .contact {
     margin-left: 3em;
     background-color: $w-10;
     padding: 1rem;
-
     input {
       display: block;
       margin-bottom: 1.5rem;
       width: 100%;
     }
-
     [role="alert"] {
       color: red;
       font-size: large;
       bottom: -0.5rem;
     }
   }
-
   #add-socials-form {
     width: 100%;
     background-color: $w-6;
     padding: 1rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   }
-
   .socials {
     min-width: 0;
     form {
@@ -1101,7 +1070,6 @@ input[type="file"] {
         outline: 0;
       }
     }
-
     .socials-list {
       display: flex;
       justify-content: flex-start;
@@ -1110,22 +1078,18 @@ input[type="file"] {
       width: 25rem;
       flex-direction: row;
     }
-
     i {
       font-size: xx-large;
       padding: 0.2rem;
     }
-
     input {
       margin-top: 2rem;
     }
-
     [role="alert"] {
       color: rgb(255, 146, 146);
       font-size: large;
       bottom: -1.8rem;
     }
-
     input[type="submit"] {
       cursor: pointer;
       &:hover,
@@ -1137,7 +1101,6 @@ input[type="file"] {
     }
   }
 }
-
 .projects {
   width: 100%;
   margin-top: 1rem;
@@ -1164,7 +1127,6 @@ input[type="file"] {
     margin-bottom: 0.5rem;
   }
 }
-
 #add-project-form {
   font-family: "Work Sans", sans-serif;
   background-color: $w-9;
@@ -1188,7 +1150,6 @@ input[type="file"] {
       outline: 0;
     }
   }
-
   input {
     width: 100% !important;
     border-bottom: 2px solid $w;
@@ -1197,13 +1158,11 @@ input[type="file"] {
     color: $w;
     text-decoration: none;
   }
-
   [role="alert"] {
     color: red;
     font-size: large;
     bottom: -1.4rem;
   }
-
   .description-form-field {
     [role="alert"] {
       color: red;
@@ -1211,11 +1170,9 @@ input[type="file"] {
       bottom: 0.2rem;
     }
   }
-
   ::-webkit-file-upload-button {
     margin: 0;
   }
-
   input[type="submit"] {
     background-color: $s;
     color: black;
@@ -1232,7 +1189,6 @@ input[type="file"] {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   }
 }
-
 .projects-list {
   width: 35rem;
   border: 1px solid $w;
@@ -1248,7 +1204,6 @@ input[type="file"] {
     background-color: $s;
   }
 }
-
 .project {
   border-radius: 20px;
   background-color: $s-1;
@@ -1270,14 +1225,12 @@ input[type="file"] {
     text-align: justify;
   }
 }
-
 .button-row {
   margin-top: 4rem;
   display: flex;
   justify-content: center;
   width: 100%;
   padding: 2rem 0 10rem 0;
-
   input {
     background-color: $s-5;
     font-size: xxx-large;
@@ -1294,7 +1247,6 @@ input[type="file"] {
     }
   }
 }
-
 @media screen and (max-width: 800px) {
   .banner-upload {
     bottom: unset;
@@ -1302,11 +1254,9 @@ input[type="file"] {
     border-bottom: 3px solid rgba(42, 158, 207, 0.45);
     border-top: 0;
   }
-
   .profile-picture {
     margin-top: 40%;
   }
-
   .button-row {
     white-space: pre-wrap;
     word-break: break-all;
@@ -1315,7 +1265,6 @@ input[type="file"] {
       font-size: 2rem;
     }
   }
-
   .contact,
   .socials {
     margin: 0 !important;

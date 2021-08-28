@@ -89,29 +89,24 @@
   </div>
 </div>
 <div v-else>
-<p></p> <!-- fara css nu apar router-linkurile (probabil intra sub header) -->
+<p></p>
 <div class="centering">
-<div class="bigcontainer">
-  <img src="https://www.freeiconspng.com/uploads/orange-check-tick-icon-14.png">
-  <h1>Account successfully created!</h1>
-  <h3>What are you looking for?</h3>
-
-  <div class="everyone">
-    <div class="individual">
-      <h2>For Recruiters</h2>
-      <button class="btnindividual" role="button"><router-link to="/portofolios" style="color:white">View Portofol.ios</router-link></button>
-    </div>
-    <div class="individual">
-      <h2>For Workers</h2>
-      <button class="btnindividual" role="button"><router-link to="/portofolios/manage" style="color:white">Create your Portofol.io</router-link></button>
+  <div class="bigcontainer">
+    <img src="https://www.freeiconspng.com/uploads/orange-check-tick-icon-14.png">
+    <h1>Account successfully created!</h1>
+    <h3>What are you looking for?</h3>
+    <div class="everyone">
+      <div class="individual">
+        <h2>For Recruiters</h2>
+        <button class="btnindividual" role="button"><router-link to="/portofolios" style="color:white">View Portofol.ios</router-link></button>
+      </div>
+      <div class="individual">
+        <h2>For Workers</h2>
+        <button class="btnindividual" role="button"><router-link to="/portofolios/manage" style="color:white">Create your Portofol.io</router-link></button>
+      </div>
     </div>
   </div>
-
-  
-  
 </div>
-</div>
-
 
 </div>
 </template>
@@ -144,7 +139,6 @@ export default {
       loginSchema,
       registerSchema,
       registered,
-      
     };
   },
   components:{
@@ -152,7 +146,6 @@ export default {
     Form, 
     ErrorMessage,
   },
-
   computed: {
     ...mapGetters(
       ["isLoggedin", "getErrorMessage"] // -> this.someGetter
@@ -216,10 +209,12 @@ body {
   height: 110vh;
   margin: -20px 0 50px;
 }
+
 .centering {
   display: flex;
   justify-content: center;
 }
+
 .bigcontainer {
   margin-top: 140px;
   width: 50vw;
@@ -231,19 +226,23 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 h1 {
   text-align: center;
   padding:2px;
 }
+
 .bigcontainer img {
   width: 100px;
   margin-bottom: 20px;
   margin-top: 30px;
 }
+
 .everyone {
   display:flex;
   justify-content: space-around;
 }
+
 .btnindividual {
   background-image: linear-gradient(92.88deg, darkorange 9.16%, orange 43.89%, orange 64.72%);
   border-radius: 8px;
@@ -275,6 +274,7 @@ h1 {
     padding: 0 2.6rem;
   }
 }
+
 .individual {
   margin-left: 5vw;
   margin-right: 5vw;
@@ -283,6 +283,7 @@ h1 {
   flex-direction:column;
   align-items:center;
 }
+
 .latimeinput {
   width: 23vw;
   min-width: 300px;
@@ -372,12 +373,12 @@ input {
   width: 70vw;
   min-height: 550px;
 }
+
 @media screen and (max-width: 900px) {
   .container{margin-top: -100px;width: 95vw;}
   .latimeinput{
     min-width: 180px;
   }
-  
 }
 
 .form-container {
@@ -417,7 +418,6 @@ input {
     opacity: 0;
     z-index: 1;
   }
-
   50%,
   100% {
     opacity: 1;
@@ -531,6 +531,7 @@ footer a {
   color: #3c97bf;
   text-decoration: none;
 }
+
 [role="alert"] {
   color: rgb(143, 27, 27);
   display: block;
@@ -541,7 +542,8 @@ footer a {
   text-decoration: underline;
   bottom: -1rem;
 }
-label{
+
+label {
   text-align: left;
   float: left;
   margin-top:10px;

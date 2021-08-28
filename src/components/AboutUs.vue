@@ -132,11 +132,9 @@ header {
     margin: 5rem 0;
   }
 }
-
 main {
   padding: 5% 10%;
 }
-
 #cards {
   border-bottom: 3px solid $w-2;
 }
@@ -150,7 +148,6 @@ img {
   border: 1px solid black;
   flex: 1 1 auto;
 }
-
 .card-content {
   height: 100%;
   display: inline-block;
@@ -162,7 +159,6 @@ img {
   flex: 1 1 0;
   margin: 1.5% 3%;
 }
-
 .my-card {
   min-width: 20rem;
   width: 100%;
@@ -172,17 +168,14 @@ img {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 2rem;
 }
-
 .my-card:nth-child(odd) {
   flex-direction: row;
   background-color: $w;
 }
-
 .my-card:nth-child(even) {
   flex-direction: row-reverse;
   background-color: rgb(255, 235, 197);
 }
-
 h2 {
   font-family: $f-o;
   color: black;
@@ -194,7 +187,6 @@ h2 {
   margin-bottom: 0;
   margin-top: 3rem;
 }
-
 #team-members {
   background-color: $w;
   padding: 2rem;
@@ -207,7 +199,6 @@ h2 {
     width: 200px;
   }
 }
-
 @media screen and (max-width: 1200px) {
   .card-content {
     font-size: 1rem;

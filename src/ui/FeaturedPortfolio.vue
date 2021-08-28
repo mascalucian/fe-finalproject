@@ -75,7 +75,6 @@ export default {
           this.imgURL = url;
         })
         .catch(function(error) {
-          // Handle any errors here
         })
         .finally(() => (this.isLoading = false));
     },
@@ -88,6 +87,7 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
 .alll {
   display: flex;
   flex-direction: column;
@@ -99,7 +99,6 @@ export default {
   flex: 0 1 33%;
   box-sizing: border-box;
 }
-
 .image-wrapper {
   width: 146px !important;
   height: 186px !important;
@@ -164,7 +163,6 @@ export default {
   font-family: "Montserrat", sans-serif;
 }
 @import url("https://fonts.googleapis.com/css?family=Lato:100&display=swap");
-
 .containerr {
   left: 50%;
   top: 50%;
@@ -173,59 +171,50 @@ export default {
   font-family: "Montserrat", sans-serif;
   justify-content: center;
 }
-
 .centerr {
   width: 180px;
   height: 60px;
   position: absolute;
 }
-
 .btnn {
   width: 180px;
   height: 60px;
   cursor: pointer;
-
   background: transparent;
   border: 1px solid #fff;
   outline: none;
   transition: 1s ease-in-out;
 }
-
 svg {
   position: absolute;
   left: 0;
   top: 0;
   fill: none;
   stroke: #fff;
-
   stroke-dasharray: 150 480;
   stroke-dashoffset: 150;
   transition: 1s ease-in-out;
 }
-
 .btnn:hover {
   transition: 1s ease-in-out;
   background: #f4690e;
   color: white;
 }
-
 .btnn:hover svg {
   stroke-dashoffset: -480;
 }
-
 .btnn span {
   color: black;
   font-size: 18px;
   font-weight: 100;
 }
-
 .h44 {
   padding: 10px;
   font-size: 20px;
 }
 @media  screen and (max-width:700px) {
-.portfolioo .infoboxx {
-  min-width: 74vw;
-}
+  .portfolioo .infoboxx {
+    min-width: 74vw;
+  }
 }
 </style>
