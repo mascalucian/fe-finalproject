@@ -11,21 +11,21 @@
       :validation-schema="registerSchema">
       <form action="#" @submit.prevent="handleSubmit($event, register)" >
         <h1>Create Account</h1>
-         <div class="test">
+         <div class="test latimeinput">
            <label for="emailR">Your email *</label>
             <Field type="email" id="emailR" name="email" v-model="username" />
          </div>
          <div>
             <ErrorMessage name="email" />
          </div>
-        <div>
+        <div class="latimeinput">
             <label for="passwordR">Your password *</label>
             <Field type="password" id="passwordR" name="password" v-model="password"/>
         </div>
         <div>
             <ErrorMessage name="password"/>
         </div>
-        <div>
+        <div class="latimeinput">
             <label for="emailConfirm">Confirm your password *</label>
             <Field type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Re-Type Password" v-model="passwordConfirm"/>
         </div>
@@ -42,14 +42,14 @@
         <form action="#" @submit.prevent="handleSubmit($event, login)" >
         <h1>Sign in</h1>
         
-        <div>
+        <div class="latimeinput">
           <label for="email">Your email *</label>
           <Field type="email" id="emailL" name="email" v-model="username" />
         </div>
         <div>
           <ErrorMessage name="email" />
         </div>
-        <div>
+        <div class="latimeinput">
           <label for="password">Your password *</label>
           <Field type="password" id="password" placeholder="Password" name="password" v-model="password" />
         </div>
@@ -66,15 +66,15 @@
     <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-left">
-          <h1>Welcome Back!</h1>
-          <p>To keep connected with us please login with your personal info</p>
+          <h1>Welcome Back!⚡</h1>
+          <p>Already a portofol.io member?</p>
           <button v-on:click="togglePanelActive" class="ghost" id="signIn">
             Sign In
           </button>
         </div>
         <div class="overlay-panel overlay-right">
-          <h1>Hello, Friend!</h1>
-          <p>Enter your personal details and start journey with us</p>
+          <h1>Hello, Friend!🍊</h1>
+          <p>Don't have an account yet?</p>
           <button
             v-on:click="togglePanelActive"
             :disabled="isLoggedin"
@@ -195,6 +195,10 @@ body {
   height: 110vh;
   margin: -20px 0 50px;
 }
+.latimeinput {
+  width: 23vw;
+  min-width: 300px;
+}
 
 h1 {
   font-weight: bold;
@@ -227,8 +231,8 @@ a {
 button {
   margin-top:20px;
   border-radius: 20px;
-  border: 1px solid #ff4b2b;
-  background-color: #ff4b2b;
+  border: 1px solid darkorange;
+  background-color: darkorange;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -265,7 +269,7 @@ form {
 input {
   background-color: #eee;
   border: none;
-  padding: 12px 15px;
+  padding: 16px 15px;
   margin: 8px 0;
   width: 100%;
 }
@@ -277,9 +281,15 @@ input {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
-  width: 768px;
-  max-width: 100%;
+  width: 70vw;
   min-height: 550px;
+}
+@media screen and (max-width: 900px) {
+  .container{margin-top: -100px;width: 95vw;}
+  .latimeinput{
+    min-width: 180px;
+  }
+  
 }
 
 .form-container {
@@ -344,8 +354,8 @@ input {
 
 .overlay {
   background: #ff416c;
-  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  background: -webkit-linear-gradient(to right, rgb(224, 123, 0), orange);
+  background: linear-gradient(to right, rgb(224, 123, 0), orange);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
