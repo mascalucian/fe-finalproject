@@ -151,6 +151,7 @@ export default {
 #name {
   margin-top: 20px;
   font-family: "Montserrat", sans-serif;
+  text-align: center;
 }
 #title {
   margin-top: -20px;
