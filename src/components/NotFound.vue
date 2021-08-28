@@ -3,7 +3,7 @@
     <main>
       <h1>Oops!</h1>
       <p>We couldn't find what you were looking for on our website.</p>
-      <div>
+      <div id="button-wrapper">
         <router-link to="/">Go back to Home Page</router-link>
       </div>
     </main>
@@ -17,7 +17,7 @@ export default {};
 <style scoped lang="scss">
 div {
   height: 100%;
-  padding: 3rem 7rem;
+  padding: 2% 10%;
   main {
     h1 {
       font-size: 3rem;
@@ -36,16 +36,22 @@ div {
     background-size: 200px;
     background-repeat: no-repeat;
     background-position: 90% 90%;
-    div {
-      padding-top: 5rem;
+    #button-wrapper {
+      padding: 0 !important;
+      margin-top: 15%;
+      margin-bottom: 18%;
+      display: inline-block;
+      width: 100%;
+      height: auto;
     }
     a {
-      width: auto;
+      white-space: nowrap;
+      width: 100%;
       cursor: pointer;
       background-color: $o;
       color: $w;
-      padding: 1rem 2rem;
-      border-radius: 30px;
+      padding: 2% 5%;
+      border-radius: 3rem;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
       &:hover,
       :active,
@@ -54,6 +60,16 @@ div {
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.26);
       }
     }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  div {
+    padding: 1%;
+  }
+
+  #button-wrapper {
+    margin-top: 25%;
   }
 }
 </style>
