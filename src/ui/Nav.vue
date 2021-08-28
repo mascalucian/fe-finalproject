@@ -229,7 +229,7 @@ nav {
   #mobile-buttons {
     display: flex;
     align-self: center;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: flex-end;
     flex: 1;
   }
