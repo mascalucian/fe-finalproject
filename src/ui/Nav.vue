@@ -116,7 +116,6 @@ nav {
   background-image: linear-gradient(#f9ab2f, #f4690e);
   justify-content: space-between;
   align-items: center;
-  flex: 1 0 auto;
   flex-wrap: nowrap;
   height: 80px;
   width: 100vw;
@@ -131,19 +130,17 @@ nav {
   display: none;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-end;
-  align-self: flex-end;
+  justify-content: center;
   align-items: center;
+  flex-direction: column-reverse;
   height: 100%;
-  padding-top: 2rem;
-  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-right: 0.5rem;
   flex-grow: 1;
   a {
     position: static;
-    display: table-column;
-    vertical-align: top;
-    flex: 0;
-    align-self: flex-start;
+    display: inline-block;
+    text-align: center;
   }
   img {
     display: inline-block;
@@ -153,6 +150,10 @@ nav {
   .icon {
     display: none;
     font-size: 2rem;
+    width: 60px;
+    i {
+      width: 100% !important;
+    }
   }
 }
 
@@ -227,12 +228,10 @@ nav {
   }
   #mobile-buttons {
     display: flex;
-    padding: 0;
     align-self: center;
-    justify-content: center;
-    flex-grow: 0;
-    height: auto;
-    padding-right: 1rem;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex: 1;
   }
   #right {
     text-align: center;
@@ -242,7 +241,7 @@ nav {
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 600px) {
   .icon {
-    display: table-column !important;
+    display: inline-block !important;
     i {
       height: 100%;
       vertical-align: middle;
@@ -283,7 +282,7 @@ nav {
     }
   }
   .topnav a.icon {
-    color: black !important;
+    color: white !important;
   }
 
   .topnav a:not(:first-child) {
@@ -306,7 +305,7 @@ nav {
     position: absolute;
   }
   .topnav.responsive a.icon {
-    color: white !important;
+    color: black !important;
   }
   .topnav.responsive a {
     float: none;
