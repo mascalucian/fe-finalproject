@@ -72,7 +72,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: -60px;
+  margin-top: -40px;
 }
 .each {
   flex: 1 0 30%;
