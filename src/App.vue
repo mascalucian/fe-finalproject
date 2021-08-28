@@ -49,7 +49,7 @@ body {
   flex-direction: column;
 }
 
-@media screen and (max-width: 1310px) {
+@media screen and (max-width: 962px) {
   #view {
     margin-top: 160px;
   }

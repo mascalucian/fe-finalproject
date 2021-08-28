@@ -36,14 +36,14 @@
       </div>
 
       <div id="mobile-buttons">
-        <a href="javascript:void(0);" class="icon" v-on:click="myFunction">
-          <i class="fa fa-bars"></i>
-        </a>
         <router-link to="/" id="slogo"
           ><img
             src="https://cdn.discordapp.com/attachments/769127565239255061/880137163314970624/or.png"
             class="slogo"
         /></router-link>
+        <a href="javascript:void(0);" class="icon" v-on:click="myFunction">
+          <i class="fa fa-bars"></i>
+        </a>
       </div>
 
       <!-- <div class="dot"></div> -->
@@ -91,11 +91,18 @@ export default {
   box-sizing: border-box;
 }
 
+.topnav {
+  position: absolute !important;
+}
+
 #nav-sides {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
 }
 
 nav {
@@ -108,7 +115,7 @@ nav {
 
   background-image: linear-gradient(#f9ab2f, #f4690e);
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   flex: 1 0 auto;
   flex-wrap: nowrap;
   height: 80px;
@@ -121,36 +128,59 @@ nav {
 }
 
 #mobile-buttons {
-  display: inline-block;
-  flex-direction: column;
+  display: none;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-end;
+  align-self: flex-end;
   align-items: center;
+  height: 100%;
+  padding-top: 2rem;
+  padding-right: 1rem;
+  flex-grow: 1;
   a {
-    display: block;
+    position: static;
+    display: table-column;
+    vertical-align: top;
+    flex: 0;
+    align-self: flex-start;
   }
   img {
     display: inline-block;
     padding: 0;
   }
+
+  .icon {
+    display: none;
+    font-size: 2rem;
+  }
 }
 
 #right {
-  padding: 10px;
   display: flex;
   flex-direction: row;
   justify-items: flex-end;
   align-items: center;
-  a {
-    margin: 0 0.4rem;
-  }
+}
+
+#left {
+  display: flex;
+  justify-items: flex-start;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 #slogo {
   .slogo {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
   }
+}
+
+.icon {
+  text-align: center;
+  display: none;
 }
 
 .spacing {
@@ -158,11 +188,6 @@ nav {
 }
 .marire {
   height: 220px;
-  .navMenu {
-    height: 220px !important;
-    -webkit-transition: all 0.4s ease-in-out;
-    transition: all 0.4s ease-in-out;
-  }
   .edit-button {
     margin-left: -2px !important;
   }
@@ -171,10 +196,7 @@ nav {
   }
 }
 /* Hide the link that should open and close the topnav on small screens */
-.topnav .icon {
-  display: none;
-}
-@media screen and (max-width: 1310px) {
+@media screen and (max-width: 962px) {
   nav {
     height: 160px !important;
   }
@@ -183,65 +205,104 @@ nav {
     height: 160px;
     position: absolute;
   }
-  #left {
-    padding-left: 20vw !important;
-    float: none !important;
-  }
   .spacing {
     padding: 50px;
   }
+
+  #nav-sides {
+    width: auto;
+    padding-left: 1rem;
+  }
+
+  #mobile-buttons {
+    display: none;
+  }
+
+  .icon {
+    display: none;
+  }
 }
-@media screen and (max-width: 927px) {
+@media screen and (max-width: 1250px) {
+  .icon {
+    display: none;
+  }
   #logoid {
     display: none;
   }
   .topnav {
     height: 120px;
   }
-}
-#mobile-buttons {
-  display: none;
-}
-
-#right {
-  text-align: center;
+  #mobile-buttons {
+    display: flex;
+    padding: 0;
+    align-self: center;
+    justify-content: center;
+    flex-grow: 0;
+    height: auto;
+    padding-right: 1rem;
+  }
+  #right {
+    text-align: center;
+  }
 }
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 600px) {
-  #mobile-buttons {
-    display: flex;
+  .icon {
+    display: table-column !important;
+    i {
+      height: 100%;
+      vertical-align: middle;
+    }
   }
   nav {
     justify-content: space-evenly;
     align-items: center;
+    text-align: center;
+    height: 120px !important;
   }
 
-  #right {
+  #right,
+  #left {
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     text-align: left;
     align-items: flex-start;
+    flex-wrap: wrap;
   }
+
   #nav-sides {
+    width: auto;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-  .topnav a:not(:first-child) {
-    display: none;
-    position: absolute;
+    justify-content: center;
+    align-items: flex-start;
+    flex-grow: 0;
+    a {
+      margin: 0;
+      padding-left: 0.5rem;
+
+      .edit-button {
+        margin: 0 !important;
+      }
+    }
   }
   .topnav a.icon {
-    // float: right;
-    // display: block;
-    // position: absolute;
-    // right: 100px;
-    // top: 20px;
+    color: black !important;
   }
-  .spacing {
-    padding: 30px;
+
+  .topnav a:not(:first-child) {
+    display: none;
+  }
+
+  .responsive {
+    nav {
+      height: 200px !important;
+    }
+    #nav-sides {
+      align-self: flex-start;
+    }
   }
 }
 
@@ -251,32 +312,16 @@ nav {
     position: absolute;
   }
   .topnav.responsive a.icon {
+    color: white !important;
   }
   .topnav.responsive a {
     float: none;
     display: block;
     text-align: left;
   }
-  nav {
-    height: 120px !important;
-  }
-  .edit-button {
-    margin-left: -2px !important;
-  }
   .create-edit-button {
     margin-left: -2px !important;
   }
-}
-
-#left {
-  display: block;
-  padding: 20px;
-  float: left;
-  justify-items: flex-start;
-  flex: 1 1 auto;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
 }
 
 .logo {
@@ -292,6 +337,8 @@ nav {
 }
 
 a {
+  min-height: 0;
+  white-space: nowrap;
   cursor: pointer;
   color: #fff !important;
   text-decoration: none;
