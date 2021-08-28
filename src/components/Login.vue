@@ -1,7 +1,7 @@
 
 
 <template>
-
+<div v-if="registered==false">
   <div
     :class="[{ 'right-panel-active': rightPanelActive }, 'container']"
     id="container"
@@ -87,6 +87,12 @@
       </div>
     </div>
   </div>
+</div>
+<div v-else>
+<p></p> <!-- fara css nu apar router-linkurile (probabil intra sub header) -->
+<router-link to="/portofolios">Portofolios</router-link>
+<router-link to="/">Home</router-link>
+</div>
 </template>
 
 <script>
@@ -98,6 +104,7 @@ import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 export default {
   data() {
+    let registered=false;
     const loginSchema = yup.object().shape({
       email: yup.string().email().required(),
       password: yup.string().required().min(6).max(25)
@@ -115,6 +122,7 @@ export default {
       rightPanelActive: false,
       loginSchema,
       registerSchema,
+      registered,
       
     };
   },
@@ -163,7 +171,7 @@ export default {
         this.$store.dispatch("callSnackBar", {
           payload: "Registration successful!",
         });
-        this.$router.push('portofolios')
+        this.registered=true;
       }
     },
   },
