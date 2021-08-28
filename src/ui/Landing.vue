@@ -16,13 +16,13 @@
             </div>
           </div>
           <div class="text-center">
-            <a href="#pablo" class="btn btn-primary btn-icon btn-round">
+            <a href="https://www.facebook.com/" target="_blank" class="btn btn-primary btn-icon btn-round">
               <i class="fab fa-facebook-square"></i>
             </a>
-            <a href="#pablo" class="btn btn-primary btn-icon btn-round">
+            <a href="https://www.twitter.com/" target="_blank" class="btn btn-primary btn-icon btn-round">
               <i class="fab fa-twitter"></i>
             </a>
-            <a href="#pablo" class="btn btn-primary btn-icon btn-round">
+            <a href="https://google.com/" target="_blank" class="btn btn-primary btn-icon btn-round">
               <i class="fab fa-google-plus"></i>
             </a>
           </div>
@@ -128,6 +128,10 @@
   background-color: black;
   border-color: black;
 }
+.btn-primary:focus {
+  background-color: black;
+  border-color: black;
+}
 h2 {
   margin-top: 20px;
 }
@@ -143,4 +147,5 @@ h4 {
     flex-direction: column;
   }
 }
+
 </style>
