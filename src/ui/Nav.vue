@@ -1,41 +1,50 @@
 <template>
   <div class="topnav" id="myTopnav">
     <nav class="navMenu" id="navv">
-      <div id="left">
-        <router-link to="/test" class="active">Home</router-link>
-        <router-link to="/portofolios">Portofolios</router-link>
-        <router-link to="/aboutus">About</router-link>
-        <router-link to="/contact">Contact</router-link>
+      <div id="nav-sides">
+        <div id="left">
+          <router-link to="/test" class="active">Home</router-link>
+          <router-link to="/portofolios">Portofolios</router-link>
+          <router-link to="/aboutus">About</router-link>
+          <router-link to="/contact">Contact</router-link>
+        </div>
+
+        <div id="right">
+          <router-link v-if="!isLoggedin" to="/auth">Login</router-link>
+
+          <router-link
+            to="/portofolios/manage/"
+            v-if="isLoggedin"
+            :class="{
+              'create-edit-button': !getHasPortofolio,
+              'edit-button': getHasPortofolio,
+            }"
+          >
+            {{ getHasPortofolio ? "Edit Portofol.io" : "Create Portofol.io" }}
+          </router-link>
+          <a
+            v-if="isLoggedin"
+            @click="logOut()"
+            :class="{ logoutt: isLoggedin }"
+          >
+            Logout
+          </a>
+          <router-link to="/" id="logoid"
+            ><img src="https://i.imgur.com/Jwuropl.png" class="logo"
+          /></router-link>
+        </div>
       </div>
 
-      <div id="right">
-        <router-link v-if="!isLoggedin" to="/auth">Login</router-link>
-
-        <router-link
-          to="/portofolios/manage/"
-          v-if="isLoggedin"
-          :class="{
-            'create-edit-button': !getHasPortofolio,
-            'edit-button': getHasPortofolio,
-          }"
-        >
-          {{ getHasPortofolio ? "Edit Portofol.io" : "Create Portofol.io" }}
-        </router-link>
-        <a v-if="isLoggedin" @click="logOut()" :class="{ logoutt: isLoggedin }">
-          Logout
+      <div id="mobile-buttons">
+        <a href="javascript:void(0);" class="icon" v-on:click="myFunction">
+          <i class="fa fa-bars"></i>
         </a>
-        <router-link to="/" id="logoid"
-          ><img src="https://i.imgur.com/Jwuropl.png" class="logo"
-        /></router-link>
         <router-link to="/" id="slogo"
           ><img
             src="https://cdn.discordapp.com/attachments/769127565239255061/880137163314970624/or.png"
             class="slogo"
         /></router-link>
       </div>
-      <a href="javascript:void(0);" class="icon" v-on:click="myFunction">
-        <i class="fa fa-bars"></i>
-      </a>
 
       <!-- <div class="dot"></div> -->
     </nav>
@@ -81,6 +90,69 @@ export default {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+#nav-sides {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+nav {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  flex-direction: row;
+
+  background-image: linear-gradient(#f9ab2f, #f4690e);
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1 0 auto;
+  flex-wrap: nowrap;
+  height: 80px;
+  width: 100vw;
+
+  font-family: "Montserrat", sans-serif;
+  div {
+    display: inline-block;
+  }
+}
+
+#mobile-buttons {
+  display: inline-block;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  a {
+    display: block;
+  }
+  img {
+    display: inline-block;
+    padding: 0;
+  }
+}
+
+#right {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-end;
+  align-items: center;
+  a {
+    margin: 0 0.4rem;
+  }
+}
+
+#slogo {
+  .slogo {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 .spacing {
   padding: 10px;
 }
@@ -109,14 +181,11 @@ export default {
   .topnav {
     position: absolute;
     height: 160px;
+    position: absolute;
   }
   #left {
     padding-left: 20vw !important;
     float: none !important;
-  }
-  #right {
-    padding-right: 2vw !important;
-    float: right !important;
   }
   .spacing {
     padding: 50px;
@@ -129,34 +198,47 @@ export default {
   .topnav {
     height: 120px;
   }
-  .topnav .slogo {
-    float: right !important;
-    display: block !important;
-    padding-right: 20vw !important;
-  }
 }
-.slogo {
+#mobile-buttons {
   display: none;
-  height: 40px;
+}
+
+#right {
+  text-align: center;
 }
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 600px) {
+  #mobile-buttons {
+    display: flex;
+  }
+  nav {
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  #right {
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    align-items: flex-start;
+  }
+  #nav-sides {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
   .topnav a:not(:first-child) {
     display: none;
     position: absolute;
   }
   .topnav a.icon {
-    float: right;
-    display: block;
-    right: 100px;
-    top: 20px;
-  }
-  .slogo {
-    display: block !important;
-    position: absolute !important;
-    left: 20px !important;
-    top: 10px !important;
+    // float: right;
+    // display: block;
+    // position: absolute;
+    // right: 100px;
+    // top: 20px;
   }
   .spacing {
     padding: 30px;
@@ -166,56 +248,23 @@ export default {
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
 @media screen and (max-width: 600px) {
   .topnav.responsive {
+    position: absolute;
   }
   .topnav.responsive a.icon {
-    right: 100px;
-    top: 20px;
   }
   .topnav.responsive a {
     float: none;
     display: block;
     text-align: left;
   }
-  .slogo {
-    position: absolute !important;
-    left: 20px !important;
-    top: 10px !important;
-    display: block !important;
-  }
   nav {
     height: 120px !important;
-  }
-  #right {
-    float: left !important;
-    margin-left: 20vw !important;
-    margin-top: -30px;
   }
   .edit-button {
     margin-left: -2px !important;
   }
   .create-edit-button {
     margin-left: -2px !important;
-  }
-}
-
-nav {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-
-  background-image: linear-gradient(#f9ab2f, #f4690e);
-  justify-content: space-between;
-  align-items: center;
-  flex: 1 0 auto;
-  flex-wrap: nowrap;
-  height: 80px;
-  width: 100vw;
-
-  font-family: "Montserrat", sans-serif;
-  div {
-    display: inline-block;
   }
 }
 
@@ -228,17 +277,6 @@ nav {
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-}
-
-#right {
-  padding: 10px;
-  display: block;
-  float: right;
-  justify-items: flex-end;
-  align-items: center;
-  a {
-    margin: 0 0.4rem;
-  }
 }
 
 .logo {
