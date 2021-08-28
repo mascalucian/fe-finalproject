@@ -82,7 +82,7 @@ header {
 }
 main {
   background-color: $o-4;
-  padding: 1rem 2rem;
+  padding: 5% 10%;
   div {
     background-color: $s-1;
     padding: 1rem;
@@ -122,6 +122,7 @@ main {
       text-align: center;
       display: block;
       padding: 0.5rem;
+      word-break: break-all;
       &:hover,
       :active,
       :focus-visible {
