@@ -8,11 +8,27 @@
       :validation-schema="registerSchema">
       <form action="#" @submit.prevent="handleSubmit($event, register)" >
         <h1>Create Account</h1>
-         <Field type="email" id="email" name="email" v-model="username" />
-         <ErrorMessage name="email" />
-        <Field type="password" id="password" name="password" v-model="password"/>
-        <ErrorMessage name="password"/>
-        <input type="password" placeholder="Re-Type Password" />
+         <div>
+           <label for="emailR">Your email *</label>
+            <Field type="email" id="emailR" name="email" v-model="username" />
+         </div>
+         <div>
+            <ErrorMessage name="email" />
+         </div>
+        <div>
+            <label for="passwordR">Your password *</label>
+            <Field type="password" id="passwordR" name="password" v-model="password"/>
+        </div>
+        <div>
+            <ErrorMessage name="password"/>
+        </div>
+        <div>
+            <label for="emailConfirm">Confirm your password *</label>
+            <Field type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Re-Type Password" v-model="passwordConfirm"/>
+        </div>
+         <div>
+           <ErrorMessage name="passwordConfirm"/>
+         </div>
         <button type="submit">Sign Up</button>
       </form>
       </Form>
@@ -22,10 +38,22 @@
       :validation-schema="loginSchema">
         <form action="#" @submit.prevent="handleSubmit($event, login)" >
         <h1>Sign in</h1>
-        <label for="email">Your Email</label>
-        <Field type="email" id="email" name="email" v-model="username" />
-         <ErrorMessage name="email" />
-        <input type="password" placeholder="Password" v-model="password" />
+        <label for="email">Your email *</label>
+        <div>
+          <Field type="email" id="emailL" name="email" v-model="username" />
+        </div>
+        <div>
+          <ErrorMessage name="email" />
+        </div>
+
+        <label for="password">Your password *</label>
+        <div>
+          <Field type="password" id="password" placeholder="Password" name="password" v-model="password" />
+        </div>
+        <div>
+          <ErrorMessage name="password" />
+        </div>
+  
         <a href="#">Forgot your password?</a>
         <button type="submit" :disabled="isLoggedin">Sign in</button>
       </form>
@@ -68,15 +96,19 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 export default {
   data() {
     const loginSchema = yup.object().shape({
-      email: yup.string().email("test").required(),
-      password: yup.string().email().required()
+      email: yup.string().email().required(),
+      password: yup.string().required().min(6).max(25)
     })
     const registerSchema = yup.object().shape({
-      email: yup.string().email().required()
+      email: yup.string().email().required(),
+      password: yup.string().required().min(6).max(25),
+      passwordConfirm: yup.string()
+     .oneOf([yup.ref('password'), null], 'Passwords must match') 
     })
     return {
       username: "",
       password: "",
+      passwordConfirm: "",
       rightPanelActive: false,
       loginSchema,
       registerSchema,
@@ -386,5 +418,15 @@ footer i {
 footer a {
   color: #3c97bf;
   text-decoration: none;
+}
+[role="alert"] {
+  color: rgb(143, 27, 27);
+  display: block;
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  padding: 0.1rem;
+  text-decoration: underline;
+  bottom: -1rem;
 }
 </style>
