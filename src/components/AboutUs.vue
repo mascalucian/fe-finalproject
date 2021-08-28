@@ -96,6 +96,7 @@ export default {
       .where("userId", "in", this.ids)
       .onSnapshot((snapshotChange) => {
         snapshotChange.forEach((doc) => {
+          // console.log(doc.data());
           this.teamMembers.push(doc.data());
         });
       });
