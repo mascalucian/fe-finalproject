@@ -4,19 +4,22 @@
     id="container"
   >
     <div class="form-container sign-up-container">
-
-      <form @submit.prevent="register()" >
+      <Form v-slot="{ handleSubmit }"
+      :validation-schema="registerSchema">
+      <form action="#" @submit.prevent="handleSubmit($event, register)" >
         <h1>Create Account</h1>
-        <input type="email" placeholder="Email" v-model="username" />
-       
-        <input type="password" placeholder="Password" v-model="password" />
+         <Field type="email" id="email" name="email" v-model="username" />
+         <ErrorMessage name="email" />
+        <Field type="password" id="password" name="password" v-model="password"/>
+        <ErrorMessage name="password"/>
         <input type="password" placeholder="Re-Type Password" />
         <button type="submit">Sign Up</button>
       </form>
+      </Form>
     </div>
     <div class="form-container sign-in-container">
       <Form v-slot="{ handleSubmit }"
-      : validation-schema="login_schema">
+      :validation-schema="loginSchema">
         <form action="#" @submit.prevent="handleSubmit($event, login)" >
         <h1>Sign in</h1>
         <label for="email">Your Email</label>
@@ -64,11 +67,20 @@ import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 export default {
   data() {
+    const loginSchema = yup.object().shape({
+      email: yup.string().email("test").required(),
+      password: yup.string().email().required()
+    })
+    const registerSchema = yup.object().shape({
+      email: yup.string().email().required()
+    })
     return {
       username: "",
       password: "",
       rightPanelActive: false,
-      login_schema,
+      loginSchema,
+      registerSchema,
+      
     };
   },
   components:{
@@ -76,11 +88,7 @@ export default {
     Form, 
     ErrorMessage,
   },
-  setup:{
-    const :login_schema = yup.object().shape({
-      email: yup.string().email().required
-    })
-  },
+
   computed: {
     ...mapGetters(
       ["isLoggedin", "getErrorMessage"] // -> this.someGetter
