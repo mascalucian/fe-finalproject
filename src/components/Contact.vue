@@ -57,6 +57,7 @@ export default {
 #wrapper {
   display: table;
   position: relative;
+  width: 100%;
 }
 header {
   display: flex;
