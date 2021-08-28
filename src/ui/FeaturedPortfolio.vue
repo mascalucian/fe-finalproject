@@ -132,7 +132,7 @@ export default {
 .portfolioo .infoboxx {
   margin-top: -73px;
   width: 90%;
-  min-width: 400px;
+  min-width: 360px;
   height: 400px;
   background-image: url("https://wallpaperaccess.com/full/888745.jpg");
   display: flex;
