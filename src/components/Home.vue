@@ -3,8 +3,11 @@
     <h1>Welcome to</h1>
     <img src="https://i.imgur.com/MGp2X3f.png" class="biglogo" />
   </div>
+  <div>
+    <Landing/>
+  </div>
   <div class="h1div">
-    <h1>Here are our Top 3 picks:</h1>
+    <h2 class="title">Here are our Top 3 picks</h2>
   </div>
   <div class="all">
     <FeaturedPortfolio
@@ -21,6 +24,7 @@
 
 <script>
 import FeaturedPortfolio from "../ui/FeaturedPortfolio.vue";
+import Landing from "../ui/Landing.vue";
 import { mapGetters } from "vuex";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -29,6 +33,7 @@ import { db } from "../config/db";
 export default {
   name: "Home",
   components: {
+    Landing,
     FeaturedPortfolio,
   },
   data() {
@@ -95,13 +100,17 @@ h1 {
   margin-bottom: -20px;
   font-family: "Montserrat", sans-serif;
 }
+h2 {
+  padding-top: 15px;
+  margin-bottom: -10px;
+}
 .h1div {
   vertical-align: middle;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: "Montserrat", sans-serif;
+  color: #2c3e50;
 }
 
 @media screen and (max-width: 900px) {
