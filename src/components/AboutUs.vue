@@ -1,72 +1,75 @@
 <template>
-  <header>
-    <h1>About us</h1>
-  </header>
-  <main>
-    <section id="cards">
-      <div class="my-card">
-        <img src="http://imgur.com/ua1wx.jpg" />
-        <span class="card-content">
-          <p>
-            Our story starts <strong>{{ daysWeBeenWorking }} days ago</strong>,
-            during our Frontend Internship when our team was chilling at
-            <strong>Templul Manelelor</strong> in Costinești, Constanța,
-            Romania. Our Frontend mentor tasked us with creating a portfolio
-            website, not individual ones, but rather as a team. We thought why
-            not harnessing the power of colaboration and rather than design our
-            own portfolio websites, why not create a platform where anyone could
-            create and host their portfolio website, free of charge.
-          </p>
-        </span>
-      </div>
-      <div class="my-card">
-        <img
-          src="https://www.funmag.org/wp-content/uploads/2012/09/funny-orange-peel-04.jpg"
+  <div id="wrapper">
+    <header>
+      <h1>About us</h1>
+    </header>
+    <main>
+      <section id="cards">
+        <div class="my-card">
+          <img src="http://imgur.com/ua1wx.jpg" />
+          <span class="card-content">
+            <p>
+              Our story starts
+              <strong>{{ daysWeBeenWorking }} days ago</strong>, during our
+              Frontend Internship when our team was chilling at
+              <strong>Templul Manelelor</strong> in Costinești, Constanța,
+              Romania. Our Frontend mentor tasked us with creating a portfolio
+              website, not individual ones, but rather as a team. We thought why
+              not harnessing the power of colaboration and rather than design
+              our own portfolio websites, why not create a platform where anyone
+              could create and host their portfolio website, free of charge.
+            </p>
+          </span>
+        </div>
+        <div class="my-card">
+          <img
+            src="https://www.funmag.org/wp-content/uploads/2012/09/funny-orange-peel-04.jpg"
+          />
+          <span class="card-content">
+            <p>
+              And thus <strong>Portofol.io</strong> got its start. A free
+              platform where anyone can join and host their own modern
+              professional grade portfolio. We're constantly working on adding
+              new features and we'd like to take a moment to thank our community
+              for their utmost support.
+            </p>
+          </span>
+        </div>
+        <div class="my-card">
+          <img
+            src="https://ruinmyweek.com/wp-content/uploads/2017/06/funny-pics-to-share-orange-slices-in-a-huddle.jpeg"
+          />
+          <span class="card-content">
+            <p>
+              Our project started up as an assignment but we'd never thought to
+              see it go to such heights! We are forever endebted to our own
+              friends and family for keeping us on the right track and keep this
+              project afloat and constantly expanding.
+            </p>
+            <p style="text-align:right">
+              <em>
+                The Portofol.io Team
+              </em>
+            </p>
+          </span>
+        </div>
+      </section>
+      <h2>
+        Team Members:
+      </h2>
+      <section id="team-members">
+        <FeaturedPortfolio
+          v-for="portofolio in teamMembers"
+          v-bind:key="portofolio.id"
+          :fname="portofolio.firstName"
+          :lname="portofolio.lastName"
+          :title="portofolio.title"
+          :about="portofolio.about"
+          :idd="portofolio.userId"
         />
-        <span class="card-content">
-          <p>
-            And thus <strong>Portofol.io</strong> got its start. A free platform
-            where anyone can join and host their own modern professional grade
-            portfolio. We're constantly working on adding new features and we'd
-            like to take a moment to thank our community for their utmost
-            support.
-          </p>
-        </span>
-      </div>
-      <div class="my-card">
-        <img
-          src="https://ruinmyweek.com/wp-content/uploads/2017/06/funny-pics-to-share-orange-slices-in-a-huddle.jpeg"
-        />
-        <span class="card-content">
-          <p>
-            Our project started up as an assignment but we'd never thought to
-            see it go to such heights! We are forever endebted to our own
-            friends and family for keeping us on the right track and keep this
-            project afloat and constantly expanding.
-          </p>
-          <p style="text-align:right">
-            <em>
-              The Portofol.io Team
-            </em>
-          </p>
-        </span>
-      </div>
-    </section>
-    <h2>
-      Team Members:
-    </h2>
-    <section id="team-members">
-      <FeaturedPortfolio
-        v-for="portofolio in teamMembers"
-        v-bind:key="portofolio.id"
-        :fname="portofolio.firstName"
-        :lname="portofolio.lastName"
-        :title="portofolio.title"
-        :about="portofolio.about"
-        :idd="portofolio.userId"
-      />
-    </section>
-  </main>
+      </section>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -105,6 +108,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#wrapper {
+  width: 100%;
+}
 header {
   display: flex;
   justify-content: center;
