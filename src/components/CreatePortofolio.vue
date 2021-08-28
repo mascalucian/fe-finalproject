@@ -157,30 +157,12 @@
               />
             </div>
           </div>
+
           <div class="projects">
             <h1>
               {{ !editMode ? "Add your projects:*" : "Manage your projects:" }}
             </h1>
             <h3>Let's see what you've accomplished</h3>
-            <div class="projects-list" v-if="!editMode">
-              <h2>Project List:</h2>
-              <div v-for="project in projects" :key="project" class="project">
-                <h3>{{ project.title }}</h3>
-                <p>{{ project.description }}</p>
-              </div>
-            </div>
-            <div class="projects-list" v-else>
-              <h2>Project List:</h2>
-              <div
-                v-for="project in getProjectsForPortofolio"
-                :key="project.id"
-                class="project"
-              >
-                <h3>{{ project.title }}</h3>
-                <p>{{ project.description }}</p>
-              </div>
-            </div>
-
             <Form
               :validation-schema="newProjectSchema"
               v-slot="{ handleSubmit }"
@@ -229,6 +211,24 @@
                 <input type="submit" value="Add Project" />
               </form>
             </Form>
+            <div class="projects-list" v-if="!editMode">
+              <h2>Project List:</h2>
+              <div v-for="project in projects" :key="project" class="project">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+              </div>
+            </div>
+            <div class="projects-list" v-else>
+              <h2>Project List:</h2>
+              <div
+                v-for="project in getProjectsForPortofolio"
+                :key="project.id"
+                class="project"
+              >
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+              </div>
+            </div>
           </div>
           <div class="socials-contact">
             <div class="socials">
@@ -1150,6 +1150,7 @@ input[type="file"] {
   background-color: $o-7;
   form {
     width: 100%;
+    max-width: 35rem;
   }
   h1,
   h3 {
@@ -1252,6 +1253,7 @@ input[type="file"] {
   border-radius: 20px;
   background-color: $s-1;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  word-break: break-all;
   h3 {
     color: $w;
     display: block;
