@@ -230,7 +230,7 @@ nav {
     display: flex;
     align-self: center;
     justify-content: flex-end;
-    align-items: flex-end;
+    align-items: flex-end !important;
     flex: 1;
   }
   #right {
