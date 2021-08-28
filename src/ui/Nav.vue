@@ -229,8 +229,8 @@ nav {
   #mobile-buttons {
     display: flex;
     align-self: center;
-    justify-content: center;
-    align-items: flex-end;
+    justify-content: flex-end;
+    align-items: flex-end !important;
     flex: 1;
   }
   #right {
