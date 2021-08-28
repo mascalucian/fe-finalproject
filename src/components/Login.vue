@@ -11,7 +11,7 @@
       :validation-schema="registerSchema">
       <form action="#" @submit.prevent="handleSubmit($event, register)" >
         <h1>Create Account</h1>
-         <div>
+         <div class="test">
            <label for="emailR">Your email *</label>
             <Field type="email" id="emailR" name="email" v-model="username" />
          </div>
@@ -41,23 +41,23 @@
       :validation-schema="loginSchema">
         <form action="#" @submit.prevent="handleSubmit($event, login)" >
         <h1>Sign in</h1>
-        <label for="email">Your email *</label>
+        
         <div>
+          <label for="email">Your email *</label>
           <Field type="email" id="emailL" name="email" v-model="username" />
         </div>
         <div>
           <ErrorMessage name="email" />
         </div>
-
-        <label for="password">Your password *</label>
         <div>
+          <label for="password">Your password *</label>
           <Field type="password" id="password" placeholder="Password" name="password" v-model="password" />
         </div>
         <div>
           <ErrorMessage name="password" />
         </div>
   
-        <a href="#">Forgot your password?</a>
+       <!-- <a href="#">Forgot your password?</a> -->
         <button type="submit" :disabled="isLoggedin">Sign in</button>
       </form>
       </Form>
@@ -184,7 +184,7 @@ body {
   align-items: center;
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
-  height: 100vh;
+  height: 110vh;
   margin: -20px 0 50px;
 }
 
@@ -217,6 +217,7 @@ a {
 }
 
 button {
+  margin-top:20px;
   border-radius: 20px;
   border: 1px solid #ff4b2b;
   background-color: #ff4b2b;
@@ -262,6 +263,7 @@ input {
 }
 
 .container {
+  top:180px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -269,7 +271,7 @@ input {
   overflow: hidden;
   width: 768px;
   max-width: 100%;
-  min-height: 480px;
+  min-height: 550px;
 }
 
 .form-container {
@@ -432,5 +434,11 @@ footer a {
   padding: 0.1rem;
   text-decoration: underline;
   bottom: -1rem;
+}
+label{
+  text-align: left;
+  float: left;
+  margin-top:10px;
+  margin-bottom:0px;
 }
 </style>
