@@ -1,5 +1,5 @@
 <template
-  ><div style="position: relative">
+  ><div id="wrapper">
     <header>
       <h1>Contact us!</h1>
     </header>
@@ -54,6 +54,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#wrapper {
+  display: table;
+  position: relative;
+}
 header {
   display: flex;
   justify-content: center;
@@ -77,17 +81,21 @@ header {
 }
 main {
   background-color: $o-4;
-  padding: 2rem 4rem;
+  padding: 5% 10%;
   div {
     background-color: $s-1;
     padding: 1rem;
     border-radius: 40px;
     margin: 1rem 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    display: table;
+    width: 100%;
     div {
+      display: block;
       margin: auto;
       box-shadow: none;
       div {
+        display: block;
         border: 3px solid rgba(42, 158, 207, 0.45);
         border-radius: 0;
         padding: 0;
@@ -113,6 +121,7 @@ main {
       text-align: center;
       display: block;
       padding: 0.5rem;
+      word-break: break-all;
       &:hover,
       :active,
       :focus-visible {
