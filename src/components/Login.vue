@@ -1,25 +1,67 @@
+
+
 <template>
+
   <div
     :class="[{ 'right-panel-active': rightPanelActive }, 'container']"
     id="container"
   >
     <div class="form-container sign-up-container">
-      <form @submit.prevent="register()">
+      <Form v-slot="{ handleSubmit }"
+      :validation-schema="registerSchema">
+      <form action="#" @submit.prevent="handleSubmit($event, register)" >
         <h1>Create Account</h1>
-        <input type="email" placeholder="Email" v-model="username" />
-        <input type="password" placeholder="Password" v-model="password" />
-        <input type="password" placeholder="Re-Type Password" />
+         <div class="test">
+           <label for="emailR">Your email *</label>
+            <Field type="email" id="emailR" name="email" v-model="username" />
+         </div>
+         <div>
+            <ErrorMessage name="email" />
+         </div>
+        <div>
+            <label for="passwordR">Your password *</label>
+            <Field type="password" id="passwordR" name="password" v-model="password"/>
+        </div>
+        <div>
+            <ErrorMessage name="password"/>
+        </div>
+        <div>
+            <label for="emailConfirm">Confirm your password *</label>
+            <Field type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Re-Type Password" v-model="passwordConfirm"/>
+        </div>
+         <div>
+           <ErrorMessage name="passwordConfirm"/>
+         </div>
         <button type="submit">Sign Up</button>
       </form>
+      </Form>
     </div>
     <div class="form-container sign-in-container">
-      <form action="#" @submit.prevent="login()">
+      <Form v-slot="{ handleSubmit }"
+      :validation-schema="loginSchema">
+        <form action="#" @submit.prevent="handleSubmit($event, login)" >
         <h1>Sign in</h1>
-        <input type="email" placeholder="Email" v-model="username" />
-        <input type="password" placeholder="Password" v-model="password" />
-        <a href="#">Forgot your password?</a>
+        
+        <div>
+          <label for="email">Your email *</label>
+          <Field type="email" id="emailL" name="email" v-model="username" />
+        </div>
+        <div>
+          <ErrorMessage name="email" />
+        </div>
+        <div>
+          <label for="password">Your password *</label>
+          <Field type="password" id="password" placeholder="Password" name="password" v-model="password" />
+        </div>
+        <div>
+          <ErrorMessage name="password" />
+        </div>
+  
+       <!-- <a href="#">Forgot your password?</a> -->
         <button type="submit" :disabled="isLoggedin">Sign in</button>
       </form>
+      </Form>
+     
     </div>
     <div class="overlay-container">
       <div class="overlay">
@@ -52,14 +94,36 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../config/db";
 import { mapGetters } from "vuex";
+import * as yup from "yup";
+import { Form, Field, ErrorMessage } from "vee-validate";
 export default {
   data() {
+    const loginSchema = yup.object().shape({
+      email: yup.string().email().required(),
+      password: yup.string().required().min(6).max(25)
+    })
+    const registerSchema = yup.object().shape({
+      email: yup.string().email().required(),
+      password: yup.string().required().min(6).max(25),
+      passwordConfirm: yup.string()
+     .oneOf([yup.ref('password'), null], 'Passwords must match') 
+    })
     return {
       username: "",
       password: "",
+      passwordConfirm: "",
       rightPanelActive: false,
+      loginSchema,
+      registerSchema,
+      
     };
   },
+  components:{
+    Field,
+    Form, 
+    ErrorMessage,
+  },
+
   computed: {
     ...mapGetters(
       ["isLoggedin", "getErrorMessage"] // -> this.someGetter
@@ -99,10 +163,11 @@ export default {
         this.$store.dispatch("callSnackBar", {
           payload: "Registration successful!",
         });
+        this.$router.push('portofolios')
       }
     },
   },
-};
+}; 
 </script>
 
 <style scoped>
@@ -119,7 +184,7 @@ body {
   align-items: center;
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
-  height: 100vh;
+  height: 110vh;
   margin: -20px 0 50px;
 }
 
@@ -152,6 +217,7 @@ a {
 }
 
 button {
+  margin-top:20px;
   border-radius: 20px;
   border: 1px solid #ff4b2b;
   background-color: #ff4b2b;
@@ -197,6 +263,7 @@ input {
 }
 
 .container {
+  top:180px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -204,7 +271,7 @@ input {
   overflow: hidden;
   width: 768px;
   max-width: 100%;
-  min-height: 480px;
+  min-height: 550px;
 }
 
 .form-container {
@@ -357,5 +424,21 @@ footer i {
 footer a {
   color: #3c97bf;
   text-decoration: none;
+}
+[role="alert"] {
+  color: rgb(143, 27, 27);
+  display: block;
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  padding: 0.1rem;
+  text-decoration: underline;
+  bottom: -1rem;
+}
+label{
+  text-align: left;
+  float: left;
+  margin-top:10px;
+  margin-bottom:0px;
 }
 </style>
