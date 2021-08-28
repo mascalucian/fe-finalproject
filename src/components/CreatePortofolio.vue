@@ -124,7 +124,6 @@
                   type="text"
                   id="tagline"
                   placeholder="What makes you awesome?"
-                  size="40"
                   v-model="newPortofolio.tagline"
                 />
                 <ErrorMessage name="tagline" />
@@ -181,6 +180,7 @@
                 <p>{{ project.description }}</p>
               </div>
             </div>
+
             <Form
               :validation-schema="newProjectSchema"
               v-slot="{ handleSubmit }"
@@ -197,7 +197,6 @@
                       name="title"
                       id="project-title"
                       placeholder="Your project's title"
-                      size="45"
                       v-model="project.title"
                     />
                     <ErrorMessage name="title" />
@@ -540,6 +539,7 @@ export default {
             projectId: projectRef.id,
             photoFile: file,
           });
+          this.methodThatForcesUpdate();
         }
         return;
       }
@@ -547,6 +547,7 @@ export default {
       await this.$store.dispatch("addProject", {
         payload: project,
       });
+      this.methodThatForcesUpdate();
       if (!file) {
         console.log("No picture");
         return;
@@ -702,7 +703,6 @@ export default {
     },
   },
   computed: {
-    //ai nevoie doar de allPortofolios, il poti folosi apoi in v-for portofolio in allPortofolios
     ...mapGetters(
       ["loggedInUser", "getHasPortofolio", "getProjectsForPortofolio"] // -> this.someGetter
     ),
@@ -733,13 +733,13 @@ header {
   background-image: url("https://media.istockphoto.com/vectors/bright-seamless-pattern-with-orange-slices-vector-id1305791045?b=1&k=6&m=1305791045&s=612x612&w=0&h=7N354TSz_-ZYq5xz7lAisjzcFKiKDJgggbhP3V0BxwM=");
   background-position-y: center;
   width: 100%;
-  padding: 0.8em 0;
+  padding: 4% 0;
   display: flex;
   flex-wrap: nowrap;
   border-bottom: 3px solid rgba(241, 234, 234, 0.699);
   h1 {
     background-color: $o;
-    padding: 1em 6em;
+    padding: 2% 5%;
     width: fit-content;
     margin: auto;
     color: $w;
@@ -829,7 +829,6 @@ input[type="file"] {
   flex: 1 0 0;
   flex-wrap: wrap;
   flex-direction: row;
-  height: 38rem;
   vertical-align: middle;
   object-fit: cover;
   background-repeat: no-repeat;
@@ -852,20 +851,21 @@ input[type="file"] {
 }
 
 #create-portofolio-body {
-  min-width: 540px;
+  width: 100%;
 }
 
 .profile-picture {
-  margin: 6rem auto 0 auto;
+  margin: 17% auto 0 auto;
   display: block;
   width: 100%;
+  z-index: 10;
 }
 
 .names-title {
   display: block;
   width: 90%;
   margin: 3px auto;
-
+  z-index: 10;
   input {
     text-shadow: 2px 2px $o;
     font-family: "Oswald", sans-serif;
@@ -961,7 +961,8 @@ input[type="file"] {
     bottom: -0.3rem;
   }
   input {
-    margin: auto;
+    width: 100%;
+    margin: auto 10%;
     display: block;
     font-family: "Work Sans", sans-serif;
     font-size: xx-large;
@@ -988,6 +989,7 @@ input[type="file"] {
     font-family: "Work Sans", sans-serif;
     font-size: large;
     width: 100% !important;
+    margin: 0 5%;
     max-height: 12rem;
     min-height: 2rem;
     padding-bottom: 3rem;
@@ -1030,7 +1032,7 @@ input[type="file"] {
   padding-top: 2rem;
   border-top: 3px solid rgba(241, 234, 234, 0.699);
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   flex-wrap: wrap;
   justify-content: center;
   flex-direction: row;
@@ -1063,7 +1065,9 @@ input[type="file"] {
     padding: 1rem;
 
     input {
+      display: block;
       margin-bottom: 1.5rem;
+      width: 100%;
     }
 
     [role="alert"] {
@@ -1081,6 +1085,10 @@ input[type="file"] {
   }
 
   .socials {
+    min-width: 0;
+    form {
+      width: 100%;
+    }
     .form-field {
       justify-content: flex-start;
     }
@@ -1133,14 +1141,16 @@ input[type="file"] {
 .projects {
   width: 100%;
   margin-top: 1rem;
-  padding-top: 1rem;
+  padding: 5%;
   border-top: 1px solid black;
   display: flex;
   flex: 1 0 auto;
   flex-wrap: wrap;
   justify-content: center;
   background-color: $o-7;
-
+  form {
+    width: 100%;
+  }
   h1,
   h3 {
     display: block;
@@ -1179,6 +1189,7 @@ input[type="file"] {
   }
 
   input {
+    width: 100% !important;
     border-bottom: 2px solid $w;
     font-size: large;
     margin-bottom: 0.5rem;
@@ -1279,6 +1290,40 @@ input[type="file"] {
       background-color: $c-3;
       text-decoration: underline;
     }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .banner-upload {
+    bottom: unset;
+    top: 0;
+    border-bottom: 3px solid rgba(42, 158, 207, 0.45);
+    border-top: 0;
+  }
+
+  .profile-picture {
+    margin-top: 40%;
+  }
+
+  .button-row {
+    white-space: pre-wrap;
+    word-break: break-all;
+    input {
+      padding: 2% 5%;
+      font-size: 2rem;
+    }
+  }
+
+  .contact,
+  .socials {
+    margin: 0 !important;
+    display: table-cell;
+  }
+}
+@media screen and (max-width: 400px) {
+  .contact {
+    margin: 0 !important;
+    width: 100%;
   }
 }
 </style>

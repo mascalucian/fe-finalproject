@@ -160,7 +160,7 @@ img {
   text-align: justify;
   overflow: hidden;
   flex: 1 1 0;
-  margin: 1rem 2rem;
+  margin: 1.5% 3%;
 }
 
 .my-card {
