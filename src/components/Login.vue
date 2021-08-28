@@ -1,4 +1,7 @@
+
+
 <template>
+
   <div
     :class="[{ 'right-panel-active': rightPanelActive }, 'container']"
     id="container"
@@ -160,6 +163,7 @@ export default {
         this.$store.dispatch("callSnackBar", {
           payload: "Registration successful!",
         });
+        this.$router.push('portofolios')
       }
     },
   },
