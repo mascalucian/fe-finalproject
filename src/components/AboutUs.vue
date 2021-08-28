@@ -128,7 +128,7 @@ header {
 }
 
 main {
-  padding: 3rem 6rem;
+  padding: 5% 10%;
 }
 
 #cards {
@@ -146,11 +146,10 @@ img {
 }
 
 .card-content {
-  min-width: 300px;
   height: 100%;
   display: inline-block;
   font-family: $f-w;
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-indent: 4rem;
   text-align: justify;
   overflow: hidden;
