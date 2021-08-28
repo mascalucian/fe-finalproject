@@ -90,8 +90,29 @@
 </div>
 <div v-else>
 <p></p> <!-- fara css nu apar router-linkurile (probabil intra sub header) -->
-<router-link to="/portofolios">Portofolios</router-link>
-<router-link to="/">Home</router-link>
+<div class="centering">
+<div class="bigcontainer">
+  <img src="https://www.freeiconspng.com/uploads/orange-check-tick-icon-14.png">
+  <h1>Account successfully created!</h1>
+  <h3>What are you looking for?</h3>
+
+  <div class="everyone">
+    <div class="individual">
+      <h2>For Recruiters</h2>
+      <button class="btnindividual" role="button"><router-link to="/portofolios" style="color:white">View Portofol.ios</router-link></button>
+    </div>
+    <div class="individual">
+      <h2>For Workers</h2>
+      <button class="btnindividual" role="button"><router-link to="/portofolios/manage" style="color:white">Create your Portofol.io</router-link></button>
+    </div>
+  </div>
+
+  
+  
+</div>
+</div>
+
+
 </div>
 </template>
 
@@ -194,6 +215,73 @@ body {
   font-family: "Montserrat", sans-serif;
   height: 110vh;
   margin: -20px 0 50px;
+}
+.centering {
+  display: flex;
+  justify-content: center;
+}
+.bigcontainer {
+  margin-top: 140px;
+  width: 50vw;
+  min-width: 440px;
+  background-color: rgba(255, 140, 0, 0.247);
+  border-radius: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h1 {
+  text-align: center;
+  padding:2px;
+}
+.bigcontainer img {
+  width: 100px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+.everyone {
+  display:flex;
+  justify-content: space-around;
+}
+.btnindividual {
+  background-image: linear-gradient(92.88deg, darkorange 9.16%, orange 43.89%, orange 64.72%);
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  height: 4rem;
+  padding: 0 1.6rem;
+  text-align: center;
+  text-shadow: rgba(255, 255, 255, 0.25) 0 3px 8px;
+  transition: all .5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btnindividual:hover {
+  box-shadow: darkorange 0 1px 30px;
+  transition-duration: .1s;
+}
+
+@media (min-width: 768px) {
+  .btnindividual {
+    padding: 0 2.6rem;
+  }
+}
+.individual {
+  margin-left: 5vw;
+  margin-right: 5vw;
+  margin-bottom: 30px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 .latimeinput {
   width: 23vw;

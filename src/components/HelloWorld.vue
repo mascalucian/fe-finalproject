@@ -1,4 +1,4 @@
-d<template>
+<template>
   <div class="hello">
     <h1 v-for="portofolio in allPortofolios" v-bind:key="portofolio.id">
       {{ portofolio.firstName }} {{ portofolio.lastName }}
@@ -6,6 +6,12 @@ d<template>
     <h1>
       Test corner!
     </h1>
+
+  <!-- Testing Corner - Lucian -->
+  
+  <!-- Gata testingu meu -->
+
+
     <div class="auth-test">
       <form
         @submit.prevent="switchTab ? register() : login()"
