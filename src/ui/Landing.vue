@@ -142,6 +142,11 @@ h4 {
 .text-primary {
   color: orange !important;
 }
+.description {
+  background-color: rgba(165, 100, 14, 0.103);
+  border-radius: 20px;
+  padding: 4px;
+}
 @media screen and (max-width:600px) {
   .firstflex {
     flex-direction: column;
