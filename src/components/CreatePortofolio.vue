@@ -720,7 +720,7 @@ export default {
     }
   },
   unmounted() {
-    this.unsubscribe();
+    if (this.unsubscribe) this.unsubscribe();
   },
 };
 </script>

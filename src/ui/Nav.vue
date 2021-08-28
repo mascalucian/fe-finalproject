@@ -188,12 +188,6 @@ nav {
 }
 .marire {
   height: 220px;
-  .edit-button {
-    margin-left: -2px !important;
-  }
-  .create-edit-button {
-    margin-left: -2px !important;
-  }
 }
 /* Hide the link that should open and close the topnav on small screens */
 @media screen and (max-width: 962px) {
@@ -275,12 +269,13 @@ nav {
     width: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     flex-grow: 0;
+    padding-top: 1rem;
     a {
       margin: 0;
-      padding-left: 0.5rem;
+      padding-left: 0.55rem;
 
       .edit-button {
         margin: 0 !important;
@@ -378,20 +373,7 @@ a {
     display: none;
   }
 }
-.logoutt:hover {
-  color: red;
-  &:hover,
-  &:active,
-  &.router-link-active {
-    background-color: red;
-    border-radius: 40px;
-    color: rgba(255, 255, 255, 0.623);
-    background-blend-mode: color-burn;
-    padding: 0rem 0.5rem;
-    margin-left: -15px;
-    margin-top: 15px;
-  }
-}
+
 .edit-button:hover {
   opacity: 100%;
   background-color: white;
@@ -455,5 +437,20 @@ a {
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   opacity: 1;
+}
+
+.logoutt {
+  padding: 0rem 0.5rem;
+  &:hover {
+    color: red;
+    &:hover,
+    &:active,
+    &.router-link-active {
+      background-color: red;
+      border-radius: 40px;
+      color: rgba(255, 255, 255, 0.623);
+      background-blend-mode: color-burn;
+    }
+  }
 }
 </style>
