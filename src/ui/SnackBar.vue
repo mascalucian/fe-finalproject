@@ -34,6 +34,7 @@ div {
   animation-duration: 0.25s;
   padding: 1rem;
   z-index: 1000;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.26);
 }
 
 @keyframes appearance {
