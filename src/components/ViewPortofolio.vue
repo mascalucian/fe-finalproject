@@ -260,7 +260,9 @@ export default {
     this.getPortofolio(initialUserId);
   },
   mounted() {
-    this.loader = this.$loading.show();
+    this.loader = this.$loading.show({
+      backgroundColor: "none",
+    });
   },
   unmounted() {
     if (this.currentPortofolio) {
@@ -278,6 +280,9 @@ export default {
   align-items: center;
   justify-items: center;
   flex-direction: column;
+  background-color: black;
+  width: 100%;
+  min-height: 100vh;
 }
 
 html {
