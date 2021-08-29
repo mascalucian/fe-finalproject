@@ -1,119 +1,132 @@
-
-
 <template>
-<div v-if="registered==false">
-  <div
-    :class="[{ 'right-panel-active': rightPanelActive }, 'container']"
-    id="container"
-  >
-    <div class="form-container sign-up-container">
-      <Form v-slot="{ handleSubmit }"
-      :validation-schema="registerSchema">
-      <form action="#" @submit.prevent="handleSubmit($event, register)" >
-        <h1>Create Account</h1>
-         <div class="test latimeinput">
-           <label for="emailR">Your email *</label>
-            <Field type="email" id="emailR" name="email" v-model="username" />
-         </div>
-         <div>
-            <ErrorMessage name="email" />
-         </div>
-        <div class="latimeinput">
-            <label for="passwordR">Your password *</label>
-            <Field type="password" id="passwordR" name="password" v-model="password"/>
+  <div id="wrapper">
+    <div
+      :class="[{ 'right-panel-active': rightPanelActive }, 'container']"
+      id="container"
+      v-if="registered == false"
+    >
+      <div class="form-container sign-up-container">
+        <Form v-slot="{ handleSubmit }" :validation-schema="registerSchema">
+          <form action="#" @submit.prevent="handleSubmit($event, register)">
+            <h1>Create Account</h1>
+            <div class="latimeinput">
+              <label for="emailR">Your email *</label>
+              <Field id="emailR" name="email" v-model="username" />
+              <ErrorMessage name="email" />
+            </div>
+
+            <div class="latimeinput">
+              <label for="passwordR">Your password *</label>
+              <Field
+                type="password"
+                id="passwordR"
+                name="password"
+                v-model="password"
+              />
+              <ErrorMessage name="password" />
+            </div>
+
+            <div class="latimeinput">
+              <label for="emailConfirm">Confirm your password *</label>
+              <Field
+                type="password"
+                id="passwordConfirm"
+                name="passwordConfirm"
+                placeholder="Re-Type Password"
+                v-model="passwordConfirm"
+              />
+              <ErrorMessage name="passwordConfirm" />
+            </div>
+
+            <button type="submit">Sign Up</button>
+          </form>
+        </Form>
+      </div>
+      <div class="form-container sign-in-container">
+        <Form v-slot="{ handleSubmit }" :validation-schema="loginSchema">
+          <form action="#" @submit.prevent="handleSubmit($event, login)">
+            <h1>Sign in</h1>
+
+            <div class="latimeinput">
+              <label for="email">Your email *</label>
+              <Field id="emailL" name="email" v-model="username" />
+              <ErrorMessage name="email" />
+            </div>
+
+            <div class="latimeinput">
+              <label for="password">Your password *</label>
+              <Field
+                type="password"
+                id="password"
+                placeholder="Password"
+                name="password"
+                v-model="password"
+              />
+              <ErrorMessage name="password" />
+            </div>
+
+            <!-- <a href="#">Forgot your password?</a> -->
+            <button type="submit" :disabled="isLoggedin">Sign in</button>
+          </form>
+        </Form>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome Back!⚡</h1>
+            <p>Already a portofol.io member?</p>
+            <button v-on:click="togglePanelActive" class="ghost" id="signIn">
+              Sign In
+            </button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Hello, Friend!🍊</h1>
+            <p>Don't have an account yet?</p>
+            <button
+              v-on:click="togglePanelActive"
+              :disabled="isLoggedin"
+              class="ghost"
+              id="signUp"
+            >
+              Sign Up
+            </button>
+          </div>
         </div>
-        <div>
-            <ErrorMessage name="password"/>
-        </div>
-        <div class="latimeinput">
-            <label for="emailConfirm">Confirm your password *</label>
-            <Field type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Re-Type Password" v-model="passwordConfirm"/>
-        </div>
-         <div>
-           <ErrorMessage name="passwordConfirm"/>
-         </div>
-        <button type="submit">Sign Up</button>
-      </form>
-      </Form>
+      </div>
     </div>
-    <div class="form-container sign-in-container">
-      <Form v-slot="{ handleSubmit }"
-      :validation-schema="loginSchema">
-        <form action="#" @submit.prevent="handleSubmit($event, login)" >
-        <h1>Sign in</h1>
-        
-        <div class="latimeinput">
-          <label for="email">Your email *</label>
-          <Field type="email" id="emailL" name="email" v-model="username" />
-        </div>
-        <div>
-          <ErrorMessage name="email" />
-        </div>
-        <div class="latimeinput">
-          <label for="password">Your password *</label>
-          <Field type="password" id="password" placeholder="Password" name="password" v-model="password" />
-        </div>
-        <div>
-          <ErrorMessage name="password" />
-        </div>
-  
-       <!-- <a href="#">Forgot your password?</a> -->
-        <button type="submit" :disabled="isLoggedin">Sign in</button>
-      </form>
-      </Form>
-     
-    </div>
-    <div class="overlay-container">
-      <div class="overlay">
-        <div class="overlay-panel overlay-left">
-          <h1>Welcome Back!⚡</h1>
-          <p>Already a portofol.io member?</p>
-          <button v-on:click="togglePanelActive" class="ghost" id="signIn">
-            Sign In
-          </button>
-        </div>
-        <div class="overlay-panel overlay-right">
-          <h1>Hello, Friend!🍊</h1>
-          <p>Don't have an account yet?</p>
-          <button
-            v-on:click="togglePanelActive"
-            :disabled="isLoggedin"
-            class="ghost"
-            id="signUp"
-          >
-            Sign Up
-          </button>
+    <div v-else>
+      <p></p>
+      <!-- fara css nu apar router-linkurile (probabil intra sub header) -->
+      <div class="centering">
+        <div class="bigcontainer">
+          <img
+            src="https://www.freeiconspng.com/uploads/orange-check-tick-icon-14.png"
+          />
+          <h1>Account successfully created!</h1>
+          <h3>What are you looking for?</h3>
+
+          <div class="everyone">
+            <div class="individual">
+              <h2>For Recruiters</h2>
+              <button class="btnindividual" role="button">
+                <router-link to="/portofolios" style="color:white"
+                  >View Portofol.ios</router-link
+                >
+              </button>
+            </div>
+            <div class="individual">
+              <h2>For Workers</h2>
+              <button class="btnindividual" role="button">
+                <router-link to="/portofolios/manage" style="color:white"
+                  >Create your Portofol.io</router-link
+                >
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div v-else>
-<p></p> <!-- fara css nu apar router-linkurile (probabil intra sub header) -->
-<div class="centering">
-<div class="bigcontainer">
-  <img src="https://www.freeiconspng.com/uploads/orange-check-tick-icon-14.png">
-  <h1>Account successfully created!</h1>
-  <h3>What are you looking for?</h3>
-
-  <div class="everyone">
-    <div class="individual">
-      <h2>For Recruiters</h2>
-      <button class="btnindividual" role="button"><router-link to="/portofolios" style="color:white">View Portofol.ios</router-link></button>
-    </div>
-    <div class="individual">
-      <h2>For Workers</h2>
-      <button class="btnindividual" role="button"><router-link to="/portofolios/manage" style="color:white">Create your Portofol.io</router-link></button>
-    </div>
-  </div>
-
-  
-  
-</div>
-</div>
-
-
-</div>
 </template>
 
 <script>
@@ -125,17 +138,32 @@ import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 export default {
   data() {
-    let registered=false;
+    let registered = false;
     const loginSchema = yup.object().shape({
-      email: yup.string().email().required(),
-      password: yup.string().required().min(6).max(25)
-    })
+      email: yup
+        .string()
+        .email()
+        .required(),
+      password: yup
+        .string()
+        .required()
+        .min(6)
+        .max(25),
+    });
     const registerSchema = yup.object().shape({
-      email: yup.string().email().required(),
-      password: yup.string().required().min(6).max(25),
-      passwordConfirm: yup.string()
-     .oneOf([yup.ref('password'), null], 'Passwords must match') 
-    })
+      email: yup
+        .string()
+        .email()
+        .required(),
+      password: yup
+        .string()
+        .required()
+        .min(6)
+        .max(25),
+      passwordConfirm: yup
+        .string()
+        .oneOf([yup.ref("password"), null], "Passwords must match"),
+    });
     return {
       username: "",
       password: "",
@@ -144,12 +172,11 @@ export default {
       loginSchema,
       registerSchema,
       registered,
-      
     };
   },
-  components:{
+  components: {
     Field,
-    Form, 
+    Form,
     ErrorMessage,
   },
 
@@ -192,29 +219,43 @@ export default {
         this.$store.dispatch("callSnackBar", {
           payload: "Registration successful!",
         });
-        this.registered=true;
+        this.registered = true;
       }
     },
   },
-}; 
+};
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
 * {
   box-sizing: border-box;
 }
 
-body {
-  background: #f6f5f7;
+#wrapper {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   font-family: "Montserrat", sans-serif;
-  height: 110vh;
-  margin: -20px 0 50px;
+  background: #f6f5f7;
+  padding: 5% 13%;
+  background-image: url("https://thumbs.dreamstime.com/z/vector-black-white-seamless-pattern-oranges-monochrome-repeating-background-citrus-fruit-leaves-flowers-twigs-fresh-145852606.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+#container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  min-height: 550px;
+  width: 100%;
+  height: 100%;
 }
 .centering {
   display: flex;
@@ -231,9 +272,17 @@ body {
   justify-content: center;
   align-items: center;
 }
+input {
+  background-color: #eee;
+  border: none;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
 h1 {
   text-align: center;
-  padding:2px;
+  padding: 2px;
 }
 .bigcontainer img {
   width: 100px;
@@ -241,25 +290,32 @@ h1 {
   margin-top: 30px;
 }
 .everyone {
-  display:flex;
+  display: flex;
   justify-content: space-around;
 }
 .btnindividual {
-  background-image: linear-gradient(92.88deg, darkorange 9.16%, orange 43.89%, orange 64.72%);
+  background-image: linear-gradient(
+    92.88deg,
+    darkorange 9.16%,
+    orange 43.89%,
+    orange 64.72%
+  );
   border-radius: 8px;
   border-style: none;
   box-sizing: border-box;
   color: white;
   cursor: pointer;
   flex-shrink: 0;
-  font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  font-family: "Inter UI", "SF Pro Display", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
   font-size: 16px;
   font-weight: 500;
   height: 4rem;
   padding: 0 1.6rem;
   text-align: center;
   text-shadow: rgba(255, 255, 255, 0.25) 0 3px 8px;
-  transition: all .5s;
+  transition: all 0.5s;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -267,7 +323,7 @@ h1 {
 
 .btnindividual:hover {
   box-shadow: darkorange 0 1px 30px;
-  transition-duration: .1s;
+  transition-duration: 0.1s;
 }
 
 @media (min-width: 768px) {
@@ -279,13 +335,13 @@ h1 {
   margin-left: 5vw;
   margin-right: 5vw;
   margin-bottom: 30px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .latimeinput {
-  width: 23vw;
-  min-width: 300px;
+  position: relative;
+  width: 100%;
 }
 
 h1 {
@@ -317,7 +373,7 @@ a {
 }
 
 button {
-  margin-top:20px;
+  margin-top: 20px;
   border-radius: 20px;
   border: 1px solid darkorange;
   background-color: darkorange;
@@ -349,35 +405,13 @@ form {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0 50px;
+  padding: 0 2rem;
   height: 100%;
   text-align: center;
-}
 
-input {
-  background-color: #eee;
-  border: none;
-  padding: 16px 15px;
-  margin: 8px 0;
-  width: 100%;
-}
-
-.container {
-  top:180px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  position: relative;
-  overflow: hidden;
-  width: 70vw;
-  min-height: 550px;
-}
-@media screen and (max-width: 900px) {
-  .container{margin-top: -100px;width: 95vw;}
-  .latimeinput{
-    min-width: 180px;
+  form {
+    padding: 0;
   }
-  
 }
 
 .form-container {
@@ -533,18 +567,53 @@ footer a {
 }
 [role="alert"] {
   color: rgb(143, 27, 27);
+  position: absolute;
   display: block;
   text-align: center;
   font-family: "Oswald", sans-serif;
   text-transform: uppercase;
   padding: 0.1rem;
   text-decoration: underline;
-  bottom: -1rem;
+  bottom: -0.26rem;
+  width: 100%;
 }
-label{
+label {
   text-align: left;
   float: left;
-  margin-top:10px;
-  margin-bottom:0px;
+  margin: 0.5rem 0;
+}
+
+@media screen and (max-width: 600px) {
+  #container {
+    min-width: 100% !important;
+  }
+
+  #wrapper {
+    padding: 10% 2%;
+  }
+
+  .sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+  }
+
+  .container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+  }
+
+  .sign-up-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  .container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+  }
 }
 </style>
