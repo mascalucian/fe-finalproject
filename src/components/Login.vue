@@ -39,6 +39,13 @@
             </div>
 
             <button type="submit">Sign Up</button>
+            <button
+              id="mobile-button"
+              v-on:click="togglePanelActive"
+              type="button"
+            >
+              Sign In
+            </button>
           </form>
         </Form>
       </div>
@@ -67,6 +74,13 @@
 
             <!-- <a href="#">Forgot your password?</a> -->
             <button type="submit" :disabled="isLoggedin">Sign in</button>
+            <button
+              id="mobile-button"
+              v-on:click="togglePanelActive"
+              type="button"
+            >
+              Sign Up
+            </button>
           </form>
         </Form>
       </div>
@@ -425,6 +439,9 @@ form {
   left: 0;
   width: 50%;
   z-index: 2;
+  [role="alert"] {
+    bottom: -7%;
+  }
 }
 
 .container.right-panel-active .sign-in-container {
@@ -583,9 +600,26 @@ label {
   margin: 0.5rem 0;
 }
 
+#mobile-button {
+  display: none;
+  margin-top: 20px;
+  border-radius: 20px;
+  border: 1px solid $sh;
+  background-color: $sh;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  z-index: 100;
+}
+
 @media screen and (max-width: 600px) {
   #container {
     min-width: 100% !important;
+    overflow: hidden;
   }
 
   #wrapper {
@@ -593,8 +627,8 @@ label {
   }
 
   .sign-in-container {
-    left: 0;
-    width: 50%;
+    right: 0;
+    width: 100%;
     z-index: 2;
   }
 
@@ -603,17 +637,23 @@ label {
   }
 
   .sign-up-container {
-    left: 0;
-    width: 50%;
-    opacity: 0;
-    z-index: 1;
+    left: 100%;
+    width: 100%;
   }
 
   .container.right-panel-active .sign-up-container {
-    transform: translateX(100%);
-    opacity: 1;
+    display: flex;
+    transform: translateX(-100%);
     z-index: 5;
     animation: show 0.6s;
+  }
+
+  .overlay {
+    display: none;
+  }
+
+  #mobile-button {
+    display: inline-block;
   }
 }
 </style>
