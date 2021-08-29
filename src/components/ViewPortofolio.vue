@@ -145,8 +145,12 @@ export default {
           if (doc.exists) {
             this.currentPortofolio = doc.data();
             const visited = window.sessionStorage.getItem(userId);
-            // console.log(visited);
-            if (visited || this.loggedInUser.uid === userId) return;
+            console.log(visited);
+            if (
+              visited ||
+              (this.loggedInUser && this.loggedInUser.uid === userId)
+            )
+              return;
             window.sessionStorage.setItem(userId, "visited");
             var porRef = db.collection("portofolios").doc(userId);
             porRef
@@ -514,5 +518,26 @@ html {
 .header-socials {
   display: inline-block !important;
   padding: 1rem;
+}
+
+.details-about {
+  text-align: justify;
+  margin: 1em 15% 3em 15%;
+  padding: 0;
+}
+
+.details-tagline {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.header {
+  padding: 3%;
+  margin: 0 5%;
+}
+
+.details-contact {
+  padding: 15% 0;
+  font-size: 1rem;
 }
 </style>
