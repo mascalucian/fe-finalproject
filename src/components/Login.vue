@@ -3,139 +3,135 @@
     <div
       :class="[{ 'right-panel-active': rightPanelActive }, 'container']"
       id="container"
-      v-if="registered == false"
     >
-      <div class="form-container sign-up-container">
-        <Form v-slot="{ handleSubmit }" :validation-schema="registerSchema">
-          <form action="#" @submit.prevent="handleSubmit($event, register)">
-            <h1>Create Account</h1>
-            <div class="latimeinput">
-              <label for="emailR">Your email *</label>
-              <Field id="emailR" name="email" v-model="username" />
-              <ErrorMessage name="email" />
+      <div v-if="registered == false" id="forms-wrapper">
+        <div class="form-container sign-up-container">
+          <Form v-slot="{ handleSubmit }" :validation-schema="registerSchema">
+            <form action="#" @submit.prevent="handleSubmit($event, register)">
+              <h1>Create Account</h1>
+              <div class="latimeinput">
+                <label for="emailR">Your email *</label>
+                <Field id="emailR" name="email" v-model="username" />
+                <ErrorMessage name="email" />
+              </div>
+
+              <div class="latimeinput">
+                <label for="passwordR">Your password *</label>
+                <Field
+                  type="password"
+                  id="passwordR"
+                  name="password"
+                  v-model="password"
+                />
+                <ErrorMessage name="password" />
+              </div>
+
+              <div class="latimeinput">
+                <label for="emailConfirm">Confirm your password *</label>
+                <Field
+                  type="password"
+                  id="passwordConfirm"
+                  name="passwordConfirm"
+                  placeholder="Re-Type Password"
+                  v-model="passwordConfirm"
+                />
+                <ErrorMessage name="passwordConfirm" />
+              </div>
+
+              <button type="submit">Sign Up</button>
+              <button
+                id="mobile-button"
+                v-on:click="togglePanelActive"
+                type="button"
+              >
+                Sign In
+              </button>
+            </form>
+          </Form>
+        </div>
+        <div class="form-container sign-in-container">
+          <Form v-slot="{ handleSubmit }" :validation-schema="loginSchema">
+            <form action="#" @submit.prevent="handleSubmit($event, login)">
+              <h1>Sign in</h1>
+
+              <div class="latimeinput">
+                <label for="email">Your email *</label>
+                <Field id="emailL" name="email" v-model="username" />
+                <ErrorMessage name="email" />
+              </div>
+
+              <div class="latimeinput">
+                <label for="password">Your password *</label>
+                <Field
+                  type="password"
+                  id="password"
+                  placeholder="Password"
+                  name="password"
+                  v-model="password"
+                />
+                <ErrorMessage name="password" />
+              </div>
+
+              <!-- <a href="#">Forgot your password?</a> -->
+              <button type="submit" :disabled="isLoggedin">Sign in</button>
+              <button
+                id="mobile-button"
+                v-on:click="togglePanelActive"
+                type="button"
+              >
+                Sign Up
+              </button>
+            </form>
+          </Form>
+        </div>
+        <div class="overlay-container">
+          <div class="overlay">
+            <div class="overlay-panel overlay-left">
+              <h1>Welcome Back!⚡</h1>
+              <p>Already a portofol.io member?</p>
+              <button v-on:click="togglePanelActive" class="ghost" id="signIn">
+                Sign In
+              </button>
             </div>
-
-            <div class="latimeinput">
-              <label for="passwordR">Your password *</label>
-              <Field
-                type="password"
-                id="passwordR"
-                name="password"
-                v-model="password"
-              />
-              <ErrorMessage name="password" />
+            <div class="overlay-panel overlay-right">
+              <h1>Hello, Friend!🍊</h1>
+              <p>Don't have an account yet?</p>
+              <button
+                v-on:click="togglePanelActive"
+                :disabled="isLoggedin"
+                class="ghost"
+                id="signUp"
+              >
+                Sign Up
+              </button>
             </div>
-
-            <div class="latimeinput">
-              <label for="emailConfirm">Confirm your password *</label>
-              <Field
-                type="password"
-                id="passwordConfirm"
-                name="passwordConfirm"
-                placeholder="Re-Type Password"
-                v-model="passwordConfirm"
-              />
-              <ErrorMessage name="passwordConfirm" />
-            </div>
-
-            <button type="submit">Sign Up</button>
-            <button
-              id="mobile-button"
-              v-on:click="togglePanelActive"
-              type="button"
-            >
-              Sign In
-            </button>
-          </form>
-        </Form>
-      </div>
-      <div class="form-container sign-in-container">
-        <Form v-slot="{ handleSubmit }" :validation-schema="loginSchema">
-          <form action="#" @submit.prevent="handleSubmit($event, login)">
-            <h1>Sign in</h1>
-
-            <div class="latimeinput">
-              <label for="email">Your email *</label>
-              <Field id="emailL" name="email" v-model="username" />
-              <ErrorMessage name="email" />
-            </div>
-
-            <div class="latimeinput">
-              <label for="password">Your password *</label>
-              <Field
-                type="password"
-                id="password"
-                placeholder="Password"
-                name="password"
-                v-model="password"
-              />
-              <ErrorMessage name="password" />
-            </div>
-
-            <!-- <a href="#">Forgot your password?</a> -->
-            <button type="submit" :disabled="isLoggedin">Sign in</button>
-            <button
-              id="mobile-button"
-              v-on:click="togglePanelActive"
-              type="button"
-            >
-              Sign Up
-            </button>
-          </form>
-        </Form>
-      </div>
-      <div class="overlay-container">
-        <div class="overlay">
-          <div class="overlay-panel overlay-left">
-            <h1>Welcome Back!⚡</h1>
-            <p>Already a portofol.io member?</p>
-            <button v-on:click="togglePanelActive" class="ghost" id="signIn">
-              Sign In
-            </button>
-          </div>
-          <div class="overlay-panel overlay-right">
-            <h1>Hello, Friend!🍊</h1>
-            <p>Don't have an account yet?</p>
-            <button
-              v-on:click="togglePanelActive"
-              :disabled="isLoggedin"
-              class="ghost"
-              id="signUp"
-            >
-              Sign Up
-            </button>
           </div>
         </div>
       </div>
-    </div>
-    <div v-else>
-      <p></p>
-      <!-- fara css nu apar router-linkurile (probabil intra sub header) -->
-      <div class="centering">
-        <div class="bigcontainer">
-          <img
-            src="https://www.freeiconspng.com/uploads/orange-check-tick-icon-14.png"
-          />
-          <h1>Account successfully created!</h1>
-          <h3>What are you looking for?</h3>
-
-          <div class="everyone">
-            <div class="individual">
-              <h2>For Recruiters</h2>
-              <button class="btnindividual" role="button">
-                <router-link to="/portofolios" style="color:white"
-                  >View Portofol.ios</router-link
-                >
-              </button>
-            </div>
-            <div class="individual">
-              <h2>For Workers</h2>
-              <button class="btnindividual" role="button">
-                <router-link to="/portofolios/manage" style="color:white"
-                  >Create your Portofol.io</router-link
-                >
-              </button>
-            </div>
+      <div v-else id="post-register">
+        <h1>Account successfully created!</h1>
+        <div class="column-wrapper">
+          <div class="my-column">
+            <img
+              src="https://static.vecteezy.com/ti/vettori-gratis/p3/2206135-icona-ricerca-dipendente-gratuito-vettoriale.jpg"
+            />
+            <p>
+              Get started on looking for potential employees.
+            </p>
+            <router-link to="/portofolios" style="color:white"
+              >View Portofol.ios</router-link
+            >
+          </div>
+          <div class="my-column">
+            <img
+              src="https://icons-for-free.com/iconfiles/png/512/document+employee+file+paper+icon+portfolio+icon-1320086682875261062.png"
+            />
+            <p>
+              Customize your own Portofol.io!
+            </p>
+            <router-link to="/portofolios/manage" style="color:white"
+              >Create your Portofol.io</router-link
+            >
           </div>
         </div>
       </div>
@@ -268,6 +264,16 @@ export default {
   position: relative;
   overflow: hidden;
   min-height: 550px;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  all: revert;
+}
+
+#forms-wrapper {
+  position: relative;
   width: 100%;
   height: 100%;
 }
@@ -616,6 +622,73 @@ label {
   z-index: 100;
 }
 
+#post-register {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    margin-top: 12%;
+    margin-bottom: 1rem;
+  }
+
+  .column-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    flex-grow: 1;
+  }
+  .my-column {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    &:first-child {
+      border-right: 2px solid black;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    padding: 5% 25%;
+  }
+
+  p {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  a {
+    justify-self: flex-end !important;
+    border-radius: 20px;
+    border: 1px solid darkorange;
+    background-color: darkorange;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    display: block;
+    text-align: center;
+    margin: 15% 20%;
+    padding: 2% 5%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    margin-top: auto;
+    &:hover,
+    &:active,
+    &:focus-visible {
+      border: 1px solid $sh-4;
+      background-color: $sh;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.26);
+    }
+  }
+}
 @media screen and (max-width: 600px) {
   #container {
     min-width: 100% !important;
@@ -654,6 +727,23 @@ label {
 
   #mobile-button {
     display: inline-block;
+  }
+
+  .column-wrapper {
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1 1 auto;
+  }
+
+  .my-column {
+    width: 100% !important;
+    height: 50%;
+    flex-grow: 1;
+
+    &:first-child {
+      border-right: transparent !important;
+      border-bottom: 2px solid black;
+    }
   }
 }
 </style>
