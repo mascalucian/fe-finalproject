@@ -625,7 +625,7 @@ label {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
-  z-index: 100;
+  z-index: 1000;
 }
 
 #post-register {
@@ -708,7 +708,7 @@ label {
   .sign-in-container {
     right: 0;
     width: 100%;
-    z-index: 2;
+    z-index: 1000;
   }
 
   .container.right-panel-active .sign-in-container {
@@ -718,6 +718,7 @@ label {
   .sign-up-container {
     left: 100%;
     width: 100%;
+    z-index: 1000;
   }
 
   .container.right-panel-active .sign-up-container {
@@ -727,7 +728,7 @@ label {
     animation: show 0.6s;
   }
 
-  .overlay {
+  .overlay-container {
     display: none;
   }
 
