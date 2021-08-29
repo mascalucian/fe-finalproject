@@ -143,7 +143,18 @@ export default {
         .then((doc) => {
           if (doc.exists) {
             this.currentPortofolio = doc.data();
-            console.log(this.currentPortofolio);
+            const visited = window.sessionStorage.getItem(userId);
+            // console.log(visited);
+            if (visited) return;
+            window.sessionStorage.setItem(userId, "visited");
+            var porRef = db.collection("portofolios").doc(userId);
+            porRef
+              .update({
+                visits: firebase.firestore.FieldValue.increment(1),
+              })
+              .then(() => {
+                // console.log(visited);
+              });
           } else {
             this.$router.push({ name: "NotFound" });
             return;

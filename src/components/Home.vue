@@ -4,7 +4,7 @@
     <img src="https://i.imgur.com/MGp2X3f.png" class="biglogo" />
   </div>
   <div>
-    <Landing/>
+    <Landing />
   </div>
   <div class="h1div">
     <h2 class="title">Here are our Top 3 picks</h2>
@@ -50,7 +50,8 @@ export default {
   },
   created() {
     db.collection("portofolios")
-      .limit(3)
+      .orderBy("visits")
+      .limitToLast(3)
       .onSnapshot((snapshotChange) => {
         snapshotChange.forEach((doc) => {
           this.featuredPortofolios.push(doc.data());
