@@ -83,7 +83,20 @@ export default {
   padding-top: 5%;
   padding-bottom: 10%;
   background-color: $w;
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.2;
+    width: 100%;
+    height: 100%;
+    background-image: $bg-i-o-w;
+    background-position: center;
+  }
 }
+
 .each {
   flex: 1 0 30%;
 }
