@@ -84,6 +84,7 @@
           class="details-projects-title text"
           v-if="getProjectsForPortofolio.length > 0"
         >
+          <h3>Projects:</h3>
           <div class="card-deck">
             <Project
               :project="project"
@@ -93,7 +94,7 @@
           </div>
         </div>
         <div v-else>
-          <h5 style="color:red">No projects found!</h5>
+          <h5>No projects found!</h5>
         </div>
         <div class="details-contact text">
           <a class="text" v-bind:href="'mailto:' + currentPortofolio.email">{{
@@ -444,7 +445,7 @@ html {
   // width: 100vw;
   // max-width: 100%;
   &-tagline {
-    scroll-margin: 100px;
+    scroll-margin: 2.1em;
     font-size: $huge;
     margin: 2em 0 0.25em 0;
     text-align: center;
@@ -457,6 +458,13 @@ html {
   }
   &-projects-title {
     font-weight: 700;
+    h3 {
+      margin: 5% 0;
+      text-align: center;
+      font-size: 2.5em;
+      text-decoration: underline;
+      font-weight: bold;
+    }
   }
   &-projects-content {
     font-style: italic;
