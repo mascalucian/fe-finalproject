@@ -48,15 +48,6 @@
                 <div class="form-field">
                   <Field
                     v-model="newPortofolio.firstName"
-                    :size="
-                      newPortofolio.firstName == ''
-                        ? 10
-                        : newPortofolio.firstName.length < 15 &&
-                          newPortofolio.firstName != '' &&
-                          newPortofolio.lastName != ''
-                        ? newPortofolio.firstName.length
-                        : 15
-                    "
                     type="text"
                     id="first-name"
                     placeholder="First Name *"
@@ -71,15 +62,6 @@
                     placeholder="Last Name *"
                     name="lastName"
                     v-model="newPortofolio.lastName"
-                    :size="
-                      newPortofolio.lastName == ''
-                        ? 10
-                        : newPortofolio.lastName.length < 15 &&
-                          newPortofolio.lastName != '' &&
-                          newPortofolio.firstName != ''
-                        ? newPortofolio.lastName.length
-                        : 15
-                    "
                   />
                   <ErrorMessage name="lastName" />
                 </div>
@@ -867,6 +849,7 @@ input[type="file"] {
   margin: 3px auto;
   z-index: 10;
   input {
+    flex-grow: 1;
     text-shadow: 2px 2px $o;
     font-family: "Oswald", sans-serif;
     display: inline-block;
@@ -874,6 +857,7 @@ input[type="file"] {
     font-size: xxx-large;
     background: none;
     border: 0;
+    width: 100%;
     &:focus-visible {
       font-weight: bold;
       outline: 0;
@@ -884,10 +868,12 @@ input[type="file"] {
       text-shadow: none;
     }
     &#first-name {
+      width: 50%;
       text-align: right;
       margin-right: 0.5rem;
     }
     &#last-name {
+      width: 50%;
       text-align: left;
       margin-left: 0.5rem;
     }
@@ -902,6 +888,12 @@ input[type="file"] {
   margin: auto;
   text-align: center;
   justify-content: center;
+  .form-field:nth-child(1) {
+    justify-content: flex-end;
+  }
+  .form-field:nth-child(2) {
+    justify-content: flex-start;
+  }
 }
 
 .profile-picture-upload {
@@ -1326,6 +1318,10 @@ input[type="file"] {
   .contact {
     margin: 0 !important;
     width: 100%;
+  }
+  #first-name,
+  #last-name {
+    text-align: center !important;
   }
 }
 </style>
