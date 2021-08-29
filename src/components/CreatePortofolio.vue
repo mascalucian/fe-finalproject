@@ -1193,7 +1193,7 @@ input[type="file"] {
     width: 100% !important;
     border-bottom: 2px solid $w;
     font-size: large;
-    margin-bottom: 0.5rem;
+    margin-bottom: 10%;
     color: $w;
     text-decoration: none;
   }
@@ -1201,7 +1201,7 @@ input[type="file"] {
   [role="alert"] {
     color: red;
     font-size: large;
-    bottom: -1.4rem;
+    bottom: -5%;
   }
 
   .description-form-field {
