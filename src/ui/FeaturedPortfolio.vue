@@ -101,7 +101,7 @@ export default {
   position: relative;
   width: 100%;
   display: flex;
-  height: 40px;
+  min-height: 40px !important;
   justify-content: center;
 }
 .maincontainerr {
