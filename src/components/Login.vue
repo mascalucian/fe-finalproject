@@ -629,7 +629,7 @@ label {
   flex-direction: column;
 
   h1 {
-    margin-top: 12%;
+    margin-top: 6%;
     margin-bottom: 1rem;
   }
 
