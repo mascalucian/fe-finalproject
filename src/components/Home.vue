@@ -53,24 +53,28 @@ export default {
       .orderBy("visits")
       .limitToLast(3)
       .onSnapshot((snapshotChange) => {
+        this.featuredPortofolios = [];
         snapshotChange.forEach((doc) => {
           this.featuredPortofolios.push(doc.data());
         });
       });
-    // this.$store.dispatch("bindPortofolios");
-    // this.unsubscribe = db.collection("portofolios").onSnapshot((snapshot) => {
-    //   snapshot.docChanges().forEach((change) => {
-    //     if (change.type === "added") {
-    //       this.methodThatForcesUpdate();
-    //     }
-    //     if (change.type === "modified") {
-    //       this.methodThatForcesUpdate();
-    //     }
-    //     if (change.type === "removed") {
-    //       this.methodThatForcesUpdate();
-    //     }
-    //   });
-    // });
+    this.unsubscribe = db
+      .collection("portofolios")
+      .orderBy("visits")
+      .limitToLast(3)
+      .onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          if (change.type === "added") {
+            this.methodThatForcesUpdate();
+          }
+          if (change.type === "modified") {
+            this.methodThatForcesUpdate();
+          }
+          if (change.type === "removed") {
+            this.methodThatForcesUpdate();
+          }
+        });
+      });
   },
   methods: {
     methodThatForcesUpdate() {
@@ -78,6 +82,9 @@ export default {
       this.$forceUpdate(); // Notice we have to use a $ here
       console.log("hehe. Rerendered!");
     },
+  },
+  unmounted() {
+    this.unsubscribe;
   },
 };
 </script>
