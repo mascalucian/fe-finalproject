@@ -1,24 +1,37 @@
 <template>
-  <div class="h1div">
-    <h1>Welcome to</h1>
-    <img src="https://i.imgur.com/MGp2X3f.png" class="biglogo" />
-  </div>
-  <div>
-    <Landing/>
-  </div>
-  <div class="h1div">
-    <h2 class="title">Here are our Top 3 picks</h2>
-  </div>
-  <div class="all">
-    <FeaturedPortfolio
-      v-for="portofolio in featuredPortofolios"
-      v-bind:key="portofolio"
-      :fname="portofolio.firstName"
-      :lname="portofolio.lastName"
-      :title="portofolio.title"
-      :about="portofolio.about"
-      :idd="portofolio.userId"
-    />
+  <div id="wrapper">
+    <div class="h1div">
+      <h1>Welcome to</h1>
+      <img src="https://i.imgur.com/MGp2X3f.png" class="biglogo" />
+    </div>
+    <div>
+      <Landing />
+    </div>
+    <div class="h1div">
+      <h2 class="title">Here are our Top 3 picks</h2>
+    </div>
+    <div class="all">
+      <FeaturedPortfolio
+        v-for="portofolio in featuredPortofolios"
+        v-bind:key="portofolio"
+        :fname="portofolio.firstName"
+        :lname="portofolio.lastName"
+        :title="portofolio.title"
+        :about="portofolio.about"
+        :idd="portofolio.userId"
+      />
+    </div>
+    <div id="conditional-screen">
+      <div v-if="!isLoggedin">
+        Create an account!
+      </div>
+      <div v-if="isLoggedin && !getHasPortofolio">
+        Create your portofol.io now!
+      </div>
+      <div v-if="isLoggedin && getHasPortofolio">
+        Update your portofol.io now!
+      </div>
+    </div>
   </div>
 </template>
 
@@ -45,7 +58,7 @@ export default {
   computed: {
     //ai nevoie doar de allPortofolios, il poti folosi apoi in v-for portofolio in allPortofolios
     ...mapGetters(
-      ["allPortofolios"] // -> this.someGetter
+      ["allPortofolios", "isLoggedin", "getHasPortofolio"] // -> this.someGetter
     ),
   },
   created() {
