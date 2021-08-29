@@ -127,10 +127,26 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Lato:100&display=swap");
+.all:before {
+  content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.2;
+    width: 100%;
+    height: 100%;
+    background-image: url(/img/oranges-white.d9733b4e.png);
+    background-position: center;
+}
 .all {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-grow: 1;
+    padding-top: 5%;
+    padding-bottom: 10%;
+    background-color: #fdfdfd;
+    position: relative;
 }
 .upup {
   margin-top: -340px;
@@ -235,4 +251,5 @@ h4 {
     flex-direction: column;
   }
 }
+
 </style>
