@@ -110,7 +110,7 @@ nav {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 10000;
   flex-direction: row;
 
   background-image: linear-gradient(#f9ab2f, #f4690e);

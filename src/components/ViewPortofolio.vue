@@ -69,7 +69,7 @@
           Edit
         </router-link>
       </div>
-      <button class="more-details">
+      <button class="more-details" @click="moreDetails()">
         More details
         <i class="fas fa-chevron-down"></i>
       </button>
@@ -84,6 +84,7 @@
           class="details-projects-title text"
           v-if="getProjectsForPortofolio.length > 0"
         >
+          <h3>Projects:</h3>
           <div class="card-deck">
             <Project
               :project="project"
@@ -93,7 +94,7 @@
           </div>
         </div>
         <div v-else>
-          <h5 style="color:red">No projects found!</h5>
+          <h5>No projects found!</h5>
         </div>
         <div class="details-contact text">
           <a class="text" v-bind:href="'mailto:' + currentPortofolio.email">{{
@@ -261,12 +262,20 @@ export default {
       this.$forceUpdate(); // Notice we have to use a $ here
       // ...
     },
+    moreDetails() {
+      document.querySelector(".details-tagline").scrollIntoView();
+    },
   },
   computed: {
     ...mapGetters(["getProjectsForPortofolio", "isLoggedin", "loggedInUser"]),
   },
   created() {
     // this.loading = true;
+    // document.onclick = function(e) {
+    //   var x = e.pageX;
+    //   var y = e.pageY;
+    //   console.log((e.target.title = "X is " + x + " and Y is " + y));
+    // };
 
     const initialUserId = this.$route.params.id;
     this.getPortofolio(initialUserId);
@@ -332,8 +341,6 @@ html {
     rgba(0, 0, 0, 1) 50%,
     rgba(0, 0, 0, 1) 100%
   );
-  // width: 98.8vw;
-  // max-width: 100%;
 }
 
 .header {
@@ -370,14 +377,16 @@ html {
     margin-bottom: 0;
     font-size: $huge;
     font-weight: 400;
+    text-align: center;
   }
   &-occupation {
     font-size: $big;
     font-family: "Raleway";
-    padding: 0.35em 2.75em 0.35em 2.75em;
-    margin: 1.25em 1.5em 0.5em 1.5em;
     border-top: 1px solid $w;
     border-bottom: 1px solid $w;
+    margin: 8% 0;
+    text-align: center;
+    width: 100%;
   }
   &-socials {
     padding-top: 1em;
@@ -394,9 +403,10 @@ html {
   /* width: 100px; */
 }
 .btn {
+  display: inline-block;
   background-color: transparent;
   font-weight: bolder;
-  font-size: 0.8em;
+  font-size: 1em;
   color: $w;
   margin: 0.5em;
   transition: transform 0.2s;
@@ -435,8 +445,10 @@ html {
   // width: 100vw;
   // max-width: 100%;
   &-tagline {
+    scroll-margin: 2.1em;
     font-size: $huge;
     margin: 2em 0 0.25em 0;
+    text-align: center;
   }
   &-about {
     padding: 0 5% 0 5%;
@@ -446,6 +458,13 @@ html {
   }
   &-projects-title {
     font-weight: 700;
+    h3 {
+      margin: 5% 0;
+      text-align: center;
+      font-size: 2.5em;
+      text-decoration: underline;
+      font-weight: bold;
+    }
   }
   &-projects-content {
     font-style: italic;
@@ -453,7 +472,7 @@ html {
   }
 
   &-contact {
-    padding: 15px;
+    padding: 15%;
     display: flex;
     align-items: center;
     flex-direction: column;
