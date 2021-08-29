@@ -41,6 +41,8 @@ body {
   flex-grow: 1;
   position: relative;
   margin-top: 80px;
+  display: flex;
+  flex-direction: column;
 }
 
 #app {

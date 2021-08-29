@@ -101,7 +101,7 @@ export default {
   position: relative;
   width: 100%;
   display: flex;
-  height: 20%;
+  height: 40px;
   justify-content: center;
 }
 .maincontainerr {
@@ -129,6 +129,8 @@ h4 {
   max-width: 30rem;
   flex-grow: 0.5;
   margin-top: 10rem;
+  height: 400px !important;
+  flex: 1 1 auto;
 }
 .portfolioo .avatar {
   border-radius: 50%;
@@ -144,7 +146,6 @@ h4 {
   margin-top: -10px;
 }
 .portfolioo .infoboxx {
-  margin-top: -73px;
   background-image: url("https://wallpaperaccess.com/full/888745.jpg");
   display: flex;
   flex-direction: column;
@@ -152,6 +153,8 @@ h4 {
   justify-content: center;
   border-top-left-radius: 25%;
   border-bottom-right-radius: 25%;
+  height: 100%;
+  width: 100%;
 }
 .portfolioo .infoboxcenter {
   margin-top: -78px;
@@ -201,6 +204,7 @@ h4 {
   width: 180px;
   height: 60px;
   margin-bottom: 10%;
+  margin-top: auto;
 }
 .btnn {
   position: relative;

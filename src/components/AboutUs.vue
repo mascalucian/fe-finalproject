@@ -84,12 +84,12 @@ export default {
     return {
       daysWeBeenWorking: "",
       teamMembers: [],
-      ids: ["NZxUP4ToFKYuzttqx7HqGXzwoyO2", "gQ1BnypuXgh3lihBVcgQz8bUb3v2"],
+      ids: ["GgL2ooljTaWOnJdj6egiIpT0zNG2", "lYeGFhXwzROfTR4u1cRZPWE41Ez2"],
     };
   },
   methods: {
     calcDays() {
-      this.daysWeBeenWorking = moment().diff("2021-08-20", "days");
+      this.daysWeBeenWorking = moment().diff("2021-08-21", "days");
       console.log(this.daysWeBeenWorking);
     },
   },
