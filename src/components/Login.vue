@@ -251,7 +251,7 @@ export default {
   font-family: "Montserrat", sans-serif;
   background: #f6f5f7;
   padding: 5% 13%;
-  background-image: url("https://thumbs.dreamstime.com/z/vector-black-white-seamless-pattern-oranges-monochrome-repeating-background-citrus-fruit-leaves-flowers-twigs-fresh-145852606.jpg");
+  background-image: $bg-i-o-w;
   background-position: center;
   background-size: cover;
 }

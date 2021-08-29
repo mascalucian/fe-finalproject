@@ -1,6 +1,5 @@
 import Home from "../components/Home.vue";
 import Login from "../components/Login.vue";
-import Register from "../components/Register.vue";
 import Portofolios from "../components/Portofolios.vue";
 import HelloWorld from "../components/HelloWorld.vue";
 import CreatePortofolio from "../components/CreatePortofolio.vue";
