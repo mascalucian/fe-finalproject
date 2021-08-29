@@ -82,7 +82,7 @@ export default {
 
 .card-body {
   color: black;
-  min-width: 20rem;
+  min-width: 25rem;
   font-family: $f-w;
   font-style: normal;
   word-break: break-word;
@@ -101,5 +101,11 @@ h5 {
   border: 1px solid white;
   background-size: cover;
   background-position: center;
+}
+
+@media screen and (max-width: 600px) {
+  .card-body {
+    min-width: 20rem;
+  }
 }
 </style>
