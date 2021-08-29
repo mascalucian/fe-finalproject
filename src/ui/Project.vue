@@ -82,7 +82,7 @@ export default {
 
 .card-body {
   color: black;
-  min-width: 25rem;
+  min-width: 20rem;
   font-family: $f-w;
   font-style: normal;
   word-break: break-word;
