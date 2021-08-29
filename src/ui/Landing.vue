@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="background">
     <div class="page-header page-header-small">
       <parallax
         class="page-header-image"
@@ -7,14 +7,7 @@
       </parallax>
       <div class="content-center">
         <div class="container">
-          <div class="firstflex">
-            <div>
-              <img src="./img/porto.png" class="portosize">
-            </div>
-            <div>
-              <h1 class="title">Your favourite recruitment platform!</h1>
-            </div>
-          </div>
+          
           <div class="text-center">
             <a href="https://www.facebook.com/" target="_blank" class="btn btn-primary btn-icon btn-round">
               <i class="fab fa-facebook-square"></i>
@@ -108,8 +101,17 @@
   align-items: center;
   padding: 15px;
 }
+.text-center {
+  padding-top: 30px;
+}
 .jobpicdim {
   height: 198px;
+}
+.background {
+ /* background-image: linear-gradient(#CF8A91, #FFF3B8); */
+ background-image: url('https://wallpaperaccess.com/full/1556714.jpg');
+ border-bottom  : 2px solid darkorange;
+ padding-bottom : 1.5em;  
 }
 .titledescr {
   display: flex;

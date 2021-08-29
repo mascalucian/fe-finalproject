@@ -1,9 +1,32 @@
 <template>
   <div id="wrapper">
-    <div class="h1div">
+
+  <div class="bigheader">
+    <div class="h1div upup">
       <h1>Welcome to</h1>
       <img src="https://i.imgur.com/MGp2X3f.png" class="biglogo" />
+      
     </div>
+    <div class="page-header page-header-small">
+      <parallax
+        class="page-header-image"
+      >
+      </parallax>
+      <div class="content-center">
+        <div class="container">
+    <div class="firstflex up">
+            <div>
+              <img src="../ui/img/porto.png" class="portosize">
+            </div>
+            <div>
+              <h1 class="title">Your favourite recruitment platform!</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div>
       <Landing />
     </div>
@@ -109,6 +132,22 @@ export default {
   flex-wrap: wrap;
   justify-content: space-around;
 }
+.upup {
+  margin-top: -340px;
+}
+.up {
+  margin-top: -40px;
+}
+.bigheader {
+  background-image: url('https://startup.info/wp-content/uploads/2021/02/simon-matzinger-320332-unsplash-scaled.jpg');
+  background-position-y: -250px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom  : 2px solid darkorange;
+ padding-bottom : 1.5em;  
+}
 .each {
   flex: 1 0 30%;
 }
@@ -118,7 +157,7 @@ h1 {
   align-content: center;
   align-items: center;
   font-size: 33px;
-  margin-bottom: -20px;
+
   font-family: "Montserrat", sans-serif;
 }
 h2 {
@@ -132,13 +171,68 @@ h2 {
   align-items: center;
   flex-direction: column;
   color: #2c3e50;
+  margin-bottom: 40px;
 }
 
 @media screen and (max-width: 900px) {
   .biglogo {
     width: 80vw;
     padding-top: 20px;
-    padding-bottom: 60px;
+    padding-bottom: 70px;
+    margin-bottom: 10px;
+  }
+}
+.portosize {
+  width: 40px;
+}
+.firstflex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+.jobpicdim {
+  height: 198px;
+}
+.titledescr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.description {
+  margin-bottom: 25px;
+}
+.btn-primary {
+  background-color: orange;
+  border-color: orange;
+  margin: 3px;
+}
+.btn-primary:hover {
+  background-color: black;
+  border-color: black;
+}
+.btn-primary:focus {
+  background-color: black;
+  border-color: black;
+}
+h2 {
+  margin-top: 20px;
+}
+h4 {
+  margin-top: 20px;
+  text-shadow: 1px 1px darkorange;
+}
+.text-primary {
+  color: orange !important;
+}
+.description {
+  background-color: rgba(165, 100, 14, 0.103);
+  border-radius: 20px;
+  padding: 4px;
+}
+@media screen and (max-width:600px) {
+  .firstflex {
+    flex-direction: column;
   }
 }
 </style>
