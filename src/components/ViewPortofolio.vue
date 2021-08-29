@@ -24,6 +24,7 @@
             v-for="social in currentPortofolio.socials"
             v-bind:key="social"
             :href="social.url"
+            target="_blank"
           >
             <i
               class="fab "
