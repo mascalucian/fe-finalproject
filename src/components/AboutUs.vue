@@ -189,7 +189,7 @@ h2 {
 }
 #team-members {
   background-color: $w;
-  padding: 2rem;
+  padding: 2%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   display: flex;
   flex-wrap: wrap;
@@ -202,6 +202,12 @@ h2 {
 @media screen and (max-width: 1200px) {
   .card-content {
     font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  main {
+    padding: 5% 5%;
   }
 }
 </style>
