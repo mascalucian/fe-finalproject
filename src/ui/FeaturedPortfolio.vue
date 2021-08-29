@@ -74,8 +74,7 @@ export default {
           console.log("A mers " + url);
           this.imgURL = url;
         })
-        .catch(function(error) {
-        })
+        .catch(function(error) {})
         .finally(() => (this.isLoading = false));
     },
   },
@@ -157,10 +156,21 @@ export default {
   font-family: "Montserrat", sans-serif;
 }
 .pp {
+  position: relative;
   padding: 25px;
   height: 140px;
   overflow: hidden;
   font-family: "Montserrat", sans-serif;
+}
+
+.pp:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(transparent 80%, rgb(254, 208, 114));
 }
 @import url("https://fonts.googleapis.com/css?family=Lato:100&display=swap");
 .containerr {
@@ -212,7 +222,7 @@ svg {
   padding: 10px;
   font-size: 20px;
 }
-@media  screen and (max-width:700px) {
+@media screen and (max-width: 700px) {
   .portfolioo .infoboxx {
     min-width: 74vw;
   }
