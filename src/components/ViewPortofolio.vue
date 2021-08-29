@@ -145,7 +145,7 @@ export default {
             this.currentPortofolio = doc.data();
             const visited = window.sessionStorage.getItem(userId);
             // console.log(visited);
-            if (visited) return;
+            if (visited || this.loggedInUser.uid === userId) return;
             window.sessionStorage.setItem(userId, "visited");
             var porRef = db.collection("portofolios").doc(userId);
             porRef
