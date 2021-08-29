@@ -40,7 +40,7 @@
 
               <button type="submit">Sign Up</button>
               <button
-                id="mobile-button"
+                class="mobile-button"
                 v-on:click="togglePanelActive"
                 type="button"
               >
@@ -75,7 +75,7 @@
               <!-- <a href="#">Forgot your password?</a> -->
               <button type="submit" :disabled="isLoggedin">Sign in</button>
               <button
-                id="mobile-button"
+                class="mobile-button"
                 v-on:click="togglePanelActive"
                 type="button"
               >
@@ -612,7 +612,7 @@ label {
   margin: 0.5rem 0;
 }
 
-#mobile-button {
+.mobile-button {
   display: none;
   margin-top: 20px;
   border-radius: 20px;
@@ -731,7 +731,7 @@ label {
     display: none;
   }
 
-  #mobile-button {
+  .mobile-button {
     display: inline-block;
   }
 
