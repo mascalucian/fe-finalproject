@@ -59,7 +59,7 @@ const store = createStore({
           email: payload.email,
           phoneNumber: payload.phoneNumber,
           userId: payload.userId,
-          visits: 0,
+          visits: 1,
         });
     }),
 
