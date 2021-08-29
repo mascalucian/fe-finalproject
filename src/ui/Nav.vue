@@ -3,7 +3,7 @@
     <nav class="navMenu" id="navv">
       <div id="nav-sides">
         <div id="left">
-          <router-link to="/test" class="active">Home</router-link>
+          <router-link to="/" class="active">Home</router-link>
           <router-link to="/portofolios">Portofolios</router-link>
           <router-link to="/aboutus">About</router-link>
           <router-link to="/contact">Contact</router-link>
