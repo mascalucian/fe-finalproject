@@ -1,6 +1,14 @@
 <template>
   <div class="portfolioo eachh vld-parent">
     <div class="infoboxx  shadow">
+      <div class="image-wrapper vld-parent">
+        <loading
+          v-model:active="isLoading"
+          :is-full-page="false"
+          :background-color="'none'"
+        ></loading>
+        <img :src="`${imgURL}`" class="avatar" v-if="imgURL" />
+      </div>
       <h2 class="h22" id="name">{{ fname }} {{ lname }}</h2>
       <h4 class="h44" id="title">{{ title }}</h4>
       <p class="pp">{{ about }}</p>
@@ -28,14 +36,6 @@
           </router-link>
         </div>
       </div>
-    </div>
-    <div class="image-wrapper vld-parent">
-      <loading
-        v-model:active="isLoading"
-        :is-full-page="false"
-        :background-color="'none'"
-      ></loading>
-      <img :src="`${imgURL}`" class="avatar" v-if="imgURL" />
     </div>
   </div>
 </template>
@@ -96,23 +96,39 @@ export default {
 }
 .eachh {
   flex: 0 1 33%;
-  box-sizing: border-box;
 }
 .image-wrapper {
-  width: 146px !important;
-  height: 186px !important;
+  position: relative;
+  width: 100%;
+  display: flex;
+  height: 20%;
+  justify-content: center;
 }
 .maincontainerr {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
+
+h2 {
+  margin: 5% 5%;
+}
+h4 {
+  display: block;
+  width: 100%;
+  margin: 5% 5%;
+  text-align: center;
+}
 .portfolioo {
-  padding: 10px;
+  box-sizing: border-box;
+  padding: 1rem;
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-end;
   align-items: center;
+  max-width: 30rem;
+  flex-grow: 0.5;
+  margin-top: 10rem;
 }
 .portfolioo .avatar {
   border-radius: 50%;
@@ -120,8 +136,8 @@ export default {
   width: 146px;
   height: 146px;
   object-fit: cover;
-  margin: auto;
-  margin-top: 40px;
+  position: absolute;
+  bottom: 0;
   background-image: url("https://wallpaperaccess.com/full/888745.jpg");
 }
 .portfolioo .avatar2 {
@@ -129,9 +145,6 @@ export default {
 }
 .portfolioo .infoboxx {
   margin-top: -73px;
-  width: 90%;
-  min-width: 360px;
-  height: 400px;
   background-image: url("https://wallpaperaccess.com/full/888745.jpg");
   display: flex;
   flex-direction: column;
@@ -157,10 +170,14 @@ export default {
 }
 .pp {
   position: relative;
-  padding: 25px;
-  height: 140px;
+  margin: 5% 8%;
+  flex-grow: 1;
   overflow: hidden;
   font-family: "Montserrat", sans-serif;
+  margin-top: 0;
+  text-align: justify;
+  text-indent: 3rem;
+  max-height: 25rem;
 }
 
 .pp:before {
@@ -174,19 +191,19 @@ export default {
 }
 @import url("https://fonts.googleapis.com/css?family=Lato:100&display=swap");
 .containerr {
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   font-family: "Montserrat", sans-serif;
   justify-content: center;
+  width: 100%;
+  flex-grow: 1;
 }
 .centerr {
   width: 180px;
   height: 60px;
-  position: absolute;
+  margin-bottom: 10%;
 }
 .btnn {
+  position: relative;
   width: 180px;
   height: 60px;
   cursor: pointer;
@@ -223,8 +240,9 @@ svg {
   font-size: 20px;
 }
 @media screen and (max-width: 700px) {
-  .portfolioo .infoboxx {
-    min-width: 74vw;
+  .portfolioo {
+    width: 90%;
+    flex-grow: 1;
   }
 }
 </style>
