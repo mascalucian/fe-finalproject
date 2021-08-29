@@ -902,6 +902,7 @@ input[type="file"] {
   }
 }
 .banner-upload {
+  z-index: 100;
   position: absolute;
   bottom: 0;
   right: 0;
@@ -1263,14 +1264,16 @@ input[type="file"] {
     display: table-cell;
   }
 }
+@media screen and (max-width: 970px) {
+  #first-name,
+  #last-name {
+    text-align: center !important;
+  }
+}
 @media screen and (max-width: 400px) {
   .contact {
     margin: 0 !important;
     width: 100%;
-  }
-  #first-name,
-  #last-name {
-    text-align: center !important;
   }
 
   .names-title {
