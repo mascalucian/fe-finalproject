@@ -1,4 +1,5 @@
 <template>
+  <div class="bg"></div>
   <div class="h1div">
     <h1>All the listings on</h1>
     <img src="https://i.imgur.com/MGp2X3f.png" class="biglogo" />
@@ -67,37 +68,51 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.bg {
+  width: 100%;
+  height: 10rem;
+  background-image: $bg-i-o;
+  background-position: center;
+}
 .all {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: -40px;
+  flex-grow: 1;
+  padding-top: 5%;
+  padding-bottom: 10%;
+  background-color: $w;
 }
 .each {
   flex: 1 0 30%;
 }
 h1 {
-  padding-top: 25px;
   text-align: center;
-  align-content: center;
-  align-items: center;
-  font-size: 33px;
-  margin-bottom: -20px;
+  font-size: 3rem;
+  margin: 2% 0 0 0;
   font-family: "Montserrat", sans-serif;
+  display: block;
+  width: 100%;
+  color: black;
 }
 .h1div {
-  vertical-align: middle;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  flex: 1 1 auto;
+  border-bottom: 5px solid black;
+  border-top: 5px solid black;
+}
+
+.biglogo {
+  max-width: 70%;
+  object-fit: contain;
 }
 @media screen and (max-width: 900px) {
   .biglogo {
-    width: 80vw;
-    padding-top: 20px;
-    padding-bottom: 60px;
+    max-width: 90%;
   }
 }
 </style>
