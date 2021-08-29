@@ -1323,5 +1323,13 @@ input[type="file"] {
   #last-name {
     text-align: center !important;
   }
+
+  .names-title {
+    [role="alert"] {
+      margin: auto;
+      flex-grow: 1;
+      width: 100%;
+    }
+  }
 }
 </style>
