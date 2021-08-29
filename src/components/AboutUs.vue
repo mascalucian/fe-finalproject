@@ -115,7 +115,7 @@ header {
   display: flex;
   justify-content: center;
   background-repeat: repeat-x;
-  background-image: url("https://media.istockphoto.com/vectors/bright-seamless-pattern-with-orange-slices-vector-id1305791045?b=1&k=6&m=1305791045&s=612x612&w=0&h=7N354TSz_-ZYq5xz7lAisjzcFKiKDJgggbhP3V0BxwM=");
+  background-image: $bg-i-o;
   background-position-y: center;
   border-bottom: 8px solid rgba(42, 158, 207, 0.45);
   h1 {
