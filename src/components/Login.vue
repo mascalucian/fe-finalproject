@@ -46,6 +46,9 @@
               >
                 Sign In
               </button>
+              <div v-if="getErrorMessage" class="error">
+                <p>{{ getErrorMessage }}</p>
+              </div>
             </form>
           </Form>
         </div>
@@ -81,6 +84,9 @@
               >
                 Sign Up
               </button>
+              <div v-if="getErrorMessage" class="error">
+                <p>{{ getErrorMessage }}</p>
+              </div>
             </form>
           </Form>
         </div>
@@ -197,6 +203,7 @@ export default {
   methods: {
     togglePanelActive() {
       this.rightPanelActive = !this.rightPanelActive;
+      this.$store.commit("showError", "");
     },
     async login() {
       await this.$store.dispatch("signIn", {
@@ -423,6 +430,13 @@ button:focus {
 button.ghost {
   background-color: transparent;
   border-color: #ffffff;
+}
+
+.error {
+  color: red;
+  text-shadow: black;
+  position: absolute;
+  bottom: 0;
 }
 
 form {
