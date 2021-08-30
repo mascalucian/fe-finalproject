@@ -34,9 +34,9 @@ const ui = {
     },
     showError(state, payload) {
       state.authError = payload;
-      setTimeout(() => {
-        state.authError = null;
-      }, errorTimeout);
+      // setTimeout(() => {
+      //   state.authError = null;
+      // }, errorTimeout);
     },
   },
   actions: {
