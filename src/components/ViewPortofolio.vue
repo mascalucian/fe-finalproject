@@ -509,6 +509,7 @@ html {
 
 .card-deck {
   width: 100%;
+  flex: 1 1 auto;
 }
 
 .details-projects-content {
