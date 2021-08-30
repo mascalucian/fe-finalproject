@@ -647,7 +647,7 @@ export default {
           this.profilePictureLoader.hide();
         })
         .catch((error) => {
-          // Handle any errors
+          this.profilePictureLoader.hide();
         });
       coverPicRef
         .getDownloadURL()
@@ -657,7 +657,7 @@ export default {
           this.coverPictureLoader.hide();
         })
         .catch((error) => {
-          // Handle any errors
+          this.coverPictureLoader.hide();
         });
     },
     async getProjects(userId) {
