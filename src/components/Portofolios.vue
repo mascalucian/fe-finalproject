@@ -1,7 +1,9 @@
 <template>
   <div class="bg"></div>
   <div class="h1div">
-    <h1>All the listings on</h1>
+    <h1>
+      All the listings on
+    </h1>
     <img src="https://i.imgur.com/MGp2X3f.png" class="biglogo" />
   </div>
   <div class="all">

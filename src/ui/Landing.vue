@@ -135,6 +135,7 @@
 .background {
   /* background-image: linear-gradient(#CF8A91, #FFF3B8); */
   background-image: url("https://wallpaperaccess.com/full/1556714.jpg");
+  background-size: cover;
   border-bottom: 2px solid darkorange;
   padding-bottom: 1.5em;
 }
