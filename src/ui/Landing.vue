@@ -1,28 +1,29 @@
 <template>
   <div>
     <div class="page-header page-header-small">
-      <parallax
-        class="page-header-image"
-      >
-      </parallax>
+      <parallax class="page-header-image"> </parallax>
       <div class="content-center">
         <div class="container">
-          <div class="firstflex">
-            <div>
-              <img src="./img/porto.png" class="portosize">
-            </div>
-            <div>
-              <h1 class="title">Your favourite recruitment platform!</h1>
-            </div>
-          </div>
           <div class="text-center">
-            <a href="https://www.facebook.com/" target="_blank" class="btn btn-primary btn-icon btn-round">
+            <a
+              href="https://www.facebook.com/"
+              target="_blank"
+              class="btn btn-primary btn-icon btn-round"
+            >
               <i class="fab fa-facebook-square"></i>
             </a>
-            <a href="https://www.twitter.com/" target="_blank" class="btn btn-primary btn-icon btn-round">
+            <a
+              href="https://www.twitter.com/"
+              target="_blank"
+              class="btn btn-primary btn-icon btn-round"
+            >
               <i class="fab fa-twitter"></i>
             </a>
-            <a href="https://google.com/" target="_blank" class="btn btn-primary btn-icon btn-round">
+            <a
+              href="https://google.com/"
+              target="_blank"
+              class="btn btn-primary btn-icon btn-round"
+            >
               <i class="fab fa-google-plus"></i>
             </a>
           </div>
@@ -34,12 +35,15 @@
         <div class="row">
           <div class="col-md-8 ml-auto mr-auto text-center">
             <h2 class="title">Who are we?</h2>
-            <h5 class="description">
-              The best free platform where anyone can join and host their own modern professional grade portfolio. So what are you waiting for? Add your portofol.io to get noticed by recruiters!
-            </h5>
+            <div id="column-wrapper">
+              <h5 class="description">
+                The best free platform where anyone can join and host their own
+                modern professional grade portfolio. So what are you waiting
+                for? Add your portofol.io to get noticed by recruiters!
+              </h5>
+            </div>
           </div>
         </div>
-        
       </div>
     </div>
     <div class="section section-team text-center">
@@ -56,7 +60,9 @@
                 />
                 <h4><p class="category text-primary title">Tech</p></h4>
                 <p class="description">
-                  The unique strengths of our IT recruitment and training services are our pro mentors, our proven, customisable training methodology and an ever-growing tech talent network.
+                  The unique strengths of our IT recruitment and training
+                  services are our pro mentors, our proven, customisable
+                  training methodology and an ever-growing tech talent network.
                 </p>
               </div>
             </div>
@@ -68,11 +74,14 @@
                   class="rounded-circle img-fluid img-raised jobpicdim"
                 />
                 <!-- <h4 class="title">Ryan Tompson</h4> -->
-                <h4><p class="category text-primary title">Medical & Health</p></h4>
+                <h4>
+                  <p class="category text-primary title">Medical & Health</p>
+                </h4>
                 <p class="description">
-                  The Health Care Worker is responsible for providing evidence based Health care
-                  in accordance with the care plan developed in collaboration with their medical 
-                  officer and other members of the health care team.
+                  The Health Care Worker is responsible for providing evidence
+                  based Health care in accordance with the care plan developed
+                  in collaboration with their medical officer and other members
+                  of the health care team.
                 </p>
               </div>
             </div>
@@ -85,9 +94,10 @@
                 />
                 <h4><p class="category text-primary title">Law & Legal</p></h4>
                 <p class="description">
-                  Lawyers are certified professionals who advise and represent 
-                  natural and juristic persons in legal matters. They counsel clients and represent them in criminal and 
-                  civil court proceedings.
+                  Lawyers are certified professionals who advise and represent
+                  natural and juristic persons in legal matters. They counsel
+                  clients and represent them in criminal and civil court
+                  proceedings.
                 </p>
               </div>
             </div>
@@ -98,7 +108,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .portosize {
   width: 40px;
 }
@@ -108,8 +118,25 @@
   align-items: center;
   padding: 15px;
 }
+
+#column-wrapper {
+  background-color: rgba(165, 100, 14, 0.103);
+  border-radius: 20px;
+  padding: 4px;
+  width: 100%;
+}
+
+.text-center {
+  padding-top: 30px;
+}
 .jobpicdim {
   height: 198px;
+}
+.background {
+  /* background-image: linear-gradient(#CF8A91, #FFF3B8); */
+  background-image: url("https://wallpaperaccess.com/full/1556714.jpg");
+  border-bottom: 2px solid darkorange;
+  padding-bottom: 1.5em;
 }
 .titledescr {
   display: flex;
@@ -117,7 +144,8 @@
   align-items: center;
 }
 .description {
-  margin-bottom: 25px;
+  margin: 10% 0;
+  font-family: $f-w;
 }
 .btn-primary {
   background-color: orange;
@@ -133,7 +161,9 @@
   border-color: black;
 }
 h2 {
-  margin-top: 20px;
+  margin: 10% 0;
+  font-size: 2.5rem;
+  font-weight: bold;
 }
 h4 {
   margin-top: 20px;
@@ -142,15 +172,10 @@ h4 {
 .text-primary {
   color: orange !important;
 }
-.description {
-  background-color: rgba(165, 100, 14, 0.103);
-  border-radius: 20px;
-  padding: 4px;
-}
-@media screen and (max-width:600px) {
+
+@media screen and (max-width: 600px) {
   .firstflex {
     flex-direction: column;
   }
 }
-
 </style>

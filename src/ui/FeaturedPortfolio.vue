@@ -129,7 +129,7 @@ h4 {
   max-width: 30rem;
   flex-grow: 0.5;
   margin-top: 10rem;
-  height: 400px !important;
+  height: 450px !important;
   flex: 1 1 auto;
 }
 .portfolioo .avatar {
